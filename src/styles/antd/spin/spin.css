@@ -1,0 +1,10 @@
+.ant-spin-nested-loading {
+  height: inherit;
+}
+.ant-spin-container {
+  height: inherit;
+}
+.ant-spin-nested-loading > div > .ant-spin {
+  position: absolute;
+  max-height: 100%;
+}
