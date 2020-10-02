@@ -131,18 +131,18 @@ class ImageMapFooterToolbar extends Component {
 						</CommonButton>
 						<CommonButton
 							onClick={() => {
-								canvasRef.handler.zoomHandler.zoomToFit();
-							}}
-							tooltipTitle={i18n.t('action.fit')}
-							icon="expand"
-						/>
-						<CommonButton
-							style={{ borderBottomRightRadius: '8px', borderTopRightRadius: '8px' }}
-							onClick={() => {
 								canvasRef.handler.zoomHandler.zoomIn();
 							}}
 							icon="search-plus"
 							tooltipTitle={i18n.t('action.zoom-in')}
+						/>
+						<CommonButton
+							style={{ borderBottomRightRadius: '8px', borderTopRightRadius: '8px' }}
+							onClick={() => {
+								canvasRef.handler.zoomHandler.zoomToFit();
+							}}
+							tooltipTitle={i18n.t('action.fit')}
+							icon="expand"
 						/>
 					</Button.Group>
 				</div>

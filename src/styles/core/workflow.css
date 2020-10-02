@@ -1,0 +1,208 @@
+.rde-editor {
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex: 1;
+}
+.rde-editor-items {
+  position: relative;
+  width: 128px;
+  -webkit-box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 5px 0 5px -5px rgba(56, 41, 41, 0.5);
+  box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  z-index: 900;
+  transition: width 0.5s ease;
+  background: #fff;
+}
+.rde-editor-items:hover .rde-track-vertical {
+  opacity: 1;
+  z-index: 9999;
+}
+.rde-editor-items.minimize {
+  width: 47px;
+}
+.rde-editor-items .ant-collapse-content-box {
+  padding: 0;
+}
+.rde-editor-items-item {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  transition: 0.5s ease;
+  border: 0 solid transparent;
+  position: relative;
+  cursor: pointer;
+}
+.rde-editor-items-item-icon {
+  padding: 0 8px;
+  font-size: 1.5em;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+}
+.rde-editor-items-item-text {
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.rde-editor-items-item:hover {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+.rde-editor-items-item:not(:last-child):after {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+}
+.rde-editor-canvas {
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.rde-editor-canvas .rde-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.rde-editor-canvas .rde-canvas iframe {
+  pointer-events: none;
+}
+.rde-editor-toolbar-debug {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  display: block;
+  top: 30px;
+  left: 40px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-toolbar-interaction {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  display: block;
+  bottom: 30px;
+  left: 40px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-toolbar-zoom {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  display: block;
+  bottom: 30px;
+  left: 150px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-properties {
+  position: absolute;
+  overflow-y: auto;
+  width: 400px;
+  right: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-properties:hover .rde-track-vertical {
+  opacity: 1;
+  z-index: 9999;
+}
+.rde-editor-configurations {
+  position: relative;
+  overflow-y: auto;
+  width: 400px;
+  right: 0;
+  -webkit-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  transition: width 0.5s ease;
+}
+.rde-editor-configurations.minimize {
+  width: 60px;
+}
+.rde-editor-configurations .ant-tabs .ant-tabs-content {
+  padding-right: 0;
+  height: 100%;
+}
+.rde-editor-configurations .ant-tabs .ant-tabs-content .ant-tabs-tabpane {
+  height: 100%;
+}
+.rde-editor-configurations .ant-list-item .ant-list-item-meta .ant-list-item-meta-content h4 {
+  font-size: 16px;
+  margin: 0;
+}
+.rde-editor-configurations .ant-list-item .ant-list-item-meta .ant-list-item-meta-content .ant-list-item-meta-description {
+  font-size: 11px;
+}
+.rde-editor-configurations .ant-table .ant-table-content table {
+  border: 0;
+  background: transparent;
+}
+.rde-editor-configurations .ant-table .ant-table-content table tr.selected-item {
+  background: rgba(0, 0, 0, 0.25);
+}
+.rde-editor-configurations .ant-table .ant-table-content table tr:hover td {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.25);
+}
+.rde-editor-configurations .ant-table .ant-table-content .ant-table-placeholder {
+  background: transparent;
+  border-bottom: 0;
+}
+.rde-editor-configurations:hover .rde-track-vertical {
+  opacity: 1;
+  z-index: 9999;
+}
+.rde-editor-configurations-console-item {
+  background-color: inherit;
+  padding: 4px 0 0 0;
+  animation: slide-up 0.4s ease-in-out;
+}
+.rde-editor-configurations-console-item-content {
+  position: relative;
+  max-height: 0;
+  -moz-transition: max-height 0.5s;
+  -ms-transition: max-height 0.5s;
+  -o-transition: max-height 0.5s;
+  -webkit-transition: max-height 0.5s;
+  transition: max-height 0.5s;
+  overflow: hidden;
+}
+.rde-editor-configurations-console-item-content.selected-item {
+  max-height: 1000px;
+}
+.rde-editor-configurations-console-item-content .clipboard {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.rde-editor-configurations-console-item-content .popup {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+}
+.rde-editor-configurations-console-item.selected-item {
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+.rde-editor-configurations-console-item:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}

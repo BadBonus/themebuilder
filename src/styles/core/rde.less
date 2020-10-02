@@ -19,6 +19,19 @@ video {
 	top: 0;
 }
 
+.rde{
+	&-editor{
+		&-topPanel{
+			height: 45px;
+			text-align: center;
+			span{
+				position: relative;
+				top:10px;
+			}
+		}
+	}
+}
+
 .rde-main {
 	overflow: hidden;
 	display: -webkit-box;
@@ -74,14 +87,14 @@ video {
 	&-title {
 		width: 100%;
 		height: 38px;
-		background: rgba(217, 217, 217, 0.45);
+		background: #da497e;
 		border-bottom: 1px solid #f3f3f3;
 		line-height: 38px;
 		&-title {
 			justify-content: flex-start;
 			margin-left: 30px;
 			font-size: 20px;
-			color: rgba(0, 0, 0, 0.65);
+			color: #fff;
 			font-weight: 500;
 			div {
 				line-height: 35px;
@@ -290,5 +303,12 @@ video {
 			display: inline-block;
 			margin-left: 1em;
 		}
+	}
+}
+
+.rde-editor-wrapper{
+	height: 100%;
+	.rde-editor{
+		height: 100%;
 	}
 }

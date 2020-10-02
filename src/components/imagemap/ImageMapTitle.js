@@ -6,7 +6,7 @@ class ImageMapTitle extends Component {
 		const { title, content, action, children } = this.props;
 		return (
 			children || (
-				<Flex className="rde-content-layout-title" alignItems="center" flexWrap="wrap">
+				<Flex className="rde-content-layout-title" alignItems="center" flexWrap="wrap" justifyContent="center">
 					<Flex.Item flex="0 1 auto">
 						<Flex
 							className="rde-content-layout-title-title"
@@ -16,16 +16,17 @@ class ImageMapTitle extends Component {
 							{title instanceof String ? <h3>{title}</h3> : title}
 						</Flex>
 					</Flex.Item>
-					<Flex.Item flex="auto">
+					{/* <Flex.Item flex="auto">
 						<Flex className="rde-content-layout-title-content" alignItems="center">
 							{content}
 						</Flex>
-					</Flex.Item>
-					<Flex.Item flex="auto">
+					</Flex.Item> */}
+					{/* #need for future work */}
+					{/* <Flex.Item flex="auto">
 						<Flex className="rde-content-layout-title-action" justifyContent="flex-end" alignItems="center">
 							{action}
 						</Flex>
-					</Flex.Item>
+					</Flex.Item> */}
 				</Flex>
 			)
 		);

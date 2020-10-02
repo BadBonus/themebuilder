@@ -6,12 +6,13 @@
     flex: 1;
     &-items {
         position: relative;
-        width: 240px;
+        width: 128px;
         -webkit-box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
         -moz-box-shadow: 5px 0 5px -5px rgba(56, 41, 41, 0.5);
         box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
         z-index: 900;
         transition: width .5s ease;
+        background: #fff;
         &:hover {
             .rde-track-vertical {
                 opacity: 1;
@@ -31,7 +32,6 @@
             transition: .5s ease;
             border: 0 solid transparent;
             position: relative;
-            background: #fff;
             cursor: pointer;
             &-icon {
                 padding: 0 8px;
@@ -47,10 +47,10 @@
             }
             &:hover {
                 background: rgba(0, 0, 0, .2);
-                box-shadow: 0 0 11px rgba(33, 33, 33, .2); 
+                box-shadow: 0 0 11px rgba(33, 33, 33, .2);
             }
             &:not(:last-child):after {
-                background-color: #e8e8e8;
+                // background-color: blue;
                 position: absolute;
                 bottom: 0;
                 width: 100%;
@@ -221,12 +221,12 @@
             }
             &.selected-item {
                 background: rgba(0, 0, 0, .25);
-                box-shadow: 0 0 11px rgba(33, 33, 33, .2);     
+                box-shadow: 0 0 11px rgba(33, 33, 33, .2);
             }
             &:hover {
                 cursor: pointer;
                 background: rgba(0, 0, 0, .15);
-                box-shadow: 0 0 11px rgba(33, 33, 33, .2); 
+                box-shadow: 0 0 11px rgba(33, 33, 33, .2);
             }
         }
     }

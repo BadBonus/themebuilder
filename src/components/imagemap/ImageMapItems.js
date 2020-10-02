@@ -271,7 +271,7 @@ class ImageMapItems extends Component {
 		return (
 			<div className={className}>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>
-					<Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>
+					{/* <Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>
 						<CommonButton
 							icon={collapse ? 'angle-double-right' : 'angle-double-left'}
 							shape="circle"
@@ -279,19 +279,10 @@ class ImageMapItems extends Component {
 							style={{ margin: '0 4px' }}
 							onClick={this.handlers.onCollapse}
 						/>
-						{collapse ? null : (
-							<Input
-								style={{ margin: '8px' }}
-								placeholder={i18n.t('action.search-list')}
-								onChange={this.handlers.onSearchNode}
-								value={textSearch}
-								allowClear
-							/>
-						)}
-					</Flex>
+					</Flex> */}
 					<Scrollbar>
 						<Flex flex="1" style={{ overflowY: 'hidden' }}>
-							{(textSearch.length && this.renderItems(filteredDescriptors)) ||
+							{/* {(textSearch.length && this.renderItems(filteredDescriptors)) ||
 								(collapse ? (
 									<Flex
 										flexWrap="wrap"
@@ -314,7 +305,15 @@ class ImageMapItems extends Component {
 											</Collapse.Panel>
 										))}
 									</Collapse>
-								))}
+								))} */}
+								<Flex
+										flexWrap="wrap"
+										flexDirection="column"
+										style={{ width: '100%' }}
+										justifyContent="center"
+									>
+										{this.handlers.transformList().map(item => this.renderItem(item))}
+									</Flex>
 						</Flex>
 					</Scrollbar>
 				</Flex>

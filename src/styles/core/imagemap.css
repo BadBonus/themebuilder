@@ -1,0 +1,140 @@
+.rde-editor-canvas-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.rde-editor-header-toolbar {
+  background: rgba(0, 0, 0, 0.05);
+  transition: width 0.05s linear;
+  display: flex;
+  height: 40px;
+  z-index: 800;
+  -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar:not(:last-child):after {
+  background-color: #fff;
+  position: absolute;
+  right: -5px;
+  width: 1px;
+  height: 20px;
+  content: '';
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar-list:hover .rde-canvas-list {
+  background: rgba(0, 0, 0, 0.05);
+  display: block;
+  z-index: 1;
+  -webkit-animation: slide-right 0.3s linear;
+  -moz-animation: slide-right 0.3s linear;
+  animation: slide-right 0.3s linear;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar-history {
+  flex: 1;
+  justify-content: flex-end;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar-action {
+  flex: 1;
+  justify-content: flex-end;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list {
+  position: absolute;
+  display: none;
+  width: 300px;
+  height: -webkit-calc(100vh - 140px);
+  height: -moz-calc(100vh - 140px);
+  height: calc(100vh - 140px);
+  top: 40px;
+  left: -4px;
+  z-index: 0;
+  -webkit-box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-actions {
+  border-bottom: 1px solid;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-items {
+  overflow-y: auto;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-item {
+  position: relative;
+  margin: 8px 8px;
+  text-align: center;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-item-icon {
+  margin: 0 8px 0 4px;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-item-text {
+  font-size: 16px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  flex: 1;
+  text-align: left;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-item-actions {
+  margin: 0 4px 0 8px;
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-item.selected-item {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-item:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+.rde-editor-header-toolbar-container .rde-canvas-toolbar .rde-canvas-list-item::after {
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  background: #fff;
+  width: 100%;
+  height: 1px;
+  content: '';
+}
+.rde-editor-footer-toolbar {
+  position: relative;
+}
+.rde-editor-footer-toolbar-interaction {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  display: block;
+  bottom: 30px;
+  left: 40px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-footer-toolbar-zoom {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  display: block;
+  bottom: 30px;
+  left: 150px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+}
+.rde-editor-footer-toolbar-preview {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  display: block;
+  bottom: 35px;
+  right: 30px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+}

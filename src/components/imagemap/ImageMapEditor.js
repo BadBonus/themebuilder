@@ -722,7 +722,11 @@ class ImageMapEditor extends Component {
 		);
 		const title = <ImageMapTitle title={titleContent} action={action} />;
 		const content = (
-			<div className="rde-editor">
+			<div className="rde-editor-wrapper">
+				<div className="rde-editor-topPanel">
+					<span>FileName: Configurable file</span>
+				</div>
+				<div className="rde-editor">
 				<ImageMapItems
 					ref={c => {
 						this.itemsRef = c;
@@ -794,6 +798,7 @@ class ImageMapEditor extends Component {
 					onClick={onClick}
 					objects={objects}
 				/>
+			</div>
 			</div>
 		);
 		return <Container title={title} content={content} loading={loading} className="" />;
