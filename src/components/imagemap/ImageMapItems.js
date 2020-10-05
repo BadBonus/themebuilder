@@ -231,45 +231,61 @@ class ImageMapItems extends Component {
 		</Flex>
 	);
 
-	renderItem = (item, centered) =>
-		item.type === 'drawing' ? (
-			<div
-				key={item.name}
-				draggable
-				onClick={e => this.handlers.onDrawingItem(item)}
-				className="rde-editor-items-item"
-				style={{ justifyContent: this.state.collapse ? 'center' : null }}
-			>
-				<span className="rde-editor-items-item-icon">
-					<Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
-				</span>
-				{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
-			</div>
-		) : (
-			<div
-				key={item.name}
-				draggable
-				onClick={e => this.handlers.onAddItem(item, centered)}
-				onDragStart={e => this.events.onDragStart(e, item)}
-				onDragEnd={e => this.events.onDragEnd(e, item)}
-				className="rde-editor-items-item"
-				style={{ justifyContent: this.state.collapse ? 'center' : null }}
-			>
-				<span className="rde-editor-items-item-icon">
-					<Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
-				</span>
-				{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
-			</div>
-		);
+	renderItem = (item, centered, makeUnsplash) =>
+		{
+			console.log(item)
+			return item.type === 'drawing' ? (
+				<div
+					key={item.name}
+					draggable
+					onClick={e => this.handlers.onDrawingItem(item)}
+					className="rde-editor-items-item"
+					style={{ justifyContent: this.state.collapse ? 'center' : null }}
+				>
+					<span className="rde-editor-items-item-icon">
+						<Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
+					</span>
+					{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
+				</div>
+			) : (
+				<div
+					key={item.name}
+					draggable
+					onClick={e => item.type === 'image' ? this.props.makeUnsplash() : this.handlers.onAddItem(item, centered)}
+					onDragStart={e => this.events.onDragStart(e, item)}
+					onDragEnd={e => this.events.onDragEnd(e, item)}
+					className="rde-editor-items-item"
+					style={{ justifyContent: this.state.collapse ? 'center' : null }}
+				>
+					<span className="rde-editor-items-item-icon">
+						<Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
+					</span>
+					{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
+				</div>
+			);
+		}
 
 	render() {
-		const { descriptors } = this.props;
+		const { descriptors, makeUnsplash } = this.props;
 		const { collapse, textSearch, filteredDescriptors, activeKey, svgModalVisible, svgOption } = this.state;
 		const className = classnames('rde-editor-items', {
 			minimize: collapse,
 		});
 		return (
 			<div className={className}>
+				<div
+					draggable
+					onClick={makeUnsplash}
+					// onDragStart={e => this.events.onDragStart(e, item)}
+					// onDragEnd={e => this.events.onDragEnd(e, item)}
+					className="rde-editor-items-item"
+					style={{ justifyContent: this.state.collapse ? 'center' : null }}
+				>
+					<span className="rde-editor-items-item-icon">
+						<Icon name='fas fa-image ' />
+					</span>
+					{this.state.collapse ? null : <div className="rde-editor-items-item-text">Image</div>}
+				</div>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>
 					{/* <Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>
 						<CommonButton

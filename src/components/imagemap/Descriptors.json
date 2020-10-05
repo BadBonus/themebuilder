@@ -1,20 +1,4 @@
 {
-	"IMAGE": [
-		{
-			"name": "Image",
-			"description": "",
-			"type": "image",
-			"icon": {
-				"prefix": "fas",
-				"name": "image"
-			},
-			"option": {
-				"type": "image",
-				"name": "New image",
-				"src": "./images/sample/transparentBg.png"
-			}
-		}
-	],
 	"TEXT": [
 		{
 			"name": "Text",

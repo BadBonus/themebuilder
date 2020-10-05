@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Badge, Button, Popconfirm, Menu } from 'antd';
+import { Badge, Button, Popconfirm, Menu, Input } from 'antd';
 import debounce from 'lodash/debounce';
 import i18n from 'i18next';
 
@@ -79,6 +79,7 @@ const defaultOption = {
 class ImageMapEditor extends Component {
 	state = {
 		selectedItem: null,
+		unsplashActive:false,
 		zoomRatio: 1,
 		preview: false,
 		loading: false,
@@ -646,6 +647,7 @@ class ImageMapEditor extends Component {
 			editing,
 			descriptors,
 			objects,
+			unsplashActive
 		} = this.state;
 		const {
 			onAdd,
@@ -733,7 +735,23 @@ class ImageMapEditor extends Component {
 					}}
 					canvasRef={this.canvasRef}
 					descriptors={descriptors}
+					makeUnsplash={()=>{this.setState({unsplashActive:!this.state.unsplashActive})}}
 				/>
+				{unsplashActive
+				&& <div className="imageChooser">
+						<div className="imageChooser__title">
+							<span>Unsplash</span>
+							<button>X</button>
+						</div>
+						<Input.Search placeholder={i18n.t('placeholder.search-node')} />
+						<div className="imageChooser__content">
+							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
+							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
+							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
+							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
+							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
+						</div>
+					</div>}
 				<div className="rde-editor-canvas-container">
 					<div className="rde-editor-header-toolbar">
 						<ImageMapHeaderToolbar

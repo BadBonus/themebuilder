@@ -231,3 +231,24 @@
         }
     }
 }
+
+.imageChooser{
+    position: absolute;
+    left: 128px;
+    height: 100px;
+    width: 100px;
+    background-color:gold;
+    z-index: 900;
+    width: 307px;
+    height: 480px;
+    padding: 10px;
+    &__content{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        overflow-y: scroll;
+    }
+    &__item{
+        width: 130px;
+    }
+}
