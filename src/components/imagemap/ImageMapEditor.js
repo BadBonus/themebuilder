@@ -127,6 +127,7 @@ class ImageMapEditor extends Component {
 
 	canvasHandlers = {
 		onAdd: target => {
+
 			const { editing } = this.state;
 			this.forceUpdate();
 			if (!editing) {
@@ -790,9 +791,32 @@ class ImageMapEditor extends Component {
 						<div className="imageChooser">
 							<div className="imageChooser__title">
 								<span>Unsplash</span>
-								<button>X</button>
+								<button onClick={()=>this.setState({unsplashActive:false})}>
+									<svg
+										width="15"
+										height="15"
+										viewBox="0 0 15 15"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<rect
+											x="13.4351"
+											width="1"
+											height="19"
+											transform="rotate(45 13.4351 0)"
+											fill="#A7A7A7"
+										/>
+										<rect
+											y="0.707153"
+											width="1"
+											height="19"
+											transform="rotate(-45 0 0.707153)"
+											fill="#A7A7A7"
+										/>
+									</svg>
+								</button>
 							</div>
-							<Input.Search placeholder={i18n.t('placeholder.search-node')} />
+							<Input placeholder="Search " />
 
 							<div className="imageChooser__content">
 								{/* <InfiniteScroll
