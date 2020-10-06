@@ -237,11 +237,15 @@
   border-color: lightgray;
 }
 .imageChooser__content {
+  background: #fff;
+}
+.imageChooser__content .infinite-scroll-component {
+  height: 480px;
+  overflow: auto;
+  justify-content: space-between;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  overflow-y: scroll;
-  background: #fff;
+  padding: 0 10px;
 }
 .imageChooser__item {
   width: 120px;
