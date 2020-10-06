@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Badge, Button, Popconfirm, Menu, Input } from 'antd';
 import debounce from 'lodash/debounce';
 import i18n from 'i18next';
+import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import ImageMapFooterToolbar from './ImageMapFooterToolbar';
 import ImageMapItems from './ImageMapItems';
@@ -16,6 +18,13 @@ import '../../styles/index.less';
 import Container from '../common/Container';
 import CommonButton from '../common/CommonButton';
 import Canvas from '../canvas/Canvas';
+
+const style = {
+	height: 30,
+	border: '1px solid green',
+	margin: 6,
+	padding: 8,
+};
 
 const propertiesToInclude = [
 	'id',
@@ -79,7 +88,7 @@ const defaultOption = {
 class ImageMapEditor extends Component {
 	state = {
 		selectedItem: null,
-		unsplashActive:false,
+		unsplashActive: false,
 		zoomRatio: 1,
 		preview: false,
 		loading: false,
@@ -90,6 +99,10 @@ class ImageMapEditor extends Component {
 		editing: false,
 		descriptors: {},
 		objects: undefined,
+		images: [],
+		loaded: false,
+		items: Array.from({ length: 20 }),
+		hasMore: true,
 	};
 
 	componentDidMount() {
@@ -108,6 +121,8 @@ class ImageMapEditor extends Component {
 			selectedItem: null,
 		});
 		this.shortcutHandlers.esc();
+
+		// this.fetchImages();
 	}
 
 	canvasHandlers = {
@@ -634,6 +649,35 @@ class ImageMapEditor extends Component {
 		});
 	};
 
+	fetchImages = (count = 10) => {
+		if (this.state.images.length >= 500) {
+			this.setState({ hasMore: false });
+			return;
+		}
+		this.setState({ loaded: true });
+		const apiRoot = 'https://api.unsplash.com';
+		const accessKey = 'IJZIrVe43Hi3qaCS0u-0lpU6bIZpV8ddFKo96JMocy0';
+
+		axios.get(`${apiRoot}/photos/random?client_id=${accessKey}&count=${count}`).then(res => {
+			const { images } = this.state;
+			this.setState({ images: this.state.images.concat(res.data), loaded: false }, () => console.log(res));
+		});
+	};
+
+	// fetchMoreData = () => {
+	// 	if (this.state.items.length >= 500) {
+	// 	  this.setState({ hasMore: false });
+	// 	  return;
+	// 	}
+	// 	// a fake async api call like which sends
+	// 	// 20 more records in .5 secs
+	// 	setTimeout(() => {
+	// 	  this.setState({
+	// 		items: this.state.items.concat(Array.from({ length: 20 }))
+	// 	  });
+	// 	}, 500);
+	//   };
+
 	render() {
 		const {
 			preview,
@@ -647,7 +691,9 @@ class ImageMapEditor extends Component {
 			editing,
 			descriptors,
 			objects,
-			unsplashActive
+			unsplashActive,
+			images,
+			loaded,
 		} = this.state;
 		const {
 			onAdd,
@@ -670,6 +716,7 @@ class ImageMapEditor extends Component {
 			onChangeDataSources,
 			onSaveImage,
 		} = this.handlers;
+
 		const action = (
 			<React.Fragment>
 				<CommonButton
@@ -729,96 +776,124 @@ class ImageMapEditor extends Component {
 					<span>FileName: Configurable file</span>
 				</div>
 				<div className="rde-editor">
-				<ImageMapItems
-					ref={c => {
-						this.itemsRef = c;
-					}}
-					canvasRef={this.canvasRef}
-					descriptors={descriptors}
-					makeUnsplash={()=>{this.setState({unsplashActive:!this.state.unsplashActive})}}
-				/>
-				{unsplashActive
-				&& <div className="imageChooser">
-						<div className="imageChooser__title">
-							<span>Unsplash</span>
-							<button>X</button>
-						</div>
-						<Input.Search placeholder={i18n.t('placeholder.search-node')} />
-						<div className="imageChooser__content">
-							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
-							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
-							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
-							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
-							<img src="https://picsum.photos/200/300" alt="alt" className="imageChooser__item"/>
-						</div>
-					</div>}
-				<div className="rde-editor-canvas-container">
-					<div className="rde-editor-header-toolbar">
-						<ImageMapHeaderToolbar
-							canvasRef={this.canvasRef}
-							selectedItem={selectedItem}
-							onSelect={onSelect}
-						/>
-					</div>
-					<div
+					<ImageMapItems
 						ref={c => {
-							this.container = c;
+							this.itemsRef = c;
 						}}
-						className="rde-editor-canvas"
-					>
-						<Canvas
+						canvasRef={this.canvasRef}
+						descriptors={descriptors}
+						makeUnsplash={() => {
+							this.setState({ unsplashActive: !this.state.unsplashActive });
+						}}
+					/>
+					{unsplashActive && (
+						<div className="imageChooser">
+							<div className="imageChooser__title">
+								<span>Unsplash</span>
+								<button>X</button>
+							</div>
+							<Input.Search placeholder={i18n.t('placeholder.search-node')} />
+
+							<div className="imageChooser__content">
+								{/* <InfiniteScroll
+								dataLength={this.state.images.length}
+								next={this.fetchImages}
+								hasMore={this.state.hasMore}
+								loader={<h4>Loading...</h4>}
+								height={480}
+								endMessage={
+									<p style={{ textAlign: 'center' }}>
+										<b>Yay! You have seen it all</b>
+									</p>
+								}
+							>
+								{!loaded
+									? images.map(image => (
+											<img
+												src={image.urls.regular}
+												key={image.id}
+												className="imageChooser__item"
+											/>
+									  ))
+									: ''}
+							</InfiniteScroll> */}
+
+								<img src="https://picsum.photos/100" className="imageChooser__item" />
+								<img src="https://picsum.photos/200" className="imageChooser__item" />
+								<img src="https://picsum.photos/300" className="imageChooser__item" />
+								<img src="https://picsum.photos/100" className="imageChooser__item" />
+								<img src="https://picsum.photos/200" className="imageChooser__item" />
+							</div>
+						</div>
+					)}
+					<div className="rde-editor-canvas-container">
+						<div className="rde-editor-header-toolbar">
+							<ImageMapHeaderToolbar
+								canvasRef={this.canvasRef}
+								selectedItem={selectedItem}
+								onSelect={onSelect}
+							/>
+						</div>
+						<div
 							ref={c => {
-								this.canvasRef = c;
+								this.container = c;
 							}}
-							className="rde-canvas"
-							minZoom={30}
-							maxZoom={500}
-							objectOption={defaultOption}
-							propertiesToInclude={propertiesToInclude}
-							onModified={onModified}
-							onAdd={onAdd}
-							onRemove={onRemove}
-							onSelect={onSelect}
-							onZoom={onZoom}
-							onTooltip={onTooltip}
-							onClick={onClick}
-							onContext={onContext}
-							onTransaction={onTransaction}
-							keyEvent={{
-								transaction: true,
-							}}
-						/>
+							className="rde-editor-canvas"
+						>
+							<Canvas
+								ref={c => {
+									this.canvasRef = c;
+								}}
+								className="rde-canvas"
+								minZoom={30}
+								maxZoom={500}
+								objectOption={defaultOption}
+								propertiesToInclude={propertiesToInclude}
+								onModified={onModified}
+								onAdd={onAdd}
+								onRemove={onRemove}
+								onSelect={onSelect}
+								onZoom={onZoom}
+								onTooltip={onTooltip}
+								onClick={onClick}
+								onContext={onContext}
+								onTransaction={onTransaction}
+								keyEvent={{
+									transaction: true,
+								}}
+							/>
+						</div>
+						<div className="rde-editor-footer-toolbar">
+							<ImageMapFooterToolbar
+								canvasRef={this.canvasRef}
+								preview={preview}
+								onChangePreview={onChangePreview}
+								zoomRatio={zoomRatio}
+							/>
+						</div>
 					</div>
-					<div className="rde-editor-footer-toolbar">
-						<ImageMapFooterToolbar
-							canvasRef={this.canvasRef}
-							preview={preview}
-							onChangePreview={onChangePreview}
-							zoomRatio={zoomRatio}
-						/>
-					</div>
+					<ImageMapConfigurations
+						canvasRef={this.canvasRef}
+						onChange={onChange}
+						selectedItem={selectedItem}
+						onChangeAnimations={onChangeAnimations}
+						onChangeStyles={onChangeStyles}
+						onChangeDataSources={onChangeDataSources}
+						animations={animations}
+						styles={styles}
+						dataSources={dataSources}
+					/>
+					<ImageMapPreview
+						preview={preview}
+						onChangePreview={onChangePreview}
+						onTooltip={onTooltip}
+						onClick={onClick}
+						objects={objects}
+					/>
 				</div>
-				<ImageMapConfigurations
-					canvasRef={this.canvasRef}
-					onChange={onChange}
-					selectedItem={selectedItem}
-					onChangeAnimations={onChangeAnimations}
-					onChangeStyles={onChangeStyles}
-					onChangeDataSources={onChangeDataSources}
-					animations={animations}
-					styles={styles}
-					dataSources={dataSources}
-				/>
-				<ImageMapPreview
-					preview={preview}
-					onChangePreview={onChangePreview}
-					onTooltip={onTooltip}
-					onClick={onClick}
-					objects={objects}
-				/>
-			</div>
 			</div>
 		);
+
 		return <Container title={title} content={content} loading={loading} className="" />;
 	}
 }
