@@ -241,6 +241,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   overflow-y: scroll;
+  background: #fff;
 }
 .imageChooser__item {
   width: 120px;

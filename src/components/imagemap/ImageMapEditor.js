@@ -3,6 +3,7 @@ import { Badge, Button, Popconfirm, Menu, Input } from 'antd';
 import debounce from 'lodash/debounce';
 import i18n from 'i18next';
 import axios from 'axios';
+import { v4 } from 'uuid';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import ImageMapFooterToolbar from './ImageMapFooterToolbar';
@@ -101,7 +102,6 @@ class ImageMapEditor extends Component {
 		objects: undefined,
 		images: [],
 		loaded: false,
-		items: Array.from({ length: 20 }),
 		hasMore: true,
 	};
 
@@ -122,12 +122,11 @@ class ImageMapEditor extends Component {
 		});
 		this.shortcutHandlers.esc();
 
-		// this.fetchImages();
+		this.fetchImages();
 	}
 
 	canvasHandlers = {
 		onAdd: target => {
-
 			const { editing } = this.state;
 			this.forceUpdate();
 			if (!editing) {
@@ -622,6 +621,20 @@ class ImageMapEditor extends Component {
 		onSaveImage: () => {
 			this.canvasRef.handler.saveCanvasImage();
 		},
+		onAddItem: (src) => {
+			const canvasRef = this.canvasRef;
+			const id = v4();
+			const option = Object.assign(
+				{},
+				{
+					type: 'image',
+					name: 'New image',
+					src,
+					id
+				}
+			);
+			canvasRef.handler.add(option, true);
+		},
 	};
 
 	shortcutHandlers = {
@@ -716,6 +729,7 @@ class ImageMapEditor extends Component {
 			onChangeStyles,
 			onChangeDataSources,
 			onSaveImage,
+			onAddItem
 		} = this.handlers;
 
 		const action = (
@@ -791,7 +805,7 @@ class ImageMapEditor extends Component {
 						<div className="imageChooser">
 							<div className="imageChooser__title">
 								<span>Unsplash</span>
-								<button onClick={()=>this.setState({unsplashActive:false})}>
+								<button onClick={() => this.setState({ unsplashActive: false })}>
 									<svg
 										width="15"
 										height="15"
@@ -819,7 +833,7 @@ class ImageMapEditor extends Component {
 							<Input placeholder="Search " />
 
 							<div className="imageChooser__content">
-								{/* <InfiniteScroll
+								<InfiniteScroll
 								dataLength={this.state.images.length}
 								next={this.fetchImages}
 								hasMore={this.state.hasMore}
@@ -834,19 +848,25 @@ class ImageMapEditor extends Component {
 								{!loaded
 									? images.map(image => (
 											<img
-												src={image.urls.regular}
+												src={image.urls.thumb}
 												key={image.id}
 												className="imageChooser__item"
+												onClick={()=>onAddItem(image.urls.thumb)}
 											/>
 									  ))
 									: ''}
-							</InfiniteScroll> */}
+							</InfiniteScroll>
 
-								<img src="https://picsum.photos/100" className="imageChooser__item" />
-								<img src="https://picsum.photos/200" className="imageChooser__item" />
-								<img src="https://picsum.photos/300" className="imageChooser__item" />
-								<img src="https://picsum.photos/100" className="imageChooser__item" />
-								<img src="https://picsum.photos/200" className="imageChooser__item" />
+								{/* {
+									images.map((image, index) => (
+										<img
+											src={image}
+											key={index}
+											onClick={()=>onAddItem(image)}
+											className="imageChooser__item"
+										/>
+								  ))
+								} */}
 							</div>
 						</div>
 					)}

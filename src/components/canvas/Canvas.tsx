@@ -76,7 +76,7 @@ class Canvas extends Component<CanvasProps, IState> {
 		if (this.props.width !== prevProps.width || this.props.height !== prevProps.height) {
 			this.handler.eventHandler.resize(this.props.width, this.props.height);
 		}
-		if (this.props.editable !== prevProps.editable) {
+		if (this.props.edible !== prevProps.editable) {
 			this.handler.editable = this.props.editable;
 		}
 		if (this.props.responsive !== prevProps.responsive) {
