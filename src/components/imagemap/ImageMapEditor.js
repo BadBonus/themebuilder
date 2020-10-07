@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Badge, Button, Popconfirm, Menu, Input } from 'antd';
+import { Badge, Button, Popconfirm, Menu} from 'antd';
 import debounce from 'lodash/debounce';
 import i18n from 'i18next';
 import axios from 'axios';
@@ -13,6 +13,7 @@ import ImageMapHeaderToolbar from './ImageMapHeaderToolbar';
 import ImageMapPreview from './ImageMapPreview';
 import ImageMapConfigurations from './ImageMapConfigurations';
 import SandBox from '../sandbox/SandBox';
+import UnsplashModal from './UnsplashModal';
 
 import '../../libs/fontawesome-5.2.0/css/all.css';
 import '../../styles/index.less';
@@ -100,10 +101,9 @@ class ImageMapEditor extends Component {
 		editing: false,
 		descriptors: {},
 		objects: undefined,
-		images: [],
-		loaded: false,
-		hasMore: true,
 	};
+
+
 
 	componentDidMount() {
 		this.showLoading(true);
@@ -121,8 +121,6 @@ class ImageMapEditor extends Component {
 			selectedItem: null,
 		});
 		this.shortcutHandlers.esc();
-
-		this.fetchImages();
 	}
 
 	canvasHandlers = {
@@ -621,7 +619,7 @@ class ImageMapEditor extends Component {
 		onSaveImage: () => {
 			this.canvasRef.handler.saveCanvasImage();
 		},
-		onAddItem: (src) => {
+		onAddItem: src => {
 			const canvasRef = this.canvasRef;
 			const id = v4();
 			const option = Object.assign(
@@ -630,8 +628,8 @@ class ImageMapEditor extends Component {
 					type: 'image',
 					name: 'New image',
 					src,
-					id
-				}
+					id,
+				},
 			);
 			canvasRef.handler.add(option, true);
 		},
@@ -663,35 +661,6 @@ class ImageMapEditor extends Component {
 		});
 	};
 
-	fetchImages = (count = 10) => {
-		if (this.state.images.length >= 500) {
-			this.setState({ hasMore: false });
-			return;
-		}
-		this.setState({ loaded: true });
-		const apiRoot = 'https://api.unsplash.com';
-		const accessKey = 'IJZIrVe43Hi3qaCS0u-0lpU6bIZpV8ddFKo96JMocy0';
-
-		axios.get(`${apiRoot}/photos/random?client_id=${accessKey}&count=${count}`).then(res => {
-			const { images } = this.state;
-			this.setState({ images: this.state.images.concat(res.data), loaded: false }, () => console.log(res));
-		});
-	};
-
-	// fetchMoreData = () => {
-	// 	if (this.state.items.length >= 500) {
-	// 	  this.setState({ hasMore: false });
-	// 	  return;
-	// 	}
-	// 	// a fake async api call like which sends
-	// 	// 20 more records in .5 secs
-	// 	setTimeout(() => {
-	// 	  this.setState({
-	// 		items: this.state.items.concat(Array.from({ length: 20 }))
-	// 	  });
-	// 	}, 500);
-	//   };
-
 	render() {
 		const {
 			preview,
@@ -706,8 +675,6 @@ class ImageMapEditor extends Component {
 			descriptors,
 			objects,
 			unsplashActive,
-			images,
-			loaded,
 		} = this.state;
 		const {
 			onAdd,
@@ -729,7 +696,7 @@ class ImageMapEditor extends Component {
 			onChangeStyles,
 			onChangeDataSources,
 			onSaveImage,
-			onAddItem
+			onAddItem,
 		} = this.handlers;
 
 		const action = (
@@ -801,75 +768,7 @@ class ImageMapEditor extends Component {
 							this.setState({ unsplashActive: !this.state.unsplashActive });
 						}}
 					/>
-					{unsplashActive && (
-						<div className="imageChooser">
-							<div className="imageChooser__title">
-								<span>Unsplash</span>
-								<button onClick={() => this.setState({ unsplashActive: false })}>
-									<svg
-										width="15"
-										height="15"
-										viewBox="0 0 15 15"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<rect
-											x="13.4351"
-											width="1"
-											height="19"
-											transform="rotate(45 13.4351 0)"
-											fill="#A7A7A7"
-										/>
-										<rect
-											y="0.707153"
-											width="1"
-											height="19"
-											transform="rotate(-45 0 0.707153)"
-											fill="#A7A7A7"
-										/>
-									</svg>
-								</button>
-							</div>
-							<Input placeholder="Search " />
-
-							<div className="imageChooser__content">
-								<InfiniteScroll
-								dataLength={this.state.images.length}
-								next={this.fetchImages}
-								hasMore={this.state.hasMore}
-								loader={<h4>Loading...</h4>}
-								height={480}
-								endMessage={
-									<p style={{ textAlign: 'center' }}>
-										<b>Yay! You have seen it all</b>
-									</p>
-								}
-							>
-								{!loaded
-									? images.map(image => (
-											<img
-												src={image.urls.thumb}
-												key={image.id}
-												className="imageChooser__item"
-												onClick={()=>onAddItem(image.urls.thumb)}
-											/>
-									  ))
-									: ''}
-							</InfiniteScroll>
-
-								{/* {
-									images.map((image, index) => (
-										<img
-											src={image}
-											key={index}
-											onClick={()=>onAddItem(image)}
-											className="imageChooser__item"
-										/>
-								  ))
-								} */}
-							</div>
-						</div>
-					)}
+					{unsplashActive && <UnsplashModal onAddItem={onAddItem} close={() => this.setState({ unsplashActive: false })} />}
 					<div className="rde-editor-canvas-container">
 						<div className="rde-editor-header-toolbar">
 							<ImageMapHeaderToolbar
