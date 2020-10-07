@@ -12,7 +12,8 @@ export default class UnsplashModal extends Component {
 		searchText: '',
 		searchOldText: '',
 		numberPage: 1,
-		total: 500,
+        total: 500,
+
 	};
 
 	timeout = 0;
@@ -55,8 +56,8 @@ export default class UnsplashModal extends Component {
 				return;
 			}
 			axios.get(`${apiRoot}/photos/random?client_id=${accessKey}&count=${count}`).then(res => {
-				const { images } = this.state;
-				this.setState({ images: images.concat(res.data), loaded: false });
+				const updatedImages = (searchOldText !== '') ? res.data : images.concat(res.data);
+				this.setState({ images: updatedImages, loaded: false,  searchOldText=''});
 			});
 		}
 	};
@@ -115,29 +116,31 @@ export default class UnsplashModal extends Component {
 				</div>
 				<Input placeholder="Search" onChange={evt => this.doSearch(evt)} />
 
-				<div className="imageChooser__content">
+				<div className="imageChooser__content"  id="imageChooser__content">
+                    {
+                        console.log(images.length)
+                    }
 					<InfiniteScroll
 						dataLength={images.length}
 						next={this.fetchImages}
 						hasMore={hasMore}
 						loader={<h4>Loading...</h4>}
-						height={480}
+                        height={480}
+                        scrollableTarget="imageChooser__content"
 						endMessage={
 							<p style={{ textAlign: 'center' }}>
 								<b>Yay! You have seen it all</b>
 							</p>
 						}
 					>
-						{!loaded
-							? images.map(image => (
+						{images.map(image => (
 									<img
 										src={image.urls.thumb}
 										key={image.id}
 										className="imageChooser__item"
 										onClick={() => onAddItem(image.urls.thumb)}
 									/>
-							  ))
-							: ''}
+							  ))}
 					</InfiniteScroll>
 
 					{/* {
