@@ -74,6 +74,9 @@ class ImageMapConfigurations extends Component {
 					onChange={onChangeTab}
 					tabBarStyle={{ marginTop: 60 }}
 				>
+					<Tabs.TabPane tab={<Icon name="cog" />} key="test">
+						test test test
+					</Tabs.TabPane>
 					<Tabs.TabPane tab={<Icon name="cog" />} key="map">
 						<MapProperties onChange={onChange} canvasRef={canvasRef} />
 					</Tabs.TabPane>

@@ -19,6 +19,7 @@ class MapProperties extends Component {
 			return (
 				<Scrollbar>
 					<Form layout="horizontal">
+						123
 						<Collapse bordered={false}>
 							{Object.keys(PropertyDefinition.map).map(key => {
 								return (

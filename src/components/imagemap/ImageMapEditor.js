@@ -751,7 +751,7 @@ class ImageMapEditor extends Component {
 				<span>{i18n.t('imagemap.imagemap-editor')}</span>
 			</React.Fragment>
 		);
-		const title = <ImageMapTitle title={titleContent} action={action} />;
+		const title = <ImageMapTitle title={titleContent} action={action} canvas={this.canvasRef} />;
 		const content = (
 			<div className="rde-editor-wrapper">
 				<div className="rde-editor-topPanel">

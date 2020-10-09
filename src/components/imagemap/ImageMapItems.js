@@ -233,7 +233,6 @@ class ImageMapItems extends Component {
 
 	renderItem = (item, centered, makeUnsplash) =>
 		{
-			console.log(item)
 			return item.type === 'drawing' ? (
 				<div
 					key={item.name}

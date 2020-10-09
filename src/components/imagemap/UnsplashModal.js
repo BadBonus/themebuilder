@@ -17,8 +17,6 @@ export default class UnsplashModal extends Component {
 
 	timeout = 0;
 
-	//#работа ДОПИЛИ ЛОГИКУ ДЛЯ ПОИСКА, конкретно надо допилисть логику для состояния, когда известено искомое слово и юзер листает вниз(при поисковом слове идет добавление к текущим картинкам)
-
 	fetchImages = (count = 10) => {
 		const { searchText, numberPage, searchOldText, total, images } = this.state;
 
