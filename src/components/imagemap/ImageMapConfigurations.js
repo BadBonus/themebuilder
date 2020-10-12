@@ -10,6 +10,7 @@ import Styles from './styles/Styles';
 import DataSources from './datasources/DataSources';
 import Icon from '../icon/Icon';
 import CommonButton from '../common/CommonButton';
+import ImageMapList from './ImageMapList';
 
 class ImageMapConfigurations extends Component {
 	static propTypes = {
@@ -58,16 +59,29 @@ class ImageMapConfigurations extends Component {
 		const className = classnames('rde-editor-configurations', {
 			minimize: collapse,
 		});
+
+		console.log('selectedItem');
+
+		console.log(selectedItem);
+
 		return (
 			<div className={className}>
-				<CommonButton
+				{/* <CommonButton
 					className="rde-action-btn"
 					shape="circle"
 					icon={collapse ? 'angle-double-left' : 'angle-double-right'}
 					onClick={onCollapse}
 					style={{ position: 'absolute', top: 16, right: 16, zIndex: 1000 }}
-				/>
-				<Tabs
+				/> */}
+				<div></div>
+				<ImageMapList canvasRef={canvasRef} selectedItem={selectedItem} onChange={onChange}/>
+				{/* <MapProperties onChange={onChange} canvasRef={canvasRef} /> */}
+				{(selectedItem && selectedItem.type === 'textbox') && (
+					<NodeProperties onChange={onChange} selectedItem={selectedItem} canvasRef={canvasRef} />
+				)}
+				{/* <Animations animations={animations} onChangeAnimations={onChangeAnimations} /> */}
+				{/* <Styles styles={styles} onChangeStyles={onChangeStyles} /> */}
+				{/* <Tabs
 					tabPosition="right"
 					style={{ height: '100%' }}
 					activeKey={activeKey}
@@ -89,10 +103,7 @@ class ImageMapConfigurations extends Component {
 					<Tabs.TabPane tab={<Icon name="star-half-alt" />} key="styles">
 						<Styles styles={styles} onChangeStyles={onChangeStyles} />
 					</Tabs.TabPane>
-					{/* <Tabs.TabPane tab={<Icon name="table" />} key="datasources">
-                        <DataSources ref={(c) => { this.dataSourcesRef = c; }} dataSources={dataSources} onChangeDataSources={onChangeDataSources} />
-                    </Tabs.TabPane> */}
-				</Tabs>
+				</Tabs> */}
 			</div>
 		);
 	}

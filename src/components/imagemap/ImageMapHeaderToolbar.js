@@ -19,15 +19,15 @@ class ImageMapHeaderToolbar extends Component {
 		return (
 			<Flex className="rde-editor-header-toolbar-container" flex="1">
 				<Flex.Item className="rde-canvas-toolbar rde-canvas-toolbar-list">
-					<CommonButton
+					{/* <CommonButton
 						className="rde-action-btn"
 						shape="circle"
 						icon="layer-group"
 						tooltipTitle={i18n.t('action.canvas-list')}
-					/>
-					<div className="rde-canvas-list">
+					/> */}
+					{/* <div className="rde-canvas-list">
 						<ImageMapList canvasRef={canvasRef} selectedItem={selectedItem} />
-					</div>
+					</div> */}
 				</Flex.Item>
 				<Flex.Item className="rde-canvas-toolbar rde-canvas-toolbar-alignment">
 					<CommonButton

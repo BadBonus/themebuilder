@@ -180,6 +180,7 @@ class ImageMapEditor extends Component {
 				zoomRatio: zoom,
 			});
 		},
+		// #work onChange
 		onChange: (selectedItem, changedValues, allValues) => {
 			const { editing } = this.state;
 			if (!editing) {

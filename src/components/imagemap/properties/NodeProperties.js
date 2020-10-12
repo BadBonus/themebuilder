@@ -27,23 +27,29 @@ class NodeProperties extends Component {
 		const showArrow = false;
 		return (
 			<Scrollbar>
+				<h3 className="rightPanelPropertiesTitle">
+					<i class="fas fa-cog"></i> Settings
+				</h3>
 				<Form layout="horizontal" colon={false}>
 					<Collapse bordered={false}>
 						{selectedItem && PropertyDefinition[selectedItem.type] ? (
 							Object.keys(PropertyDefinition[selectedItem.type]).map(key => {
-								return (
-									<Panel
-										key={key}
-										header={PropertyDefinition[selectedItem.type][key].title}
-										showArrow={showArrow}
-									>
-										{PropertyDefinition[selectedItem.type][key].component.render(
-											canvasRef,
-											form,
-											selectedItem,
-										)}
-									</Panel>
+								return PropertyDefinition[selectedItem.type][key].component.render(
+									canvasRef,
+									form,
+									selectedItem,
 								);
+								// <Panel
+								// 	key={key}
+								// 	header={PropertyDefinition[selectedItem.type][key].title}
+								// 	showArrow={showArrow}
+								// >
+								// 	{PropertyDefinition[selectedItem.type][key].component.render(
+								// 		canvasRef,
+								// 		form,
+								// 		selectedItem,
+								// 	)}
+								// </Panel>
 							})
 						) : (
 							<Flex
@@ -70,6 +76,12 @@ class NodeProperties extends Component {
 export default Form.create({
 	onValuesChange: (props, changedValues, allValues) => {
 		const { onChange, selectedItem } = props;
+		console.log('changedValues');
+		console.log(changedValues);
+
+		console.log('allValues');
+		console.log(allValues);
+
 		onChange(selectedItem, changedValues, allValues);
 	},
 })(NodeProperties);

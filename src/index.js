@@ -17,11 +17,11 @@ const antResources = {
 };
 
 const root = document.createElement('div');
-root.id = 'root';
+root.id = 'themeBuilder';
 document.body.appendChild(root);
 
 const render = (Component) => {
-    const rootElement = document.getElementById('root');
+    const rootElement = document.getElementById('themeBuilder');
     ReactDom.render(
         <AppContainer>
             <LocaleProvider locale={antResources[i18nClient.language]}>

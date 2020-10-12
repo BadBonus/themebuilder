@@ -16,10 +16,11 @@ class ImageMapList extends Component {
 		const { canvasRef } = this.props;
 		const idCropping = canvasRef ? canvasRef.handler?.interactionMode === 'crop' : false;
 		return (
-			<Flex.Item className="rde-canvas-list-actions" flex="0 1 auto">
-				<Flex>
-					<Input.Search placeholder={i18next.t('placeholder.search-node')} />
-				</Flex>
+			<Flex.Item className="rde-canvas-list-actions">
+				<div className="rde-canvas-list-title">
+					<i class="fas fa-layer-group"></i>
+					<h5 className="">Layers</h5>
+				</div>
 				<Flex justifyContent="space-between" alignItems="center">
 					<Flex flex="1" justifyContent="center">
 						<Button
@@ -98,6 +99,13 @@ class ImageMapList extends Component {
 						if (selectedItem && selectedItem.id === obj.id) {
 							className += ' selected-item';
 						}
+
+						// console.log('handler действия')
+
+						// for (key in canvasRef.handler) {
+						// 	console.log(key);
+						//   }
+
 						return (
 							<Flex.Item
 								key={obj.id}
@@ -120,6 +128,17 @@ class ImageMapList extends Component {
 									/>
 									<div className="rde-canvas-list-item-text">{title}</div>
 									<Flex className="rde-canvas-list-item-actions" flex="1" justifyContent="flex-end">
+										<Button
+											className="rde-action-btn"
+											shape="circle"
+											disabled={idCropping}
+											onClick={e => {
+												console.log(canvasRef.handler);
+											}}
+										>
+											<i class="fas fa-lock"></i>
+										</Button>
+										{/* #WORK тут застрял */}
 										<Button
 											className="rde-action-btn"
 											shape="circle"
@@ -152,7 +171,7 @@ class ImageMapList extends Component {
 
 	render() {
 		return (
-			<Flex style={{ height: '100%' }} flexDirection="column">
+			<Flex flexDirection="column">
 				{this.renderActions()}
 				<div className="rde-canvas-list-items">{this.renderItem()}</div>
 			</Flex>
