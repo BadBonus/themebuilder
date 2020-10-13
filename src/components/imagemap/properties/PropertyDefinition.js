@@ -84,10 +84,10 @@ export default {
 			title: 'Text',
 			component: TextProperty,
 		},
-		link: {
-			title: 'Link',
-			component: LinkProperty,
-		},
+		// link: {
+		// 	title: 'Link',
+		// 	component: LinkProperty,
+		// },
 		tooltip: {
 			title: 'Tooltip',
 			component: TooltipProperty,
@@ -96,22 +96,22 @@ export default {
 			title: 'Style',
 			component: StyleProperty,
 		},
-		shadow: {
-			title: 'Shadow',
-			component: ShadowProperty,
-		},
-		animation: {
-			title: 'Animation',
-			component: AnimationProperty,
-		},
-		trigger: {
-			title: 'Trigger',
-			component: TriggerProperty,
-		},
-		userProperty: {
-			title: 'User Property',
-			component: UserProperty,
-		},
+		// shadow: {
+		// 	title: 'Shadow',
+		// 	component: ShadowProperty,
+		// },
+		// animation: {
+		// 	title: 'Animation',
+		// 	component: AnimationProperty,
+		// },
+		// trigger: {
+		// 	title: 'Trigger',
+		// 	component: TriggerProperty,
+		// },
+		// userProperty: {
+		// 	title: 'User Property',
+		// 	component: UserProperty,
+		// },
 	},
 	image: {
 		general: {

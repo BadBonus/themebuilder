@@ -10,6 +10,7 @@ import Icon from '../icon/Icon';
 import Scrollbar from '../common/Scrollbar';
 import CommonButton from '../common/CommonButton';
 import { SVGModal } from '../common';
+import test from './../../../public/images/icons/logo_image'
 
 notification.config({
 	top: 80,
@@ -283,7 +284,9 @@ class ImageMapItems extends Component {
 					<span className="rde-editor-items-item-icon">
 						<Icon name='fas fa-image ' />
 					</span>
-					{this.state.collapse ? null : <div className="rde-editor-items-item-text">Image</div>}
+					{/* {this.state.collapse ? null : <div className="rde-editor-items-item-text">Image</div>} */}
+					<div className="rde-editor-items-item-text">Image</div>
+					<img src={test} alt="alt_logo"/>
 				</div>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>
 					{/* <Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>

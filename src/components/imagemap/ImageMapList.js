@@ -128,7 +128,7 @@ class ImageMapList extends Component {
 									/>
 									<div className="rde-canvas-list-item-text">{title}</div>
 									<Flex className="rde-canvas-list-item-actions" flex="1" justifyContent="flex-end">
-										<Button
+										{/* <Button
 											className="rde-action-btn"
 											shape="circle"
 											disabled={idCropping}
@@ -137,7 +137,7 @@ class ImageMapList extends Component {
 											}}
 										>
 											<i class="fas fa-lock"></i>
-										</Button>
+										</Button> */}
 										{/* #WORK тут застрял */}
 										<Button
 											className="rde-action-btn"

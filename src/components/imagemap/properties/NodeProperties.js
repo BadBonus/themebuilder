@@ -5,6 +5,7 @@ import { Form, Collapse, List } from 'antd';
 import PropertyDefinition from './PropertyDefinition';
 import Scrollbar from '../../common/Scrollbar';
 import { Flex } from '../../flex';
+import ImageMapList from '../ImageMapList';
 
 const { Panel } = Collapse;
 
@@ -23,52 +24,60 @@ class NodeProperties extends Component {
 	}
 
 	render() {
-		const { canvasRef, selectedItem, form } = this.props;
+		const { canvasRef, selectedItem, form, onChange } = this.props;
 		const showArrow = false;
 		return (
-			<Scrollbar>
-				<h3 className="rightPanelPropertiesTitle">
-					<i class="fas fa-cog"></i> Settings
-				</h3>
-				<Form layout="horizontal" colon={false}>
-					<Collapse bordered={false}>
-						{selectedItem && PropertyDefinition[selectedItem.type] ? (
-							Object.keys(PropertyDefinition[selectedItem.type]).map(key => {
-								return PropertyDefinition[selectedItem.type][key].component.render(
-									canvasRef,
-									form,
-									selectedItem,
-								);
-								// <Panel
-								// 	key={key}
-								// 	header={PropertyDefinition[selectedItem.type][key].title}
-								// 	showArrow={showArrow}
-								// >
-								// 	{PropertyDefinition[selectedItem.type][key].component.render(
-								// 		canvasRef,
-								// 		form,
-								// 		selectedItem,
-								// 	)}
-								// </Panel>
-							})
-						) : (
-							<Flex
-								justifyContent="center"
-								alignItems="center"
-								style={{
-									width: '100%',
-									height: '100%',
-									color: 'rgba(0, 0, 0, 0.45)',
-									fontSie: 16,
-									padding: 16,
-								}}
-							>
-								<List />
-							</Flex>
+			<>
+				<Scrollbar>
+					<Form layout="horizontal" colon={false}>
+						<ImageMapList canvasRef={canvasRef} selectedItem={selectedItem} onChange={onChange} form={form} />
+						{selectedItem && (
+							<h3 className="rightPanelPropertiesTitle">
+								<i class="fas fa-cog"></i> Settings
+							</h3>
 						)}
-					</Collapse>
-				</Form>
-			</Scrollbar>
+						<Collapse bordered={false}>
+							{selectedItem && PropertyDefinition[selectedItem.type] ? (
+								Object.keys(PropertyDefinition[selectedItem.type]).map(key => {
+									console.log('selectedItem from NP');
+									console.log(selectedItem);
+
+									return PropertyDefinition[selectedItem.type][key].component.render(
+										canvasRef,
+										form,
+										selectedItem,
+									);
+									// <Panel
+									// 	key={key}
+									// 	header={PropertyDefinition[selectedItem.type][key].title}
+									// 	showArrow={showArrow}
+									// >
+									// 	{PropertyDefinition[selectedItem.type][key].component.render(
+									// 		canvasRef,
+									// 		form,
+									// 		selectedItem,
+									// 	)}
+									// </Panel>
+								})
+							) : (
+								<Flex
+									justifyContent="center"
+									alignItems="center"
+									style={{
+										width: '100%',
+										height: '100%',
+										color: 'rgba(0, 0, 0, 0.45)',
+										fontSie: 16,
+										padding: 16,
+									}}
+								>
+									<List />
+								</Flex>
+							)}
+						</Collapse>
+					</Form>
+				</Scrollbar>
+			</>
 		);
 	}
 }
@@ -76,12 +85,6 @@ class NodeProperties extends Component {
 export default Form.create({
 	onValuesChange: (props, changedValues, allValues) => {
 		const { onChange, selectedItem } = props;
-		console.log('changedValues');
-		console.log(changedValues);
-
-		console.log('allValues');
-		console.log(allValues);
-
 		onChange(selectedItem, changedValues, allValues);
 	},
 })(NodeProperties);

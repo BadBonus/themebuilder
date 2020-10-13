@@ -182,6 +182,7 @@ class ImageMapEditor extends Component {
 		},
 		// #work onChange
 		onChange: (selectedItem, changedValues, allValues) => {
+			console.log('onChange сработал');
 			const { editing } = this.state;
 			if (!editing) {
 				this.changeEditing(true);

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Form, Input, Slider, Switch, Col, InputNumber, Row } from 'antd';
 import i18n from 'i18next';
-
+// #work example of form
 export default {
 	render(canvasRef, form, data) {
 		const { getFieldDecorator } = form;
+		console.log('data')
+		console.log(data)
+
 		return (
 			<React.Fragment>
 				<Row>

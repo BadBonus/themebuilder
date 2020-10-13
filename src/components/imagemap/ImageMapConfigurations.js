@@ -74,11 +74,12 @@ class ImageMapConfigurations extends Component {
 					style={{ position: 'absolute', top: 16, right: 16, zIndex: 1000 }}
 				/> */}
 				<div></div>
-				<ImageMapList canvasRef={canvasRef} selectedItem={selectedItem} onChange={onChange}/>
+				{/* <ImageMapList canvasRef={canvasRef} selectedItem={selectedItem} onChange={onChange}/> */}
 				{/* <MapProperties onChange={onChange} canvasRef={canvasRef} /> */}
-				{(selectedItem && selectedItem.type === 'textbox') && (
-					<NodeProperties onChange={onChange} selectedItem={selectedItem} canvasRef={canvasRef} />
-				)}
+				{/* {(selectedItem && selectedItem.type === 'textbox') && (
+
+				)} */}
+				<NodeProperties onChange={onChange} selectedItem={selectedItem} canvasRef={canvasRef} />
 				{/* <Animations animations={animations} onChangeAnimations={onChangeAnimations} /> */}
 				{/* <Styles styles={styles} onChangeStyles={onChangeStyles} /> */}
 				{/* <Tabs
