@@ -5,8 +5,8 @@ import i18n from 'i18next';
 export default {
 	render(canvasRef, form, data) {
 		const { getFieldDecorator } = form;
-		console.log('data')
-		console.log(data)
+		console.log('canvasRef')
+		console.log(canvasRef)
 
 		return (
 			<React.Fragment>

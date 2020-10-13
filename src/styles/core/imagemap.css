@@ -141,12 +141,12 @@
   box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
 }
 div.rde-canvas-list-item.selected-item {
-  background-color: red !important;
+  background-color: #F1F1F1;
 }
 .rde-canvas-list-title {
   font-size: 30px;
   text-align: left;
-  padding-left: 2vw;
+  padding-left: 11px;
 }
 .rde-canvas-list-title h5 {
   display: inline-block;

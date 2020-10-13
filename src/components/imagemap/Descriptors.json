@@ -1,23 +1,5 @@
 {
-	"TEXT": [
-		{
-			"name": "Text",
-			"description": "",
-			"type": "text",
-			"icon": {
-				"prefix": "fas",
-				"name": "font"
-			},
-			"option": {
-				"type": "textbox",
-				"text": "",
-				"width": 60,
-				"height": 30,
-				"fontSize": 32,
-				"name": "New text"
-			}
-		}
-	],
+
 	"SVG": [
 		{
 			"name": "SVG",
@@ -35,20 +17,22 @@
 			}
 		}
 	],
-	"LOGO": [
+	"TEXT": [
 		{
-			"name": "Logo",
+			"name": "Text",
 			"description": "",
-			"type": "default",
+			"type": "text",
 			"icon": {
 				"prefix": "fas",
-				"name": "bezier-curve"
+				"name": "font"
 			},
 			"option": {
-				"type": "svg",
-				"superType": "svg",
-				"name": "New SVG",
-				"loadType": "svg"
+				"type": "textbox",
+				"text": "",
+				"width": 60,
+				"height": 30,
+				"fontSize": 32,
+				"name": "New text"
 			}
 		}
 	]

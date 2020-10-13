@@ -35,6 +35,7 @@
 			cursor: pointer;
 			&-icon {
 				padding: 0 8px;
+				padding-left: 26px;
 				font-size: 1.5em;
 				width: 40px;
 				display: flex;
@@ -132,7 +133,7 @@
 	&-configurations {
 		position: relative;
 		overflow-y: auto;
-		width: 400px;
+		width: 200px;
 		right: 0;
 		-webkit-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
 		-moz-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
@@ -241,28 +242,28 @@
 	z-index: 900;
 	width: 307px;
 	height: 480px;
-    background-color: #fff;
+	background-color: #fff;
 
-    &__title{
+	&__title {
 		padding: 10px;
 		padding-bottom: 0;
-        display: flex;
-        justify-content: space-between;
+		display: flex;
+		justify-content: space-between;
 		margin-bottom: 15px;
-		button{
+		button {
 			padding: 0;
 			background: unset;
 			border: none;
 			cursor: pointer;
 			border-radius: 100px;
-			transition: .3s;
+			transition: 0.3s;
 			border: 1px solid #fff;
 			padding: 4px 5px 2px 6px;
-			&:hover{
+			&:hover {
 				border-color: lightgray;
 			}
 		}
-    }
+	}
 
 	&__content {
 		background: #fff;
@@ -285,11 +286,57 @@
 
 	.ant-input {
 		border-top: 1px solid #a7a7a7;
-        border-bottom: 1px solid #a7a7a7;
-        margin-bottom: 15px;
+		border-bottom: 1px solid #a7a7a7;
+		margin-bottom: 15px;
 	}
 }
 
-#themeBuilder{
+#themeBuilder {
 	height: 100%;
+}
+
+.rde-editor-items-item-icon img {
+	min-width: 20px;
+}
+div.rde-canvas-list-item-actions button {
+	width: auto;
+	img {
+		transition: 0.3s;
+		padding: 3px 4px;
+		&:hover {
+			border-radius: 100px;
+			background: #0000001a;
+		}
+	}
+}
+
+.rde-canvas-list-item:last-of-type .rightPanelLayer {
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.rightPanelLayer {
+	transition: 0.2s;
+	height: 27px;
+	padding: 0 20px;
+	border: 1px solid #aaaaaa;
+	border-bottom: unset;
+	&:hover {
+		background-color: #f1f1f1;
+	}
+}
+
+.rightPanelLockedItem {
+	position: relative;
+	&>* {
+		opacity: 0.2;
+	}
+	&::after {
+		content: '';
+		width: 20px;
+		height: 15px;
+		top: 6px;
+		right: 0;
+		position: absolute;
+		background-image: url('../../../public/images/icons/lock.svg');
+	}
 }

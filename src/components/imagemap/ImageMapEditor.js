@@ -756,9 +756,9 @@ class ImageMapEditor extends Component {
 		const title = <ImageMapTitle title={titleContent} action={action} canvas={this.canvasRef} />;
 		const content = (
 			<div className="rde-editor-wrapper">
-				<div className="rde-editor-topPanel">
+				{/* <div className="rde-editor-topPanel">
 					<span>FileName: Configurable file</span>
-				</div>
+				</div> */}
 				<div className="rde-editor">
 					<ImageMapItems
 						ref={c => {

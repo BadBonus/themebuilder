@@ -36,6 +36,7 @@
 }
 .rde-editor-items-item-icon {
   padding: 0 8px;
+  padding-left: 26px;
   font-size: 1.5em;
   width: 40px;
   display: flex;
@@ -125,7 +126,7 @@
 .rde-editor-configurations {
   position: relative;
   overflow-y: auto;
-  width: 400px;
+  width: 200px;
   right: 0;
   -webkit-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.5);
@@ -260,4 +261,46 @@
 }
 #themeBuilder {
   height: 100%;
+}
+.rde-editor-items-item-icon img {
+  min-width: 20px;
+}
+div.rde-canvas-list-item-actions button {
+  width: auto;
+}
+div.rde-canvas-list-item-actions button img {
+  transition: 0.3s;
+  padding: 3px 4px;
+}
+div.rde-canvas-list-item-actions button img:hover {
+  border-radius: 100px;
+  background: #0000001a;
+}
+.rde-canvas-list-item:last-of-type .rightPanelLayer {
+  border-bottom: 1px solid #aaaaaa;
+}
+.rightPanelLayer {
+  transition: 0.2s;
+  height: 27px;
+  padding: 0 20px;
+  border: 1px solid #aaaaaa;
+  border-bottom: unset;
+}
+.rightPanelLayer:hover {
+  background-color: #f1f1f1;
+}
+.rightPanelLockedItem {
+  position: relative;
+}
+.rightPanelLockedItem > * {
+  opacity: 0.2;
+}
+.rightPanelLockedItem::after {
+  content: '';
+  width: 20px;
+  height: 15px;
+  top: 6px;
+  right: 0;
+  position: absolute;
+  background-image: url('../../../public/images/icons/lock.svg');
 }

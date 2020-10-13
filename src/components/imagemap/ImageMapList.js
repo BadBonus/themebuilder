@@ -5,6 +5,13 @@ import { Button, Input } from 'antd';
 import Icon from '../icon/Icon';
 import { Flex } from '../flex';
 import i18next from 'i18next';
+import cloneImg from '../../../public/images/icons/clone.svg';
+import trash from '../../../public/images/icons/Subtract.svg';
+import logoImage from '../../../public/images/icons/logo_image.png';
+import svgLogo from '../../../public/images/icons/svg_logo.svg';
+import logologo from '../../../public/images/icons/logo_logo.svg';
+import logotext from '../../../public/images/icons/logo_text.svg';
+import layersImg from '../../../public/images/icons/GroupLayers.png';
 
 class ImageMapList extends Component {
 	static propTypes = {
@@ -18,8 +25,10 @@ class ImageMapList extends Component {
 		return (
 			<Flex.Item className="rde-canvas-list-actions">
 				<div className="rde-canvas-list-title">
-					<i class="fas fa-layer-group"></i>
-					<h5 className="">Layers</h5>
+					<img src={layersImg} alt="layers" />
+					<h5 className="" style={{ 'font-size': '18px' }}>
+						Layers
+					</h5>
 				</div>
 				<Flex justifyContent="space-between" alignItems="center">
 					<Flex flex="1" justifyContent="center">
@@ -50,6 +59,7 @@ class ImageMapList extends Component {
 	renderItem = () => {
 		const { canvasRef, selectedItem } = this.props;
 		const idCropping = canvasRef ? canvasRef.handler?.interactionMode === 'crop' : false;
+
 		return canvasRef
 			? canvasRef.canvas
 					.getObjects()
@@ -109,7 +119,7 @@ class ImageMapList extends Component {
 						return (
 							<Flex.Item
 								key={obj.id}
-								className={className}
+								className={`${className} ${obj.locked ? 'rightPanelLockedItem' : ''}`}
 								flex="1"
 								style={{ cursor: 'pointer' }}
 								onClick={() => canvasRef.handler.select(obj)}
@@ -118,15 +128,15 @@ class ImageMapList extends Component {
 									canvasRef.handler.zoomHandler.zoomToCenter();
 								}}
 							>
-								<Flex alignItems="center">
-									<Icon
-										className="rde-canvas-list-item-icon"
-										name={icon}
-										size={1.5}
-										style={{ width: 32 }}
-										prefix={prefix}
-									/>
-									<div className="rde-canvas-list-item-text">{title}</div>
+								<Flex alignItems="center" className="rightPanelLayer">
+									{obj.type === 'textbox' && <img src={logotext} alt="" />}
+									{obj.type === 'image' && <img src={logoImage} alt="" />}
+									{obj.type === 'svg' && <img src={svgLogo} alt="" />}
+									{obj.type === 'logo' && <img src={logologo} alt="" />}
+
+									<div className="rde-canvas-list-item-text" style={{ paddingLeft: '7px' }}>
+										{title}
+									</div>
 									<Flex className="rde-canvas-list-item-actions" flex="1" justifyContent="flex-end">
 										{/* <Button
 											className="rde-action-btn"
@@ -145,10 +155,10 @@ class ImageMapList extends Component {
 											disabled={idCropping}
 											onClick={e => {
 												e.stopPropagation();
-												canvasRef.handler.duplicateById(obj.id);
+												canvasRef.handler.removeById(obj.id);
 											}}
 										>
-											<Icon name="clone" />
+											<img src={trash} alt="thrash" />
 										</Button>
 										<Button
 											className="rde-action-btn"
@@ -156,10 +166,10 @@ class ImageMapList extends Component {
 											disabled={idCropping}
 											onClick={e => {
 												e.stopPropagation();
-												canvasRef.handler.removeById(obj.id);
+												canvasRef.handler.duplicateById(obj.id);
 											}}
 										>
-											<Icon name="trash" />
+											<img src={cloneImg} alt="cloneImg" />
 										</Button>
 									</Flex>
 								</Flex>

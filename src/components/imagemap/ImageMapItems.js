@@ -10,7 +10,10 @@ import Icon from '../icon/Icon';
 import Scrollbar from '../common/Scrollbar';
 import CommonButton from '../common/CommonButton';
 import { SVGModal } from '../common';
-import test from './../../../public/images/icons/logo_image'
+import logoImage from './../../../public/images/icons/logo_image.png';
+import svgLogo from './../../../public/images/icons/svg_logo.svg';
+import logologo from './../../../public/images/icons/logo_logo.svg';
+import logotext from './../../../public/images/icons/logo_text.svg';
 
 notification.config({
 	top: 80,
@@ -232,38 +235,44 @@ class ImageMapItems extends Component {
 		</Flex>
 	);
 
-	renderItem = (item, centered, makeUnsplash) =>
-		{
-			return item.type === 'drawing' ? (
-				<div
-					key={item.name}
-					draggable
-					onClick={e => this.handlers.onDrawingItem(item)}
-					className="rde-editor-items-item"
-					style={{ justifyContent: this.state.collapse ? 'center' : null }}
-				>
-					<span className="rde-editor-items-item-icon">
-						<Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
-					</span>
-					{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
-				</div>
-			) : (
-				<div
-					key={item.name}
-					draggable
-					onClick={e => item.type === 'image' ? this.props.makeUnsplash() : this.handlers.onAddItem(item, centered)}
-					onDragStart={e => this.events.onDragStart(e, item)}
-					onDragEnd={e => this.events.onDragEnd(e, item)}
-					className="rde-editor-items-item"
-					style={{ justifyContent: this.state.collapse ? 'center' : null }}
-				>
-					<span className="rde-editor-items-item-icon">
-						<Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
-					</span>
-					{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
-				</div>
-			);
-		}
+	renderItem = (item, centered) => {
+		console.log('item');
+		console.log(item);
+		return item.type === 'drawing' ? (
+			<div
+				key={item.name}
+				draggable
+				onClick={e => this.handlers.onDrawingItem(item)}
+				className="rde-editor-items-item"
+				style={{ justifyContent: this.state.collapse ? 'center' : null }}
+			>
+				<span className="rde-editor-items-item-icon">
+					{/* <Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} /> */}
+					{item.name === 'SVG' && <img src={svgLogo} alt="svgLogo" />}
+					{item.name === 'Text' && <img src={logotext} alt="logotext" />}
+				</span>
+				{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
+			</div>
+		) : (
+			<div
+				key={item.name}
+				draggable
+				onClick={e =>
+					item.type === 'image' ? this.props.makeUnsplash() : this.handlers.onAddItem(item, centered)
+				}
+				onDragStart={e => this.events.onDragStart(e, item)}
+				onDragEnd={e => this.events.onDragEnd(e, item)}
+				className="rde-editor-items-item"
+				style={{ justifyContent: this.state.collapse ? 'center' : null }}
+			>
+				<span className="rde-editor-items-item-icon">
+					{item.name === 'SVG' && <img src={svgLogo} alt="svgLogo" />}
+					{item.name === 'Text' && <img src={logotext} alt="logotext" />}
+				</span>
+				{this.state.collapse ? null : <div className="rde-editor-items-item-text">{item.name}</div>}
+			</div>
+		);
+	};
 
 	render() {
 		const { descriptors, makeUnsplash } = this.props;
@@ -282,11 +291,23 @@ class ImageMapItems extends Component {
 					style={{ justifyContent: this.state.collapse ? 'center' : null }}
 				>
 					<span className="rde-editor-items-item-icon">
-						<Icon name='fas fa-image ' />
+						<img src={logoImage} alt="alt_logo" />
 					</span>
 					{/* {this.state.collapse ? null : <div className="rde-editor-items-item-text">Image</div>} */}
 					<div className="rde-editor-items-item-text">Image</div>
-					<img src={test} alt="alt_logo"/>
+				</div>
+				<div
+					draggable
+					onClick={()=>console.log('добавилось лого клиента')}
+					// onDragStart={e => this.events.onDragStart(e, item)}
+					// onDragEnd={e => this.events.onDragEnd(e, item)}
+					className="rde-editor-items-item"
+					style={{ justifyContent: this.state.collapse ? 'center' : null }}
+				>
+					<span className="rde-editor-items-item-icon">
+						<img src={logologo} alt="logologo" />
+					</span>
+					<div className="rde-editor-items-item-text">Logo</div>
 				</div>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>
 					{/* <Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>
@@ -324,17 +345,18 @@ class ImageMapItems extends Component {
 										))}
 									</Collapse>
 								))} */}
-								<Flex
-										flexWrap="wrap"
-										flexDirection="column"
-										style={{ width: '100%' }}
-										justifyContent="center"
-									>
-										{this.handlers.transformList().map(item => this.renderItem(item))}
-									</Flex>
+							<Flex
+								flexWrap="wrap"
+								flexDirection="column"
+								style={{ width: '100%' }}
+								justifyContent="center"
+							>
+								{this.handlers.transformList().map(item => this.renderItem(item))}
+							</Flex>
 						</Flex>
 					</Scrollbar>
 				</Flex>
+
 				<SVGModal
 					visible={svgModalVisible}
 					onOk={this.handlers.onAddSVG}
