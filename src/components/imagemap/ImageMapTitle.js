@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Flex } from '../flex';
+import {Tooltip, Switch} from 'antd'
+import arrowRight from '../../../public/images/icons/rightArrow.svg'
 
 class ImageMapTitle extends Component {
 	render() {
-		const { title, content, action, children, canvas } = this.props;
+		const { title, content, action, children, canvas, preview, onChangePreview } = this.props;
 		return (
 			children || (
 				<Flex className="rde-content-layout-title" alignItems="center" flexWrap="wrap" justifyContent="center">
@@ -28,7 +30,13 @@ class ImageMapTitle extends Component {
 							{action}
 						</Flex>
 					</Flex.Item>
+					<div className=" ">
+						<Tooltip title={'preview'}>
+							<button onClick={()=>onChangePreview(true)} className="btnOverview">overview <img src={arrowRight} alt=""/></button>
+						</Tooltip>
+					</div>
 					<button
+					className="btnNewSize"
 						onClick={() => {
 							const newX = +prompt('Input width', 600);
 							const newY = +prompt('Input height', 400);
@@ -77,7 +85,6 @@ class ImageMapTitle extends Component {
 							// canvas.canvas._activeObject.set('height',canvas.canvas._activeObject.height-10)
 
 							canvas.handler.selectAll();
-							console.log(canvas.canvas._activeObject);
 
 							const selectGroupLeft = canvas.canvas._activeObject.left;
 							const selectGroupTop = canvas.canvas._activeObject.top;
@@ -85,18 +92,16 @@ class ImageMapTitle extends Component {
 							const balanceX = selectGroupLeft - canvasInitialLeft;
 							const balanceY = selectGroupTop - canvasInitialTop;
 
-							canvas.canvas._activeObject.set('scaleX',canvas.canvas._activeObject.scaleX*koefX);
-							canvas.canvas._activeObject.set('scaleY',canvas.canvas._activeObject.scaleY*koefY);
+							canvas.canvas._activeObject.set('scaleX', canvas.canvas._activeObject.scaleX * koefX);
+							canvas.canvas._activeObject.set('scaleY', canvas.canvas._activeObject.scaleY * koefY);
 
-							canvas.canvas._activeObject.set('left', canvasInitialLeft + balanceX*koefX);
-							canvas.canvas._activeObject.set('top', canvasInitialTop + balanceY*koefY);
-
+							canvas.canvas._activeObject.set('left', canvasInitialLeft + balanceX * koefX);
+							canvas.canvas._activeObject.set('top', canvasInitialTop + balanceY * koefY);
 
 							canvas.canvas.renderAll();
-
 						}}
 					>
-						Выделить все объекты
+						New size
 					</button>
 				</Flex>
 			)

@@ -31,10 +31,10 @@ export const gridOption = {
 };
 
 export const workareaOption: Partial<WorkareaObject> = {
-	width: 600,
-	height: 400,
-	workareaWidth: 600,
-	workareaHeight: 400,
+	width: 1920,
+	height: 1040,
+	workareaWidth: 1920,
+	workareaHeight: 1040,
 	lockScalingX: true,
 	lockScalingY: true,
 	scaleX: 1,

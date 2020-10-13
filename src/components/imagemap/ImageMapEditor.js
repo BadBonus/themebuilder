@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Badge, Button, Popconfirm, Menu} from 'antd';
+import { Badge, Button, Popconfirm, Menu } from 'antd';
 import debounce from 'lodash/debounce';
 import i18n from 'i18next';
 import axios from 'axios';
@@ -102,8 +102,6 @@ class ImageMapEditor extends Component {
 		descriptors: {},
 		objects: undefined,
 	};
-
-
 
 	componentDidMount() {
 		this.showLoading(true);
@@ -753,7 +751,16 @@ class ImageMapEditor extends Component {
 				<span>{i18n.t('imagemap.imagemap-editor')}</span>
 			</React.Fragment>
 		);
-		const title = <ImageMapTitle title={titleContent} action={action} canvas={this.canvasRef} />;
+		const title = (
+			<ImageMapTitle
+				title={titleContent}
+				action={action}
+				canvas={this.canvasRef}
+				preview={preview}
+				onChangePreview={onChangePreview}
+				zoomRatio={zoomRatio}
+			/>
+		);
 		const content = (
 			<div className="rde-editor-wrapper">
 				{/* <div className="rde-editor-topPanel">
@@ -770,7 +777,9 @@ class ImageMapEditor extends Component {
 							this.setState({ unsplashActive: !this.state.unsplashActive });
 						}}
 					/>
-					{unsplashActive && <UnsplashModal onAddItem={onAddItem} close={() => this.setState({ unsplashActive: false })} />}
+					{unsplashActive && (
+						<UnsplashModal onAddItem={onAddItem} close={() => this.setState({ unsplashActive: false })} />
+					)}
 					<div className="rde-editor-canvas-container">
 						<div className="rde-editor-header-toolbar">
 							<ImageMapHeaderToolbar

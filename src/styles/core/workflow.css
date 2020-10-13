@@ -304,3 +304,39 @@ div.rde-canvas-list-item-actions button img:hover {
   position: absolute;
   background-image: url('../../../public/images/icons/lock.svg');
 }
+.btnOverview {
+  background: #ffffff;
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.03), 0px 5px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  width: 140px;
+  height: 35px;
+  padding-bottom: 40px;
+  font-size: 16px;
+  color: #401d68;
+  text-transform: uppercase;
+  border: unset;
+  cursor: pointer;
+}
+.btnOverview img {
+  position: relative;
+  bottom: 1px;
+  left: 7px;
+}
+.btnNewSize {
+  transition: 0.2s;
+  cursor: pointer;
+  height: 40px;
+  width: 158px;
+  left: 0px;
+  top: 0px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  font-size: 16px;
+  color: #fff;
+  background-color: unset;
+  margin: 0 8px;
+}
+.btnNewSize:hover {
+  background: #fff;
+  color: #401d68;
+}
