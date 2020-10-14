@@ -88,10 +88,10 @@ export default {
 		// 	title: 'Link',
 		// 	component: LinkProperty,
 		// },
-		tooltip: {
-			title: 'Tooltip',
-			component: TooltipProperty,
-		},
+		// tooltip: {
+		// 	title: 'Tooltip',
+		// 	component: TooltipProperty,
+		// },
 		style: {
 			title: 'Style',
 			component: StyleProperty,
@@ -118,42 +118,42 @@ export default {
 			title: 'General',
 			component: GeneralProperty,
 		},
-		image: {
-			title: 'Image',
-			component: ImageProperty,
-		},
-		filter: {
-			title: 'Filter',
-			component: ImageFilterProperty,
-		},
-		link: {
-			title: 'Link',
-			component: LinkProperty,
-		},
-		tooltip: {
-			title: 'Tooltip',
-			component: TooltipProperty,
-		},
-		style: {
-			title: 'Style',
-			component: StyleProperty,
-		},
-		shadow: {
-			title: 'Shadow',
-			component: ShadowProperty,
-		},
-		animation: {
-			title: 'Animation',
-			component: AnimationProperty,
-		},
-		trigger: {
-			title: 'Trigger',
-			component: TriggerProperty,
-		},
-		userProperty: {
-			title: 'User Property',
-			component: UserProperty,
-		},
+		// image: {
+		// 	title: 'Image',
+		// 	component: ImageProperty,
+		// },
+		// filter: {
+		// 	title: 'Filter',
+		// 	component: ImageFilterProperty,
+		// },
+		// link: {
+		// 	title: 'Link',
+		// 	component: LinkProperty,
+		// },
+		// tooltip: {
+		// 	title: 'Tooltip',
+		// 	component: TooltipProperty,
+		// },
+		// style: {
+		// 	title: 'Style',
+		// 	component: StyleProperty,
+		// },
+		// shadow: {
+		// 	title: 'Shadow',
+		// 	component: ShadowProperty,
+		// },
+		// animation: {
+		// 	title: 'Animation',
+		// 	component: AnimationProperty,
+		// },
+		// trigger: {
+		// 	title: 'Trigger',
+		// 	component: TriggerProperty,
+		// },
+		// userProperty: {
+		// 	title: 'User Property',
+		// 	component: UserProperty,
+		// },
 	},
 	triangle: {
 		general: {
@@ -394,34 +394,34 @@ export default {
 			title: 'General',
 			component: GeneralProperty,
 		},
-		link: {
-			title: 'Link',
-			component: LinkProperty,
-		},
-		tooltip: {
-			title: 'Tooltip',
-			component: TooltipProperty,
-		},
-		style: {
-			title: 'Style',
-			component: StyleProperty,
-		},
-		shadow: {
-			title: 'Shadow',
-			component: ShadowProperty,
-		},
-		animation: {
-			title: 'Animation',
-			component: AnimationProperty,
-		},
-		trigger: {
-			title: 'Trigger',
-			component: TriggerProperty,
-		},
-		userProperty: {
-			title: 'User Property',
-			component: UserProperty,
-		},
+		// link: {
+		// 	title: 'Link',
+		// 	component: LinkProperty,
+		// },
+		// tooltip: {
+		// 	title: 'Tooltip',
+		// 	component: TooltipProperty,
+		// },
+		// style: {
+		// 	title: 'Style',
+		// 	component: StyleProperty,
+		// },
+		// shadow: {
+		// 	title: 'Shadow',
+		// 	component: ShadowProperty,
+		// },
+		// animation: {
+		// 	title: 'Animation',
+		// 	component: AnimationProperty,
+		// },
+		// trigger: {
+		// 	title: 'Trigger',
+		// 	component: TriggerProperty,
+		// },
+		// userProperty: {
+		// 	title: 'User Property',
+		// 	component: UserProperty,
+		// },
 	},
 	chart: {
 		general: {

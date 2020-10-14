@@ -15,6 +15,9 @@ class ColorPicker extends Component {
 	handlers = {
 		onChange: color => {
 			const { onChange, valueType } = this.props;
+			console.log('color');
+
+			console.log(color);
 			let newColor;
 			if (valueType === 'string') {
 				newColor = `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`;
@@ -43,18 +46,46 @@ class ColorPicker extends Component {
 	}
 
 	getBackgroundColor = color => {
+
 		if (typeof color === 'string') {
 			return color;
 		}
 		return `rgba(${color.r},${color.g},${color.b},${color.a})`;
 	};
 
+	rgb2hex(rgb){
+		if (typeof color === 'string') {
+			return color;
+		}
+		rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,(\d+[.,]?\d{0,3})/i);
+		console.log('rgb тут');
+
+		console.log(rgb);
+
+		return rgb  ? <><span className="ColorPicker__hexColorMain">
+			{
+				"#" +
+				("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+				("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+				("0" + parseInt(rgb[3],10).toString(16)).slice(-2)
+			}
+		</span>
+			<span className="ColorPicker__hexColorOpacity" >
+				{
+					rgb[4]*100 + '%'
+				}
+			</span>
+		</>
+		 : '';
+	   }
+
 	render() {
 		const { color } = this.state;
 		const { onChange } = this.handlers;
 		return (
 			<Popover trigger="click" placement="bottom" content={<SketchPicker color={color} onChange={onChange} />}>
-				<Button style={{ background: this.getBackgroundColor(color) }} shape="circle" />
+				<Button style={{ background: this.getBackgroundColor(color) }}  />
+				<span className="ColorPicker__hexColor">{this.rgb2hex(color)}</span>
 			</Popover>
 		);
 	}

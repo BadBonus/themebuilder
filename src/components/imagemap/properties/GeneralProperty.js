@@ -43,7 +43,7 @@ export default {
 						initialValue: data.name,
 					})(<Input />)}
 				</Form.Item>
-				<Row>
+				{/* <Row>
 					<Col span={12}>
 						<Form.Item label={i18n.t('common.width')} colon={false}>
 							{getFieldDecorator('width', {
@@ -74,8 +74,8 @@ export default {
 							})(<InputNumber min={1} />)}
 						</Form.Item>
 					</Col>
-				</Row>
-				<Row>
+				</Row> */}
+				{/* <Row>
 					<Col span={12}>
 						<Form.Item label={i18n.t('common.left')} colon={false}>
 							{getFieldDecorator('left', {
@@ -102,8 +102,8 @@ export default {
 							})(<InputNumber />)}
 						</Form.Item>
 					</Col>
-				</Row>
-				{data.superType === 'element' ? null : (
+				</Row> */}
+				{/* {data.superType === 'element' ? null : (
 					<Form.Item label={i18n.t('common.angle')} colon={false}>
 						{getFieldDecorator('angle', {
 							rules: [
@@ -116,7 +116,7 @@ export default {
 							initialValue: data.angle,
 						})(<Slider min={0} max={360} />)}
 					</Form.Item>
-				)}
+				)} */}
 			</React.Fragment>
 		);
 	},

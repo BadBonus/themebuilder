@@ -6,6 +6,7 @@ import PropertyDefinition from './PropertyDefinition';
 import Scrollbar from '../../common/Scrollbar';
 import { Flex } from '../../flex';
 import ImageMapList from '../ImageMapList';
+import propertiesLogo from "../../../../public/images/icons/logo_settings.svg"
 
 const { Panel } = Collapse;
 
@@ -33,10 +34,10 @@ class NodeProperties extends Component {
 						<ImageMapList canvasRef={canvasRef} selectedItem={selectedItem} onChange={onChange} form={form} />
 						{selectedItem && (
 							<h3 className="rightPanelPropertiesTitle">
-								<i class="fas fa-cog"></i> Settings
+								<img src={propertiesLogo} alt=""/> Settings
 							</h3>
 						)}
-						<Collapse bordered={false}>
+						<Collapse bordered={false} style={{padding:'0 11px'}}>
 							{selectedItem && PropertyDefinition[selectedItem.type] ? (
 								Object.keys(PropertyDefinition[selectedItem.type]).map(key => {
 									console.log('selectedItem from NP');

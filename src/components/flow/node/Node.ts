@@ -130,7 +130,7 @@ const Node = fabric.util.createClass(fabric.Group, {
 			originY: 'top',
 			hasRotatingPoint: false,
 			hasControls: false,
-			borderColor: '#08979c',
+			borderColor: '#401d68',
 		});
 		this.callSuper('initialize', node, option);
 		icon.set({

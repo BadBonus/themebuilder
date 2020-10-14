@@ -282,7 +282,7 @@ div.rde-canvas-list-item-actions button img:hover {
 .rightPanelLayer {
   transition: 0.2s;
   height: 27px;
-  padding: 0 20px;
+  padding: 0 11px;
   border: 1px solid #aaaaaa;
   border-bottom: unset;
 }
@@ -339,4 +339,30 @@ div.rde-canvas-list-item-actions button img:hover {
 .btnNewSize:hover {
   background: #fff;
   color: #401d68;
+}
+.rightPanelPropertiesTitle {
+  font-size: 18px;
+  padding: 10px 0 10px 11px;
+  border-bottom: 1px solid #aaaaaa;
+}
+.rightPanelPropertiesTitle img {
+  position: relative;
+  bottom: 2px;
+}
+.rightPanelOptionTitle {
+  display: block;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  letter-spacing: 0.03em;
+  /* Dark grey */
+  color: #858585;
+}
+.ColorPicker__hexColor {
+  position: relative;
+  bottom: 7px;
+}
+.ColorPicker__hexColorOpacity {
+  position: relative;
+  left: 45px;
 }

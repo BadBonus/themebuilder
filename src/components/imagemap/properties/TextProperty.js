@@ -12,8 +12,11 @@ export default {
 		const { getFieldDecorator } = form;
 		return (
 			<React.Fragment>
+				<span className="rightPanelOptionTitle">
+					Text
+				</span>
 				<Col span={16}>
-					<Form.Item label="Font Family" colon={false}>
+					<Form.Item colon={false}>
 						{getFieldDecorator('fontFamily', {
 							initialValue: data.fontFamily,
 						})(
@@ -34,7 +37,7 @@ export default {
 					</Form.Item>
 				</Col>
 				<Col span={8}>
-					<Form.Item label="Font Size" colon={false}>
+					<Form.Item colon={false}>
 						{getFieldDecorator('fontSize', {
 							initialValue: data.fontSize || '32',
 						})(
@@ -144,7 +147,7 @@ export default {
 						)}
 					</Form.Item>
 				</Col>
-				<Col span={12}>
+				{/* <Col span={12}>
 					<Form.Item label="Line Height" colon={false}>
 						{getFieldDecorator('lineHeight', {
 							rules: [
@@ -167,7 +170,7 @@ export default {
 							initialValue: data.charSpacing,
 						})(<Slider min={0} max={100} />)}
 					</Form.Item>
-				</Col>
+				</Col> */}
 			</React.Fragment>
 		);
 	},
