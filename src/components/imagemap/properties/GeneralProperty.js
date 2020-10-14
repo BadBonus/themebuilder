@@ -12,7 +12,7 @@ export default {
 			<React.Fragment>
 				<Row>
 					<Col span={12}>
-						<Form.Item label={i18n.t('common.locked')} colon={false}>
+						<Form.Item label={<span className="rightPanelOptionTitle">{i18n.t('common.locked')} </span>} colon={false} style={{'height': '35px;'}}>
 							{getFieldDecorator('locked', {
 								rules: [
 									{
@@ -25,7 +25,7 @@ export default {
 						</Form.Item>
 					</Col>
 					<Col span={12}>
-						<Form.Item label={i18n.t('common.visible')} colon={false}>
+						<Form.Item label={<span className="rightPanelOptionTitle">{i18n.t('common.visible')} </span>} colon={false} style={{'height': '35px;'}}>
 							{getFieldDecorator('visible', {
 								rules: [
 									{
@@ -38,7 +38,7 @@ export default {
 						</Form.Item>
 					</Col>
 				</Row>
-				<Form.Item label={i18n.t('common.name')} colon={false}>
+				<Form.Item label='Name of layer' colon={false}>
 					{getFieldDecorator('name', {
 						initialValue: data.name,
 					})(<Input />)}

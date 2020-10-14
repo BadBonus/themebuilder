@@ -40,8 +40,6 @@ class NodeProperties extends Component {
 						<Collapse bordered={false} style={{padding:'0 11px'}}>
 							{selectedItem && PropertyDefinition[selectedItem.type] ? (
 								Object.keys(PropertyDefinition[selectedItem.type]).map(key => {
-									console.log('selectedItem from NP');
-									console.log(selectedItem);
 
 									return PropertyDefinition[selectedItem.type][key].component.render(
 										canvasRef,

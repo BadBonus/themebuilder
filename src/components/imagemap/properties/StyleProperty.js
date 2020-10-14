@@ -9,7 +9,8 @@ export default {
 		const { getFieldDecorator } = form;
 		return (
 			<React.Fragment>
-				<Form.Item label={i18n.t('imagemap.style.fill-color')} colon={false}>
+				<div className="ant-col-6">
+				<Form.Item label={i18n.t('imagemap.style.fill-color')} colon={false} className="styleBox">
 					{getFieldDecorator('fill', {
 						initialValue: data.fill || 'rgba(0, 0, 0, 1)',
 					})(<ColorPicker />)}
@@ -65,6 +66,7 @@ export default {
 						</Col>
 					</Row>
 				) : null} */}
+				</div>
 			</React.Fragment>
 		);
 	},
