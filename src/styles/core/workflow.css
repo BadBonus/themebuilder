@@ -360,9 +360,21 @@ div.rde-canvas-list-item-actions button img:hover {
 }
 .ColorPicker__hexColor {
   position: relative;
-  bottom: 7px;
+  bottom: 45px;
+  left: 35px;
 }
 .ColorPicker__hexColorOpacity {
   position: relative;
   left: 45px;
+}
+.rightPanelOptionTitle {
+  height: 15px;
+}
+.rightPanelOptionTitleBox .ant-form-item-control {
+  text-align: center;
+}
+.rightPanelOptionTitleBox .ant-form-item-label {
+  height: 25px;
+  width: 100%;
+  text-align: center;
 }

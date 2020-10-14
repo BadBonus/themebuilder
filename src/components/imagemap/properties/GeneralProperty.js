@@ -11,7 +11,7 @@ export default {
 		return (
 			<React.Fragment>
 				<Row>
-					<Col span={12}>
+					<Col span={12} className='rightPanelOptionTitleBox'>
 						<Form.Item label={<span className="rightPanelOptionTitle">{i18n.t('common.locked')} </span>} colon={false} style={{'height': '35px;'}}>
 							{getFieldDecorator('locked', {
 								rules: [
@@ -24,7 +24,7 @@ export default {
 							})(<Switch size="small" />)}
 						</Form.Item>
 					</Col>
-					<Col span={12}>
+					<Col span={12} className='rightPanelOptionTitleBox'>
 						<Form.Item label={<span className="rightPanelOptionTitle">{i18n.t('common.visible')} </span>} colon={false} style={{'height': '35px;'}}>
 							{getFieldDecorator('visible', {
 								rules: [
