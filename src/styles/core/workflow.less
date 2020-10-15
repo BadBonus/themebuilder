@@ -416,7 +416,6 @@ div.rde-canvas-list-item-actions button {
 
 .rightPanelOptionTitle {
 	height: 15px;
-
 }
 
 .rightPanelOptionTitleBox {
@@ -428,35 +427,60 @@ div.rde-canvas-list-item-actions button {
 		width: 100%;
 		text-align: center;
 	}
-	&_altStyle{
+	&_altStyle {
 		margin-top: 32px;
-		.rightPanelOptionTitle{
+		.rightPanelOptionTitle {
 			font-size: 20px;
 		}
 	}
 }
 
-.productsSizes{
+.productsSizes {
 	padding: 0;
 	margin: 0;
 	list-style-type: unset;
-	li{
-		transition: .2s;
+	li {
+		transition: 0.2s;
 		width: 50%;
 		margin: auto;
 		text-align: center;
 		padding: 4px;
-		color:#858585;
+		color: #858585;
 		cursor: pointer;
-		&:hover{
+		&:hover {
 			background-color: rgba(0, 0, 0, 0.1);
 		}
 	}
 }
 
-.PropertyCompanyColor{
+.PropertyCompanyColor {
 	margin-top: 16px;
-	h5{
+	width: 100%;
+	text-align: center;
+	h5 {
 		font-size: 16px;
+	}
+
+	ul {
+		padding: 0;
+		margin: 0;
+		display: flex;
+		list-style: none;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
+		align-items: center;
+		li {
+			&.active {
+				button {
+					border: 2px solid #dedede;
+				}
+			}
+		}
+		button {
+			width: 20px;
+			height: 20px;
+			box-sizing: border-box;
+			border: none;
+		}
 	}
 }

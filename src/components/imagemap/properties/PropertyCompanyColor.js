@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Input, Slider, Switch, Col, InputNumber, Row } from 'antd';
 import i18n from 'i18next';
-// #work example of form
+// mocks
+const mock_colors = ['red', 'green', 'blue'];
 
 class PropertyCompanyColor extends Component {
 	renderColorItems = () => null;
@@ -9,11 +10,12 @@ class PropertyCompanyColor extends Component {
 	state = {
 		defaultColors: [],
 		changed: 0,
+		choosedColor: null,
 	};
 
 	changeColorOfElement = color => {
 		const { canvasRef, selectedItem } = this.props;
-		const {changed} = this.state;
+		const { changed } = this.state;
 		const colors = [];
 
 		// console.log('item(1) fill');
@@ -24,8 +26,8 @@ class PropertyCompanyColor extends Component {
 		if (color === 'default') {
 			selectedItem._objects.forEach((el, index) => {
 				selectedItem._objects[index].fill = this.state.defaultColors[index];
+				this.setState({ choosedColor: 'default' });
 			});
-
 		} else {
 			selectedItem._objects.forEach((el, index) => {
 				// console.log(selectedItem._objects[index].fill)
@@ -34,7 +36,7 @@ class PropertyCompanyColor extends Component {
 			});
 
 			if (changed === 0) this.setState({ defaultColors: [...colors] });
-			this.setState({ changed: 1 });
+			this.setState({ changed: 1, choosedColor: color });
 		}
 
 		// Я хз почему, но без этой строки окрас не производится
@@ -43,6 +45,13 @@ class PropertyCompanyColor extends Component {
 
 		canvasRef.canvas.renderAll();
 	};
+
+	renderColorButtons = arrayOfColors =>
+		arrayOfColors.map((color, index) => (
+			<li key={index + Math.random()} className={color === this.state.choosedColor ? 'active' : ''}>
+				<button onClick={() => this.changeColorOfElement(color)} style={{ background: color }} />
+			</li>
+		));
 
 	componentDidUpdate(oldProps) {
 		if (oldProps.selectedItem !== this.props.selectedItem) {
@@ -53,25 +62,16 @@ class PropertyCompanyColor extends Component {
 	render() {
 		return (
 			<div className="PropertyCompanyColor">
-				<h5>Choose company color</h5>
+				<h5>Choose main color</h5>
 				<ul>
-					<li>
+					<li className={'default' === this.state.choosedColor ? 'active' : ''}>
 						<button
 							disabled={this.state.changed === 0}
 							onClick={() => this.changeColorOfElement('default')}
-						>
-							default
-						</button>
+						/>
 					</li>
-					<li>
-						<button onClick={() => this.changeColorOfElement('red')}>red</button>
-					</li>
-					<li>
-						<button onClick={() => this.changeColorOfElement('green')}>green</button>
-					</li>
-					<li>
-						<button onClick={() => this.changeColorOfElement('blue')}>blue</button>
-					</li>
+
+					{this.renderColorButtons(mock_colors)}
 				</ul>
 			</div>
 		);
