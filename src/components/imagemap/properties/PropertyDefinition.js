@@ -393,7 +393,7 @@ export default {
 		general: {
 			title: 'General',
 			component: GeneralProperty,
-		},
+		}
 		// link: {
 		// 	title: 'Link',
 		// 	component: LinkProperty,

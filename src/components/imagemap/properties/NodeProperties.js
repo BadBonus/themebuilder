@@ -74,6 +74,7 @@ class NodeProperties extends Component {
 								</Flex>
 							)}
 						</Collapse>
+
 					</Form>
 				</Scrollbar>
 			</>

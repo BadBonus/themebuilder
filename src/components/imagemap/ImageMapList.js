@@ -12,6 +12,7 @@ import svgLogo from '../../../public/images/icons/svg_logo.svg';
 import logologo from '../../../public/images/icons/logo_logo.svg';
 import logotext from '../../../public/images/icons/logo_text.svg';
 import layersImg from '../../../public/images/icons/GroupLayers.png';
+import PropertyCompanyColor from './properties/PropertyCompanyColor';
 
 class ImageMapList extends Component {
 	static propTypes = {
@@ -180,10 +181,14 @@ class ImageMapList extends Component {
 	};
 
 	render() {
+		const { canvasRef, selectedItem } = this.props;
 		return (
 			<Flex flexDirection="column">
 				{this.renderActions()}
 				<div className="rde-canvas-list-items">{this.renderItem()}</div>
+				<Flex>
+					{selectedItem && <PropertyCompanyColor canvasRef={canvasRef} selectedItem={selectedItem} />}
+				</Flex>
 			</Flex>
 		);
 	}

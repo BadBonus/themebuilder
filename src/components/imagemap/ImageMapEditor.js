@@ -122,6 +122,7 @@ class ImageMapEditor extends Component {
 	}
 
 	canvasHandlers = {
+		// #work onAdd
 		onAdd: target => {
 			const { editing } = this.state;
 			this.forceUpdate();
@@ -620,11 +621,13 @@ class ImageMapEditor extends Component {
 			this.canvasRef.handler.saveCanvasImage();
 		},
 		onAddItem: src => {
+			console.log('onAddItem сработал');
 			const canvasRef = this.canvasRef;
 			const id = v4();
 			const option = Object.assign(
 				{},
 				{
+
 					type: 'image',
 					name: 'New image',
 					src,

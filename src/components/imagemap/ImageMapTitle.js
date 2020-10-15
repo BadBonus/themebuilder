@@ -116,6 +116,19 @@ class ImageMapTitle extends Component {
 		const oldY = canvas.canvas.item(0).height;
 		const canvasInitialLeft = canvas.canvas.item(0).left;
 		const canvasInitialTop = canvas.canvas.item(0).top;
+		//#work решение проблемы с цветом
+		// console.log('item(1) fill');
+		// console.log(canvas.canvas.item(1)._objects[0].fill);
+		// canvas.canvas.item(1)._objects[0].fill='gold';
+		// console.log(canvas.canvas.item(1)._objects[0].fill);
+
+		// canvas.canvas.item(1)._objects.forEach((el, index) =>{
+		// 	// console.log(selectedItem._objects[index].fill)
+		// 	canvas.canvas.item(1)._objects[index].fill = 'gold';
+		// })
+
+
+		// canvas.canvas.item(1).set('fill', '#00ff00');
 
 		// const {left:canvasLeft, top:canvasTop} = canvas.canvas.item(0);
 
@@ -196,10 +209,7 @@ class ImageMapTitle extends Component {
 						</Tooltip>
 					</div>
 					<button className="btnNewSize" onClick={this.showModal}>
-						тыц
-					</button>
-					<button className="btnNewSize" onClick={this.changeSizeOfCanvas}>
-						New size
+						new product
 					</button>
 					<Modal
 						title="Please select format"

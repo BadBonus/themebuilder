@@ -114,6 +114,7 @@ class ImageMapItems extends Component {
 			}
 			canvasRef.handler.add(option, centered);
 		},
+		// #work тут onAddSVG
 		onAddSVG: (option, centered) => {
 			const { canvasRef } = this.props;
 			canvasRef.handler.add({ ...option, type: 'svg', superType: 'svg', id: v4(), name: 'New SVG' }, centered);
