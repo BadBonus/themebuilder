@@ -3,73 +3,65 @@ import { Flex } from '../flex';
 import { Tooltip, Switch, Modal, Button } from 'antd';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
 
-
-
-
-
-
-
-
-
-
 //mocks
-const mock_prod=[{
-	name:'Twitter Post (1012x506)',
-	sizes:{
-		width:1012,
-		height:506
-	}
-},
-{
-	name:'Twitter Header (1500x500)',
-	sizes:{
-		width:1500,
-		height:500
-	}
-},
-{
-	name:'Facebook Post (1200x630)',
-	sizes:{
-		width:1200,
-		height:630
-	}
-},
-{
-	name:'Facebook Cover (830x312)',
-	sizes:{
-		width:830,
-		height:312
-	}
-},
-{
-	name:'Instagram Post (1080x1080)',
-	sizes:{
-		width:1080,
-		height:1080
-	}
-},
-{
-	name:'Instagram Story (1080x1920)',
-	sizes:{
-		width:1080,
-		height:1920
-	}
-},
-{
-	name:'Dribbble Shot (400x300)',
-	sizes:{
-		width:400,
-		height:300
-	}
-},
-{
-	name:'Dribbble Shot HD (800x600)',
-	sizes:{
-		width:800,
-		height:600
-	}
-},
-]
+const mock_prod = [
+	{
+		name: 'Twitter Post (1012x506)',
+		sizes: {
+			width: 1012,
+			height: 506,
+		},
+	},
+	{
+		name: 'Twitter Header (1500x500)',
+		sizes: {
+			width: 1500,
+			height: 500,
+		},
+	},
+	{
+		name: 'Facebook Post (1200x630)',
+		sizes: {
+			width: 1200,
+			height: 630,
+		},
+	},
+	{
+		name: 'Facebook Cover (830x312)',
+		sizes: {
+			width: 830,
+			height: 312,
+		},
+	},
+	{
+		name: 'Instagram Post (1080x1080)',
+		sizes: {
+			width: 1080,
+			height: 1080,
+		},
+	},
+	{
+		name: 'Instagram Story (1080x1920)',
+		sizes: {
+			width: 1080,
+			height: 1920,
+		},
+	},
+	{
+		name: 'Dribbble Shot (400x300)',
+		sizes: {
+			width: 400,
+			height: 300,
+		},
+	},
+	{
+		name: 'Dribbble Shot HD (800x600)',
+		sizes: {
+			width: 800,
+			height: 600,
+		},
+	},
+];
 
 class ImageMapTitle extends Component {
 	state = { visible: false };
@@ -94,9 +86,8 @@ class ImageMapTitle extends Component {
 		});
 	};
 
-	changeSizeOfCanvas = (width , height) => {
+	changeSizeOfCanvas = (width, height) => {
 		const { canvas } = this.props;
-
 		const newX = width;
 		const newY = height;
 
@@ -116,23 +107,8 @@ class ImageMapTitle extends Component {
 		const oldY = canvas.canvas.item(0).height;
 		const canvasInitialLeft = canvas.canvas.item(0).left;
 		const canvasInitialTop = canvas.canvas.item(0).top;
-		//#work решение проблемы с цветом
-		// console.log('item(1) fill');
-		// console.log(canvas.canvas.item(1)._objects[0].fill);
-		// canvas.canvas.item(1)._objects[0].fill='gold';
-		// console.log(canvas.canvas.item(1)._objects[0].fill);
 
-		// canvas.canvas.item(1)._objects.forEach((el, index) =>{
-		// 	// console.log(selectedItem._objects[index].fill)
-		// 	canvas.canvas.item(1)._objects[index].fill = 'gold';
-		// })
-
-
-		// canvas.canvas.item(1).set('fill', '#00ff00');
-
-		// const {left:canvasLeft, top:canvasTop} = canvas.canvas.item(0);
-
-		// //Найти коэфициент старый к новому
+		//Найти коэфициент старый к новому
 
 		const koefX = newX / oldX;
 		const koefY = newY / oldY;
@@ -173,7 +149,32 @@ class ImageMapTitle extends Component {
 		canvas.canvas.renderAll();
 	};
 
-	renderProducts = (products) => products.map(({name, sizes})=><li onClick={()=>this.changeSizeOfCanvas(sizes.width, sizes.height)} >{name}</li>)
+	makeNewCanvas = () => {
+		const { canvas } = this.props;
+		canvas.handler.clear();
+		canvas.canvas.item(0).set('width', 1920);
+		canvas.canvas.item(0).set('height', 1080);
+		canvas.canvas.renderAll();
+	};
+
+	confirm = () => {
+		Modal.confirm({
+			title: 'Confirm',
+			content: 'Are you sure you want to create a new canvas?',
+			okText: 'yes',
+			cancelText: 'cancel',
+			onOk: this.makeNewCanvas,
+		});
+	};
+
+	// clearCanvas() {
+	// 	this.canvasRef.handler.clear(true);
+	// }
+
+	renderProducts = products =>
+		products.map(({ name, sizes }) => (
+			<li onClick={() => this.changeSizeOfCanvas(sizes.width, sizes.height)}>{name}</li>
+		));
 
 	render() {
 		const { title, content, action, children, canvas, preview, onChangePreview } = this.props;
@@ -187,6 +188,9 @@ class ImageMapTitle extends Component {
 							alignItems="center"
 						>
 							{title instanceof String ? <h3>{title}</h3> : title}
+							<button className="btnNewSize" style={{ 'margin-left': '20px' }} onClick={this.confirm}>
+								new canvas +
+							</button>
 						</Flex>
 					</Flex.Item>
 					{/* <Flex.Item flex="auto">
@@ -219,11 +223,7 @@ class ImageMapTitle extends Component {
 						okText="CANCEL"
 						cancelText="NEXT"
 					>
-						<ul className="productsSizes">
-							{
-								this.renderProducts(mock_prod)
-							}
-						</ul>
+						<ul className="productsSizes">{this.renderProducts(mock_prod)}</ul>
 					</Modal>
 				</Flex>
 			)

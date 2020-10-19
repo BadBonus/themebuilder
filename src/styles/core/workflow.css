@@ -335,6 +335,7 @@ div.rde-canvas-list-item-actions button img:hover {
   color: #fff;
   background-color: unset;
   margin: 0 8px;
+  text-transform: uppercase;
 }
 .btnNewSize:hover {
   background: #fff;

@@ -282,7 +282,7 @@ div.rde-canvas-list-item-actions button img:hover {
 .rightPanelLayer {
   transition: 0.2s;
   height: 27px;
-  padding: 0 20px;
+  padding: 0 11px;
   border: 1px solid #aaaaaa;
   border-bottom: unset;
 }
@@ -309,10 +309,124 @@ div.rde-canvas-list-item-actions button img:hover {
   box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.03), 0px 5px 6px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   width: 140px;
-  height: 40px;
+  height: 35px;
+  padding-bottom: 40px;
   font-size: 16px;
   color: #401d68;
   text-transform: uppercase;
+  border: unset;
+  cursor: pointer;
+}
+.btnOverview img {
+  position: relative;
+  bottom: 1px;
+  left: 7px;
+}
+.btnNewSize {
+  transition: 0.2s;
+  cursor: pointer;
+  height: 40px;
+  width: 158px;
+  left: 0px;
+  top: 0px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  font-size: 16px;
+  color: #fff;
+  background-color: unset;
+  margin: 0 8px;
+  text-transform: uppercase;
+}
+.btnNewSize:hover {
+  background: #fff;
+  color: #401d68;
+}
+.rightPanelPropertiesTitle {
+  font-size: 18px;
+  padding: 10px 0 10px 11px;
+  border-bottom: 1px solid #aaaaaa;
+}
+.rightPanelPropertiesTitle img {
+  position: relative;
+  bottom: 2px;
+}
+.rightPanelOptionTitle {
+  display: block;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  letter-spacing: 0.03em;
+  /* Dark grey */
+  color: #858585;
+}
+.ColorPicker__hexColor {
+  position: relative;
+  bottom: 45px;
+  left: 35px;
+}
+.ColorPicker__hexColorOpacity {
+  position: relative;
+  left: 45px;
+}
+.rightPanelOptionTitle {
+  height: 15px;
+}
+.rightPanelOptionTitleBox .ant-form-item-control {
+  text-align: center;
+}
+.rightPanelOptionTitleBox .ant-form-item-label {
+  height: 25px;
+  width: 100%;
+  text-align: center;
+}
+.rightPanelOptionTitleBox_altStyle {
+  margin-top: 32px;
+}
+.rightPanelOptionTitleBox_altStyle .rightPanelOptionTitle {
+  font-size: 20px;
+}
+.productsSizes {
+  padding: 0;
+  margin: 0;
+  list-style-type: unset;
+}
+.productsSizes li {
+  transition: 0.2s;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  padding: 4px;
+  color: #858585;
+  cursor: pointer;
+}
+.productsSizes li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.PropertyCompanyColor {
+  margin-top: 16px;
+  width: 100%;
+  text-align: center;
+}
+.PropertyCompanyColor h5 {
+  font-size: 16px;
+}
+.PropertyCompanyColor ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.PropertyCompanyColor ul li.active button {
+  border: 2px solid #dedede;
+}
+.PropertyCompanyColor ul button {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: none;
 }
 .rde-editor-canvas-container {
   display: flex;
@@ -478,6 +592,9 @@ body,
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+#themeBuilder {
+  font-family: 'Open Sans';
 }
 video {
   left: 0;
