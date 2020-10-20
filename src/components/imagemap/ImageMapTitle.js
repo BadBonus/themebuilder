@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Flex } from '../flex';
 import { Tooltip, Switch, Modal, Button } from 'antd';
+import axios from 'axios';
+import { postThemeInsert } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
 
 //mocks
@@ -116,22 +118,6 @@ class ImageMapTitle extends Component {
 		canvas.canvas.item(0).set('height', newY);
 		canvas.canvas.item(0).set('width', newX);
 
-		// objs.map(function(o) {
-		// 	console.log(o);
-		// 	return o.active
-		// 		? o
-		// 				.set({
-		// 					scaleX: o.scaleX * koefX,
-		// 					scaleY: o.scaleY * koefY,
-		// 					left: o.left * koefX,
-		// 					top: o.top * koefY,
-		// 				})
-		// 				.setCoords()
-		// 		: o;
-		// });
-		// canvas.canvas._activeObject.set('width',canvas.canvas._activeObject.width-10)
-		// canvas.canvas._activeObject.set('height',canvas.canvas._activeObject.height-10)
-
 		canvas.handler.selectAll();
 
 		const selectGroupLeft = canvas.canvas._activeObject.left;
@@ -167,10 +153,20 @@ class ImageMapTitle extends Component {
 		});
 	};
 
-	// clearCanvas() {
-	// 	this.canvasRef.handler.clear(true);
-	// }
-
+	saveTheme = () => {
+		axios
+			.post(postThemeInsert, {
+				user_id:'user_id_test',
+				theme_name:'theme_name_test',
+				theme_data:'theme_data_test'
+			})
+			.then(function(response) {
+				console.log(response);
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
+	};
 	renderProducts = products =>
 		products.map(({ name, sizes }) => (
 			<li onClick={() => this.changeSizeOfCanvas(sizes.width, sizes.height)}>{name}</li>
@@ -215,6 +211,7 @@ class ImageMapTitle extends Component {
 					<button className="btnNewSize" onClick={this.showModal}>
 						new product
 					</button>
+					<button onClick={this.saveTheme}>Test</button>
 					<Modal
 						title="Please select format"
 						visible={this.state.visible}
