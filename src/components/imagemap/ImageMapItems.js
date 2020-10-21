@@ -376,6 +376,19 @@ class ImageMapItems extends Component {
 		);
 	};
 
+	//#work пример блокировки картинок здесь
+
+	test=()=>{
+		const {canvasRef} = this.props;
+		canvasRef.canvas.getObjects().forEach(el=>{
+			el.set('hasControls', false);
+			el.set('lockMovementX', true);
+			el.set('lockMovementY', true);
+			el.set('locked', true);
+			canvasRef.canvas.renderAll();
+		})
+	}
+
 	render() {
 		const { descriptors, makeUnsplash } = this.props;
 		const { collapse, textSearch, filteredDescriptors, activeKey, svgModalVisible, svgOption } = this.state;
@@ -400,7 +413,7 @@ class ImageMapItems extends Component {
 				</div>
 				<div
 					draggable
-					onClick={() => this.handlers.onAddLogo()}
+					onClick={() => this.handlers.onAddLogoUser()}
 					// onDragStart={e => this.events.onDragStart(e, item)}
 					// onDragEnd={e => this.events.onDragEnd(e, item)}
 					className="rde-editor-items-item"
@@ -411,15 +424,7 @@ class ImageMapItems extends Component {
 					</span>
 					<div className="rde-editor-items-item-text">Logo</div>
 				</div>
-				<div
-					draggable
-					onClick={() => this.handlers.onAddLogoUser()}
-					className="rde-editor-items-item"
-					style={{ justifyContent: this.state.collapse ? 'center' : null }}
-				>
-					<span className="rde-editor-items-item-icon">123123123123</span>
-					<div className="rde-editor-items-item-text">Logo</div>
-				</div>
+				<button onClick={this.test}>123</button>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>
 					{/* <Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>
 						<CommonButton

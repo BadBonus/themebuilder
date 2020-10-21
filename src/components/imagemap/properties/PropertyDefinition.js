@@ -76,10 +76,10 @@ export default {
 		},
 	},
 	textbox: {
-		general: {
-			title: 'General',
-			component: GeneralProperty,
-		},
+		// general: {
+		// 	title: 'General',
+		// 	component: GeneralProperty,
+		// },
 		text: {
 			title: 'Text',
 			component: TextProperty,
@@ -114,10 +114,10 @@ export default {
 		// },
 	},
 	image: {
-		general: {
-			title: 'General',
-			component: GeneralProperty,
-		},
+		// general: {
+		// 	title: 'General',
+		// 	component: GeneralProperty,
+		// },
 		// image: {
 		// 	title: 'Image',
 		// 	component: ImageProperty,
@@ -390,10 +390,10 @@ export default {
 		},
 	},
 	svg: {
-		general: {
-			title: 'General',
-			component: GeneralProperty,
-		}
+		// general: {
+		// 	title: 'General',
+		// 	component: GeneralProperty,
+		// }
 		// link: {
 		// 	title: 'Link',
 		// 	component: LinkProperty,

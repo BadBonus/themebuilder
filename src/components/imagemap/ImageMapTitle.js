@@ -160,9 +160,9 @@ class ImageMapTitle extends Component {
 					{/* #need for future work */}
 					{/* #Work здесь кнопки загрузки/сохранения картинки */}
 					<Flex.Item flex="auto">
-						<Flex className="rde-content-layout-title-action" justifyContent="flex-end" alignItems="center">
+						{/* <Flex className="rde-content-layout-title-action" justifyContent="flex-end" alignItems="center">
 							{action}
-						</Flex>
+						</Flex> */}
 					</Flex.Item>
 					<div className=" ">
 						<Tooltip title={'preview'}>
@@ -171,10 +171,9 @@ class ImageMapTitle extends Component {
 							</button>
 						</Tooltip>
 					</div>
-					<button className="btnNewSize" onClick={this.showModal}>
+					{/* <button className="btnNewSize" onClick={this.showModal}>
 						new product
-					</button>
-					<button onClick={this.loadTheme}>Test</button>
+					</button> */}
 					<Modal
 						title="Please select format"
 						visible={this.state.visible}

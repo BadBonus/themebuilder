@@ -316,6 +316,7 @@ div.rde-canvas-list-item-actions button img:hover {
   text-transform: uppercase;
   border: unset;
   cursor: pointer;
+  margin-right: 24px;
 }
 .btnOverview img {
   position: relative;
