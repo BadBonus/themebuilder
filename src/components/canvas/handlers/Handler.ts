@@ -672,7 +672,13 @@ class Handler implements HandlerOptions {
 	 * @param {boolean} [loaded=false]
 	 * @returns
 	 */
-	public add = (obj: FabricObjectOption, centered = true, loaded = false) => {
+	// #work здесь объекты добавляем
+	public add = (test: FabricObjectOption, centered = true, loaded = false) => {
+		console.log('add add add сработал')
+		console.log(test)
+		let obj = test;
+
+
 		const { editable, onAdd, gridOption, objectOption } = this;
 		const option: any = {
 			hasControls: editable,

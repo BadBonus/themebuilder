@@ -4,6 +4,8 @@ import { Collapse, notification, Input, message } from 'antd';
 import { v4 } from 'uuid';
 import classnames from 'classnames';
 import i18n from 'i18next';
+import Cookies from 'universal-cookie';
+import { fabric } from 'fabric';
 
 import { Flex } from '../flex';
 import Icon from '../icon/Icon';
@@ -14,6 +16,7 @@ import logoImage from './../../../public/images/icons/logo_image.png';
 import svgLogo from './../../../public/images/icons/svg_logo.svg';
 import logologo from './../../../public/images/icons/logo_logo.svg';
 import logotext from './../../../public/images/icons/logo_text.svg';
+import axios from 'axios';
 
 notification.config({
 	top: 80,
@@ -119,7 +122,104 @@ class ImageMapItems extends Component {
 			const { canvasRef } = this.props;
 			canvasRef.handler.add({ ...option, type: 'svg', superType: 'svg', id: v4(), name: 'New SVG' }, centered);
 			this.handlers.onSVGModalVisible();
+			console.log('onAddSVG option');
+			console.log(option);
 		},
+		onAddLogo: (option, centered) => {
+			const { canvasRef } = this.props;
+			const logo = canvasRef.canvas.getObjects().find(el => el.name === 'logo');
+			if (logo) canvasRef.handler.removeById(logo.id);
+			canvasRef.handler.add(
+				{
+					type: 'file',
+					svg: logologo,
+					type: 'svg',
+					superType: 'svg',
+					id: v4(),
+					name: 'logo',
+				},
+				centered,
+			);
+			canvasRef.canvas.renderAll();
+		},
+		onAddLogoUser: (option, centered) => {
+			const { canvasRef, onAddItem } = this.props;
+			canvasRef.canvas.renderAll();
+			const cookies = new Cookies();
+			const imgUrl = cookies.get('logourl');
+			// https://hayker.heylook.online/wp-content/uploads/2020/09/Logomaster-Heylook-238-1.svg
+			let logo = canvasRef.canvas.getObjects().find(el => el.name === 'logo');
+			if (!logo) {
+				alert('Create logo please');
+				return false;
+			}
+			const logoLeft = logo.left;
+			const logoTop = logo.top;
+			const logoHeightInitial = logo.height;
+			const logoWidthInitial = logo.width;
+			const logoScaleXInitial = logo.scaleX;
+			const logoScaleYInitial = logo.scaleY;
+			const trullyWidth = logoScaleXInitial * logoWidthInitial;
+			const trullyHeight = logoHeightInitial * logoScaleYInitial;
+
+			// fabric.loadSVGFromURL('https://hayker.heylook.online/wp-content/uploads/2020/09/Logomaster-Heylook-238-1.svg', function(objects, options, ...other) {
+			// 	console.log('ТУТ СМОТРИМ')
+			// 	console.log(objects)
+			// 	console.log(options)
+			// 	console.log(other)
+
+			// });
+
+			// axios.get(`https://hayker.heylook.online/wp-content/uploads/2020/09/Logomaster-Heylook-238-1.svg`).then(res => {
+			// 	console.log(res)
+			// });
+
+			// fabric.loadSVGFromURL(logotext, function(object) {
+			// 	console.log(object);
+			// 	let oSVG = object.set({ left: 250, top: 200, angle: 0 });
+			// 	oSVG = object.scale(0.25);
+			// 	canvas.add(oSVG);
+			// 	canvas.renderAll();
+			// });
+
+			// loadSvg(svg: string, loadType: 'file' | 'svg') {
+			// 	return new Promise<SvgObject>(resolve => {
+			// 		if (loadType === 'svg') {
+			// 			fabric.loadSVGFromString(svg, (objects, options) => {
+			// 				resolve(this.addSvgElements(objects, options, svg));
+			// 			});
+			// 		} else {
+			// 			fabric.loadSVGFromURL(svg, (objects, options) => {
+			// 				resolve(this.addSvgElements(objects, options, svg));
+			// 			});
+			// 		}
+			// 	});
+			// },
+
+			// canvasRef.handler.removeById(logo.id);
+
+			// canvasRef.handler.add(
+			// 	{ type: 'file', svg: logologo, type: 'svg', superType: 'svg', id: v4(), name: 'logo' },
+			// 	centered,
+			// );
+			// .set('top', canvasInitialTop + balanceY * koefY);
+
+			canvasRef.handler.removeById(logo.id);
+			onAddItem(imgUrl, true);
+			logo = canvasRef.canvas.getObjects().find(el => el.name === 'logo');
+
+			logo.set('left', logoLeft);
+			logo.set('top', logoTop);
+
+			const koefX = trullyWidth / logo.height;
+			const koefY = trullyHeight / logo.width;
+
+			logo.set('scaleX', logo.scaleX * koefX);
+			logo.set('scaleY', logo.scaleY * koefY);
+
+			canvasRef.canvas.renderAll();
+		},
+
 		onDrawingItem: item => {
 			const { canvasRef } = this.props;
 			if (canvasRef.handler.interactionMode === 'polygon') {
@@ -237,8 +337,6 @@ class ImageMapItems extends Component {
 	);
 
 	renderItem = (item, centered) => {
-		console.log('item');
-		console.log(item);
 		return item.type === 'drawing' ? (
 			<div
 				key={item.name}
@@ -299,7 +397,7 @@ class ImageMapItems extends Component {
 				</div>
 				<div
 					draggable
-					onClick={()=>console.log('добавилось лого клиента')}
+					onClick={() => this.handlers.onAddLogo()}
 					// onDragStart={e => this.events.onDragStart(e, item)}
 					// onDragEnd={e => this.events.onDragEnd(e, item)}
 					className="rde-editor-items-item"
@@ -308,6 +406,15 @@ class ImageMapItems extends Component {
 					<span className="rde-editor-items-item-icon">
 						<img src={logologo} alt="logologo" />
 					</span>
+					<div className="rde-editor-items-item-text">Logo</div>
+				</div>
+				<div
+					draggable
+					onClick={() => this.handlers.onAddLogoUser()}
+					className="rde-editor-items-item"
+					style={{ justifyContent: this.state.collapse ? 'center' : null }}
+				>
+					<span className="rde-editor-items-item-icon">123123123123</span>
 					<div className="rde-editor-items-item-text">Logo</div>
 				</div>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>

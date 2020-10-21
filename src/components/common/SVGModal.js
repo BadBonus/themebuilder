@@ -43,6 +43,9 @@ class SVGModal extends Component {
 				const reader = new FileReader();
 				reader.readAsDataURL(values.svg);
 				reader.onload = () => {
+					console.log('reader.result');
+
+					console.log(reader.result);
 					onOk({ ...values, svg: reader.result });
 				};
 			} else {

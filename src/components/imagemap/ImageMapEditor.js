@@ -619,8 +619,7 @@ class ImageMapEditor extends Component {
 		onSaveImage: () => {
 			this.canvasRef.handler.saveCanvasImage();
 		},
-		onAddItem: src => {
-			console.log('onAddItem сработал');
+		onAddItem: (src, logo) => {
 			const canvasRef = this.canvasRef;
 			const id = v4();
 			const option = Object.assign(
@@ -628,7 +627,7 @@ class ImageMapEditor extends Component {
 				{
 
 					type: 'image',
-					name: 'New image',
+					name: logo ? 'logo' : 'New image',
 					src,
 					id,
 				},
@@ -777,6 +776,7 @@ class ImageMapEditor extends Component {
 						}}
 						canvasRef={this.canvasRef}
 						descriptors={descriptors}
+						onAddItem={onAddItem}
 						makeUnsplash={() => {
 							this.setState({ unsplashActive: !this.state.unsplashActive });
 						}}

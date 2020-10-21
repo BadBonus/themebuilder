@@ -32,6 +32,7 @@ const Svg = fabric.util.createClass(fabric.Group, {
 			this.canvas.requestRenderAll();
 		}
 	},
+	// #work  svg load from url
 	loadSvg(svg: string, loadType: 'file' | 'svg') {
 		return new Promise<SvgObject>(resolve => {
 			if (loadType === 'svg') {
