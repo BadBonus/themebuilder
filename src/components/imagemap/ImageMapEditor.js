@@ -4,7 +4,8 @@ import debounce from 'lodash/debounce';
 import i18n from 'i18next';
 import axios from 'axios';
 import { v4 } from 'uuid';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { themeInsert, addTheme } from './../../API';
+import Cookies from 'universal-cookie';
 
 import ImageMapFooterToolbar from './ImageMapFooterToolbar';
 import ImageMapItems from './ImageMapItems';
@@ -568,7 +569,9 @@ class ImageMapEditor extends Component {
 			inputEl.remove();
 		},
 		onDownload: () => {
-			this.showLoading(true);
+			// this.showLoading(true);
+			const cookies = new Cookies();
+			const userId = cookies.get('user_id');
 			const objects = this.canvasRef.handler.exportJSON().filter(obj => {
 				if (!obj.id) {
 					return false;
@@ -582,15 +585,51 @@ class ImageMapEditor extends Component {
 				styles,
 				dataSources,
 			};
-			const anchorEl = document.createElement('a');
-			anchorEl.href = `data:text/json;charset=utf-8,${encodeURIComponent(
-				JSON.stringify(exportDatas, null, '\t'),
-			)}`;
-			anchorEl.download = `${this.canvasRef.handler.workarea.name || 'sample'}.json`;
-			document.body.appendChild(anchorEl); // required for firefox
-			anchorEl.click();
-			anchorEl.remove();
-			this.showLoading(false);
+			// themeInsert
+			// addTheme
+			const jsonShedule = JSON.stringify(exportDatas, null, '\t');
+			if (!this.canvasRef.idProd) {
+				console.log('сработала запись началки');
+				axios
+					.post(themeInsert, {
+						user_id: userId,
+						theme_title: this.canvasRef.state.id,
+						theme_data: jsonShedule,
+						product_id: 1,
+					})
+					.then(function(response) {
+						console.log(response);
+						this.showLoading(false);
+					})
+					.catch(function(error) {
+						console.log(error);
+						// this.showLoading(false);
+					});
+			} else {
+				console.log('сработала запись варианта');
+				axios
+					.post(addTheme, {
+						theme_id: this.canvasRef.state.id,
+						theme_data: jsonShedule,
+						product_id: this.canvasRef.idProd,
+					})
+					.then(function(response) {
+						console.log(response);
+						this.showLoading(false);
+					})
+					.catch(function(error) {
+						console.log(error);
+						// this.showLoading(false);
+					});
+			}
+			// const anchorEl = document.createElement('a');
+			// anchorEl.href = `data:text/json;charset=utf-8,${encodeURIComponent(
+			// 	JSON.stringify(exportDatas, null, '\t'),
+			// )}`;
+			// anchorEl.download = `${this.canvasRef.handler.workarea.name || 'sample'}.json`;
+			// document.body.appendChild(anchorEl); // required for firefox
+			// anchorEl.click();
+			// anchorEl.remove();
 		},
 		onChangeAnimations: animations => {
 			if (!this.state.editing) {
@@ -625,7 +664,6 @@ class ImageMapEditor extends Component {
 			const option = Object.assign(
 				{},
 				{
-
 					type: 'image',
 					name: logo ? 'logo' : 'New image',
 					src,
@@ -661,8 +699,6 @@ class ImageMapEditor extends Component {
 			editing,
 		});
 	};
-
-
 
 	render() {
 		const {
@@ -762,6 +798,7 @@ class ImageMapEditor extends Component {
 				preview={preview}
 				onChangePreview={onChangePreview}
 				zoomRatio={zoomRatio}
+				onDownload={this.handlers.onDownload}
 			/>
 		);
 		const content = (

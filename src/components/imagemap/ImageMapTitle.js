@@ -4,69 +4,11 @@ import { Tooltip, Switch, Modal, Button } from 'antd';
 import axios from 'axios';
 import { postThemeInsert } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
+import { getAllProducts } from '../../API';
 
-//mocks
-const mock_prod = [
-	{
-		name: 'Twitter Post (1012x506)',
-		sizes: {
-			width: 1012,
-			height: 506,
-		},
-	},
-	{
-		name: 'Twitter Header (1500x500)',
-		sizes: {
-			width: 1500,
-			height: 500,
-		},
-	},
-	{
-		name: 'Facebook Post (1200x630)',
-		sizes: {
-			width: 1200,
-			height: 630,
-		},
-	},
-	{
-		name: 'Facebook Cover (830x312)',
-		sizes: {
-			width: 830,
-			height: 312,
-		},
-	},
-	{
-		name: 'Instagram Post (1080x1080)',
-		sizes: {
-			width: 1080,
-			height: 1080,
-		},
-	},
-	{
-		name: 'Instagram Story (1080x1920)',
-		sizes: {
-			width: 1080,
-			height: 1920,
-		},
-	},
-	{
-		name: 'Dribbble Shot (400x300)',
-		sizes: {
-			width: 400,
-			height: 300,
-		},
-	},
-	{
-		name: 'Dribbble Shot HD (800x600)',
-		sizes: {
-			width: 800,
-			height: 600,
-		},
-	},
-];
 
 class ImageMapTitle extends Component {
-	state = { visible: false };
+	state = { visible: false, sizes: [] };
 
 	showModal = () => {
 		this.setState({
@@ -88,10 +30,15 @@ class ImageMapTitle extends Component {
 		});
 	};
 
-	changeSizeOfCanvas = (width, height) => {
-		const { canvas } = this.props;
+	changeSizeOfCanvas = (width, height, idProd) => {
+		const { canvas, onDownload } = this.props;
 		const newX = width;
 		const newY = height;
+
+		if(!canvas.idProd) {
+			canvas.idProd = idProd;
+			onDownload();
+		}
 
 		var objs = canvas.canvas.getObjects().map(function(o) {
 			return o.set('active', true);
@@ -135,7 +82,7 @@ class ImageMapTitle extends Component {
 		canvas.canvas.renderAll();
 	};
 
-	makeNewCanvas = () => {
+	makeNewCanvas = (idProd) => {
 		const { canvas } = this.props;
 		canvas.handler.clear();
 		canvas.canvas.item(0).set('width', 1920);
@@ -156,9 +103,9 @@ class ImageMapTitle extends Component {
 	saveTheme = () => {
 		axios
 			.post(postThemeInsert, {
-				user_id:'user_id_test',
-				theme_name:'theme_name_test',
-				theme_data:'theme_data_test'
+				user_id: 'user_id_test',
+				theme_name: 'theme_name_test',
+				theme_data: 'theme_data_test',
 			})
 			.then(function(response) {
 				console.log(response);
@@ -168,12 +115,28 @@ class ImageMapTitle extends Component {
 			});
 	};
 	renderProducts = products =>
-		products.map(({ name, sizes }) => (
-			<li onClick={() => this.changeSizeOfCanvas(sizes.width, sizes.height)}>{name}</li>
+		products.map(({ name, sizes, id_p }) => (
+			<li onClick={() => this.changeSizeOfCanvas(sizes.width, sizes.height, id_p)}>{name}</li>
 		));
+
+	componentWillMount() {
+		axios.get(getAllProducts).then(({ data }) => {
+			const sizes = data.map(el => ({
+				name: el.product_title + ' ' + el.product_width + 'X' + el.product_height,
+				sizes: {
+					width: el.product_width,
+					height: el.product_height,
+				},
+				id_p:el.id_p
+			}));
+			this.setState({ sizes });
+		});
+	}
 
 	render() {
 		const { title, content, action, children, canvas, preview, onChangePreview } = this.props;
+		const { sizes } = this.state;
+
 		return (
 			children || (
 				<Flex className="rde-content-layout-title" alignItems="center" flexWrap="wrap" justifyContent="center">
@@ -220,7 +183,7 @@ class ImageMapTitle extends Component {
 						okText="CANCEL"
 						cancelText="NEXT"
 					>
-						<ul className="productsSizes">{this.renderProducts(mock_prod)}</ul>
+						<ul className="productsSizes">{this.renderProducts(sizes)}</ul>
 					</Modal>
 				</Flex>
 			)
