@@ -23,7 +23,7 @@ export const uploadImages = mainUrl+'upload-images';
 //     "user_id": 1231312,
 //     "theme_title": "sdasdsad",
 //     "theme_data": {},
-//     "product_id": 2
+//     "product_id": 1
 // }
 
 // upload-images, form-data: {

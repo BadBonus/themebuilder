@@ -543,6 +543,8 @@ class ImageMapEditor extends Component {
 								}
 								return true;
 							});
+							console.log('import data ______');
+							console.log(data);
 							this.canvasRef.handler.importJSON(data);
 						}
 					};
@@ -562,6 +564,7 @@ class ImageMapEditor extends Component {
 			inputEl.type = 'file';
 			inputEl.hidden = true;
 			inputEl.onchange = e => {
+				console.log(e.target.files);
 				this.handlers.onImport(e.target.files);
 			};
 			document.body.appendChild(inputEl); // required for firefox
@@ -589,7 +592,6 @@ class ImageMapEditor extends Component {
 			// addTheme
 			const jsonShedule = JSON.stringify(exportDatas, null, '\t');
 			if (!this.canvasRef.idProd) {
-				console.log('сработала запись началки');
 				axios
 					.post(themeInsert, {
 						user_id: userId,
@@ -606,7 +608,6 @@ class ImageMapEditor extends Component {
 						// this.showLoading(false);
 					});
 			} else {
-				console.log('сработала запись варианта');
 				axios
 					.post(addTheme, {
 						theme_id: this.canvasRef.state.id,

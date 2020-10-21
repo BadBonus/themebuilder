@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Flex } from '../flex';
 import { Tooltip, Switch, Modal, Button } from 'antd';
 import axios from 'axios';
-import { postThemeInsert } from '../../API';
+import { postThemeInsert, getTheme } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
 import { getAllProducts } from '../../API';
 
@@ -36,8 +36,8 @@ class ImageMapTitle extends Component {
 		const newY = height;
 
 		if(!canvas.idProd) {
-			canvas.idProd = idProd;
 			onDownload();
+			canvas.idProd = idProd;
 		}
 
 		var objs = canvas.canvas.getObjects().map(function(o) {
@@ -100,9 +100,9 @@ class ImageMapTitle extends Component {
 		});
 	};
 
-	saveTheme = () => {
+	loadTheme = () => {
 		axios
-			.post(postThemeInsert, {
+			.post(getTheme(), {
 				user_id: 'user_id_test',
 				theme_name: 'theme_name_test',
 				theme_data: 'theme_data_test',
@@ -174,7 +174,7 @@ class ImageMapTitle extends Component {
 					<button className="btnNewSize" onClick={this.showModal}>
 						new product
 					</button>
-					<button onClick={this.saveTheme}>Test</button>
+					<button onClick={this.loadTheme}>Test</button>
 					<Modal
 						title="Please select format"
 						visible={this.state.visible}
