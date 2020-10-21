@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Upload, Icon } from 'antd';
+import axios from 'axios';
+import { uploadImages } from '../../API';
 
 const { Dragger } = Upload;
 
@@ -31,7 +33,8 @@ class FileUpload extends Component {
 		const props = {
 			accept,
 			name: 'file',
-			multiple: false,
+			action: '//jsonplaceholder.typicode.com/posts/',
+			multiple: true,
 			onChange: info => {
 				const isLimit = info.file.size / 1024 / 1024 < limit;
 				if (!isLimit) {
@@ -40,6 +43,31 @@ class FileUpload extends Component {
 				}
 				const { onChange } = this.props;
 				onChange(info.file);
+				console.log('FileUpload onChange');
+				console.log(info);
+				const typeFile = info.file.name.match('/.rar|.zip/');
+				axios
+					.post(uploadImages, {
+						imgCollection: info.fileList[0],
+					})
+					.then(function(response) {
+						console.log(response);
+					})
+					.catch(function(error) {
+						console.log(error);
+					});
+				// if (typeFile) {
+				// 	axios
+				// 		.post(uploadImages, {
+				// 			imgCollection: info.file,
+				// 		})
+				// 		.then(function(response) {
+				// 			console.log(response);
+				// 		})
+				// 		.catch(function(error) {
+				// 			console.log(error);
+				// 		});
+				// }
 			},
 			onRemove: file => {
 				this.setState(

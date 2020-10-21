@@ -594,7 +594,7 @@ class ImageMapEditor extends Component {
 			if (!this.canvasRef.idProd) {
 				axios
 					.post(themeInsert, {
-						user_id: userId,
+						user_id: +userId,
 						theme_title: this.canvasRef.state.id,
 						theme_data: jsonShedule,
 						product_id: 1,

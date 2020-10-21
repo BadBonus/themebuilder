@@ -28,6 +28,9 @@ class SVGModal extends Component {
 
 	handleChangeSvgType = e => {
 		this.props.form.resetFields();
+		console.log('handleChangeSvgType');
+		console.log(handleChangeSvgType);
+
 		this.setState({
 			loadType: e.target.value,
 		});
