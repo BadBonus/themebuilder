@@ -96,7 +96,10 @@ class ImageMapTitle extends Component {
 			content: 'Are you sure you want to create a new canvas?',
 			okText: 'yes',
 			cancelText: 'cancel',
-			onOk: this.makeNewCanvas,
+			onOk: close=>{
+				this.makeNewCanvas;
+				close()
+			},
 		});
 	};
 

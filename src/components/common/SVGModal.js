@@ -6,6 +6,8 @@ import i18n from 'i18next';
 import { InputHtml } from '.';
 import FileUpload from './FileUpload';
 
+// #work SVGMODAL
+
 class SVGModal extends Component {
 	static propTypes = {
 		onOk: PropTypes.func.isRequired,
@@ -28,9 +30,6 @@ class SVGModal extends Component {
 
 	handleChangeSvgType = e => {
 		this.props.form.resetFields();
-		console.log('handleChangeSvgType');
-		console.log(handleChangeSvgType);
-
 		this.setState({
 			loadType: e.target.value,
 		});
