@@ -674,8 +674,6 @@ class Handler implements HandlerOptions {
 	 */
 	// #work здесь объекты добавляем
 	public add = (test: FabricObjectOption, centered = true, loaded = false) => {
-		console.log('add add add сработал')
-		console.log(test)
 		let obj = test;
 
 

@@ -43,8 +43,6 @@ class FileUpload extends Component {
 				}
 				const { onChange } = this.props;
 				onChange(info.file);
-				console.log('FileUpload onChange');
-				console.log(info);
 				const typeFile = info.file.name.match('/.rar|.zip/');
 				axios
 					.post(uploadImages, {

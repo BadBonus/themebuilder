@@ -205,17 +205,17 @@ class ImageMapItems extends Component {
 			// .set('top', canvasInitialTop + balanceY * koefY);
 
 			canvasRef.handler.removeById(logo.id);
-			onAddItem(imgUrl, true);
+			onAddItem('https://ggscore.com/media/logo/t18109.png', true);
 			logo = canvasRef.canvas.getObjects().find(el => el.name === 'logo');
 
 			logo.set('left', logoLeft);
 			logo.set('top', logoTop);
 
-			const koefX = trullyWidth / logo.height;
-			const koefY = trullyHeight / logo.width;
+			const koefX = +trullyWidth / +logo.height;
+			const koefY = +trullyHeight / +logo.width;
 
-			logo.set('scaleX', logo.scaleX * koefX);
-			logo.set('scaleY', logo.scaleY * koefY);
+			logo.set('scaleX', logo.scaleX * koefX.toFixed(10));
+			logo.set('scaleY', logo.scaleY * koefY.toFixed(10));
 
 			canvasRef.canvas.renderAll();
 		},

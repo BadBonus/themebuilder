@@ -15,9 +15,6 @@ class ColorPicker extends Component {
 	handlers = {
 		onChange: color => {
 			const { onChange, valueType } = this.props;
-			console.log('color');
-
-			console.log(color);
 			let newColor;
 			if (valueType === 'string') {
 				newColor = `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`;
@@ -58,9 +55,6 @@ class ColorPicker extends Component {
 			return color;
 		}
 		rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,(\d+[.,]?\d{0,3})/i);
-		console.log('rgb тут');
-
-		console.log(rgb);
 
 		return rgb  ? <><span className="ColorPicker__hexColorMain">
 			{
