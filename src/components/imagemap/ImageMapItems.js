@@ -424,7 +424,6 @@ class ImageMapItems extends Component {
 					</span>
 					<div className="rde-editor-items-item-text">Logo</div>
 				</div>
-				<button onClick={this.test}>123</button>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>
 					{/* <Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>
 						<CommonButton

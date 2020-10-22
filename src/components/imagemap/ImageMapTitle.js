@@ -6,7 +6,7 @@ import { postThemeInsert, getTheme } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getAllProducts, getThemes, getThemeProducts, getThemeById, getThemeAndProduct } from '../../API';
-import sample from './test.json'
+import sample from './test.json';
 
 const loremLogoTheme =
 	'https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/30/4b/b7/304bb774-1b10-dad1-32e5-1556106b1c28/source/256x256bb.jpg';
@@ -40,7 +40,6 @@ class ImageMapTitle extends Component {
 			content: 'Are you sure you want to create a new canvas?',
 			okText: 'yes',
 			cancelText: 'cancel',
-			onOk: () => console.log('onOk'),
 		});
 	};
 
@@ -53,9 +52,8 @@ class ImageMapTitle extends Component {
 	loadProductTheme = (id_th, id_p) => {
 		const { canvas } = this.props;
 		axios.get(getThemeAndProduct(id_th, id_p)).then(({ data }) => {
-			this.setState({ chosedTheme: data[0], visible: false });
-			// canvas.handler.importJSON(data[0]);
-			console.log(JSON.parse(data[0].theme_data));
+			this.setState({ visible: false });
+			this.renderCanvas(data.theme_data);
 		});
 	};
 
@@ -80,29 +78,28 @@ class ImageMapTitle extends Component {
 		});
 	}
 
-	test = () => {
+	renderCanvas = infoObject => {
 		const { canvas } = this.props;
-		// const file = JSON.stringify(sample);
-		// console.log(' JSON.stringify');
+		const { objects, animations, styles, dataSources } = infoObject;
+		console.log('infoObject');
+		console.log(infoObject);
 
-		console.log(file);
-		// const { objects, animations, styles, dataSources } = JSON.parse(file);
-		// this.setState({
-		// 	animations,
-		// 	styles,
-		// 	dataSources,
-		// });
-		// if (objects) {
-		// 	canvas.handler.clear(true);
-		// 	const data = objects.filter(obj => {
-		// 		if (!obj.id) {
-		// 			return false;
-		// 		}
-		// 		return true;
-		// 	});
-		// 	canvas.handler.importJSON(data);
-		// }
-	}
+		this.setState({
+			animations,
+			styles,
+			dataSources,
+		});
+		if (objects) {
+			canvas.handler.clear(true);
+			const data = objects.filter(obj => {
+				if (!obj.id) {
+					return false;
+				}
+				return true;
+			});
+			canvas.handler.importJSON(data);
+		}
+	};
 
 	render() {
 		const { title, content, action, children, canvas, preview, onChangePreview } = this.props;
@@ -145,7 +142,6 @@ class ImageMapTitle extends Component {
 					{/* <button className="btnNewSize" onClick={this.showModal}>
 						new product
 					</button> */}
-					<button onClick={this.test}>test</button>
 					<Modal
 						title={part === 'themes' ? 'Please select theme' : 'Please select format'}
 						visible={this.state.visible}
