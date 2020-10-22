@@ -110,7 +110,7 @@ export default class UnsplashModal extends Component {
 	render() {
 		const { images, loaded, hasMore } = this.state;
 
-		const { onAddItem, close } = this.props;
+		const { onAddItem, close, selectedItem } = this.props;
 
 		return (
 			<div className="imageChooser">
@@ -132,7 +132,8 @@ export default class UnsplashModal extends Component {
 				<Input placeholder="Search" onChange={evt => this.doSearch(evt)} />
 
 				<div className="imageChooser__content" id="imageChooser__content">
-					<InfiniteScroll
+					{(selectedItem && selectedItem.type==='image')
+					? <InfiniteScroll
 						dataLength={images.length}
 						next={this.fetchImages}
 						hasMore={hasMore}
@@ -154,6 +155,8 @@ export default class UnsplashModal extends Component {
 							/>
 						))}
 					</InfiniteScroll>
+					: <h3>Please choose an image</h3>
+					}
 
 					{/* {
 									images.map((image, index) => (

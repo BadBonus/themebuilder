@@ -337,9 +337,6 @@ class ImageMapItems extends Component {
 	);
 
 	renderItem = (item, centered) => {
-		console.log('image map itemsitem');
-
-		console.log(item);
 		return item.type === 'drawing' ? (
 			<div
 				key={item.name}
@@ -377,14 +374,14 @@ class ImageMapItems extends Component {
 	};
 
 	render() {
-		const { descriptors, makeUnsplash } = this.props;
+		const { descriptors, makeUnsplash, selectedItem } = this.props;
 		const { collapse, textSearch, filteredDescriptors, activeKey, svgModalVisible, svgOption } = this.state;
 		const className = classnames('rde-editor-items', {
 			minimize: collapse,
 		});
 		return (
 			<div className={className}>
-				<div
+				{<div
 					draggable
 					onClick={makeUnsplash}
 					// onDragStart={e => this.events.onDragStart(e, item)}
@@ -397,7 +394,7 @@ class ImageMapItems extends Component {
 					</span>
 					{/* {this.state.collapse ? null : <div className="rde-editor-items-item-text">Image</div>} */}
 					<div className="rde-editor-items-item-text">Image</div>
-				</div>
+				</div>}
 				<div
 					draggable
 					onClick={() => this.handlers.onAddLogoUser()}

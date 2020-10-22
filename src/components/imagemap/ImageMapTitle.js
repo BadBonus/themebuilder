@@ -6,7 +6,6 @@ import { postThemeInsert, getTheme } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getAllProducts, getThemes, getThemeProducts, getThemeById, getThemeAndProduct } from '../../API';
-import sample from './test.json';
 
 const loremLogoTheme =
 	'https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/30/4b/b7/304bb774-1b10-dad1-32e5-1556106b1c28/source/256x256bb.jpg';

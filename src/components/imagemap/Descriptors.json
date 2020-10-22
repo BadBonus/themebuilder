@@ -1,22 +1,6 @@
 {
 
-	"SVG": [
-		{
-			"name": "SVG",
-			"description": "",
-			"type": "default",
-			"icon": {
-				"prefix": "fas",
-				"name": "bezier-curve"
-			},
-			"option": {
-				"type": "svg",
-				"superType": "svg",
-				"name": "New SVG",
-				"loadType": "svg"
-			}
-		}
-	],
+
 	"TEXT": [
 		{
 			"name": "Text",

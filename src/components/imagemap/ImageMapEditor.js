@@ -600,9 +600,9 @@ class ImageMapEditor extends Component {
 						theme_data: jsonShedule,
 						product_id: 1,
 					})
-					.then((response) => {
+					.then(response => {
 						console.log(response.data);
-						this.setState({beginThemeId:response.data.id});
+						this.setState({ beginThemeId: response.data.id });
 						// this.showLoading(false);
 					})
 					.catch(function(error) {
@@ -675,6 +675,41 @@ class ImageMapEditor extends Component {
 			);
 			canvasRef.handler.add(option, true);
 		},
+		onRechangeImage: src => {
+			const { selectedItem } = this.state;
+			const canvasRef = this.canvasRef;
+
+			let correctScaleX = 2;
+			let correctScaleY = 2;
+
+			const initialWidth = selectedItem.width;
+			const initialHeight = selectedItem.height;
+			const initialScaleX = selectedItem.scaleX;
+			const initialScaleY = selectedItem.scaleY;
+			const trullyinitialWidth = initialScaleX * initialWidth;
+			const trullyinitialHeight = initialScaleY * initialHeight;
+			console.log('old image');
+			console.log(initialWidth);
+			console.log(initialHeight);
+			console.log(initialScaleX);
+			console.log(initialScaleY);
+
+			selectedItem.setSrc(src, newImg => {
+				console.log('newImg');
+				console.log(newImg.width);
+				console.log(newImg.height);
+				console.log(newImg.scaleX);
+				console.log(newImg.scaleY);
+
+				const koefX = (trullyinitialWidth / newImg.width).toFixed(25);
+				const koefy = (trullyinitialHeight / newImg.height).toFixed(25);
+
+				newImg.set('scaleX', koefX);
+				newImg.set('scaleY', koefy);
+
+				canvasRef.canvas.renderAll();
+			});
+		},
 	};
 
 	shortcutHandlers = {
@@ -739,6 +774,7 @@ class ImageMapEditor extends Component {
 			onChangeDataSources,
 			onSaveImage,
 			onAddItem,
+			onRechangeImage,
 		} = this.handlers;
 
 		const action = (
@@ -817,12 +853,17 @@ class ImageMapEditor extends Component {
 						canvasRef={this.canvasRef}
 						descriptors={descriptors}
 						onAddItem={onAddItem}
+						selectedItem={selectedItem}
 						makeUnsplash={() => {
 							this.setState({ unsplashActive: !this.state.unsplashActive });
 						}}
 					/>
 					{unsplashActive && (
-						<UnsplashModal onAddItem={onAddItem} close={() => this.setState({ unsplashActive: false })} />
+						<UnsplashModal
+							selectedItem={selectedItem}
+							onAddItem={onRechangeImage}
+							close={() => this.setState({ unsplashActive: false })}
+						/>
 					)}
 					<div className="rde-editor-canvas-container">
 						<div className="rde-editor-header-toolbar">
@@ -897,7 +938,6 @@ class ImageMapEditor extends Component {
 }
 
 export default ImageMapEditor;
-
 
 // {	"objects": [		{			"type": "image",			"version": "3.6.6",			"originX": "left",			"originY": "top",			"left": -164,			"top": -311,			"width": 180,			"height": 180,			"fill": "rgb(0,0,0)",			"stroke": null,			"strokeWidth": 0,			"strokeDashArray": null,			"strokeLineCap": "butt",			"strokeDashOffset": 0,			"strokeLineJoin": "miter",			"strokeMiterLimit": 4,			"scaleX": 1,			"scaleY": 1,			"angle": 0,			"flipX": false,			"flipY": false,			"opacity": 1,			"shadow": null,			"visible": true,			"clipTo": null,			"backgroundColor": "#fff",			"fillRule": "nonzero",			"paintFirst": "fill",			"globalCompositeOperation": "source-over",			"transformMatrix": null,			"skewX": 0,			"skewY": 0,			"crossOrigin": "",			"cropX": 0,			"cropY": 0,			"id": "workarea",			"name": "",			"link": {},			"tooltip": {				"enabled": false			},			"layout": "fixed",			"workareaWidth": 1920,			"workareaHeight": 1040,			"src": "",			"filters": []		},		{			"type": "image",			"version": "3.6.6",			"originX": "left",			"originY": "top",			"left": -97.52,			"top": -231.57,			"width": 200,			"height": 133,			"fill": "rgba(0, 0, 0, 1)",			"stroke": "rgba(255, 255, 255, 0)",			"strokeWidth": 0,			"strokeDashArray": null,			"strokeLineCap": "butt",			"strokeDashOffset": 0,			"strokeLineJoin": "miter",			"strokeMiterLimit": 4,			"scaleX": 0.09,			"scaleY": 0.17,			"angle": 0,			"flipX": false,			"flipY": false,			"opacity": 1,			"shadow": null,			"visible": true,			"clipTo": null,			"backgroundColor": "",			"fillRule": "nonzero",			"paintFirst": "fill",			"globalCompositeOperation": "source-over",			"transformMatrix": null,			"skewX": 0,			"skewY": 0,			"crossOrigin": "",			"cropX": 0,			"cropY": 0,			"id": "86eb7174-89d5-4c12-a758-8a79f8b3dcb0",			"name": "New image",			"file": null,			"src": "https://images.unsplash.com/photo-1600950603226-e9443673e604?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3MDQyNH0",			"link": {				"enabled": false,				"type": "resource",				"state": "new",				"dashboard": {}			},			"tooltip": {				"enabled": true,				"type": "resource",				"template": "<div>{{message.name}}</div>"			},			"animation": {				"type": "none",				"loop": true,				"autoplay": true,				"duration": 1000			},			"userProperty": {},			"trigger": {				"enabled": false,				"type": "alarm",				"script": "return message.value > 0;",				"effect": "style"			},			"editable": true,			"filters": []		}	],	"animations": [],	"styles": [],	"dataSources": []}
 
