@@ -688,18 +688,8 @@ class ImageMapEditor extends Component {
 			const initialScaleY = selectedItem.scaleY;
 			const trullyinitialWidth = initialScaleX * initialWidth;
 			const trullyinitialHeight = initialScaleY * initialHeight;
-			console.log('old image');
-			console.log(initialWidth);
-			console.log(initialHeight);
-			console.log(initialScaleX);
-			console.log(initialScaleY);
 
 			selectedItem.setSrc(src, newImg => {
-				console.log('newImg');
-				console.log(newImg.width);
-				console.log(newImg.height);
-				console.log(newImg.scaleX);
-				console.log(newImg.scaleY);
 
 				const koefX = (trullyinitialWidth / newImg.width).toFixed(25);
 				const koefy = (trullyinitialHeight / newImg.height).toFixed(25);
