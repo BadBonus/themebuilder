@@ -63,6 +63,9 @@ class ImageMapConfigurations extends Component {
 		console.log('selectedItem');
 
 		console.log(selectedItem);
+		console.log('canvasRef')
+		console.log(canvasRef)
+
 
 		return (
 			<div className={className}>

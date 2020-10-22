@@ -34,12 +34,7 @@ class ImageMapTitle extends Component {
 	};
 
 	confirm = () => {
-		Modal.confirm({
-			title: 'Confirm',
-			content: 'Are you sure you want to create a new canvas?',
-			okText: 'yes',
-			cancelText: 'cancel',
-		});
+		this.setState({visible:true, part: 'themes'});
 	};
 
 	chooseMainTheme = id => {

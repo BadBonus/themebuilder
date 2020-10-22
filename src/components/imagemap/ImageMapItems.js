@@ -150,7 +150,7 @@ class ImageMapItems extends Component {
 			// https://hayker.heylook.online/wp-content/uploads/2020/09/Logomaster-Heylook-238-1.svg
 			let logo = canvasRef.canvas.getObjects().find(el => el.name === 'logo');
 			if (!logo) {
-				alert('Create logo please');
+				alert("This shedule don't have a logo");
 				return false;
 			}
 			const logoLeft = logo.left;
