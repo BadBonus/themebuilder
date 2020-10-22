@@ -149,7 +149,6 @@ class ImageMapList extends Component {
 										>
 											<i class="fas fa-lock"></i>
 										</Button> */}
-										{/* #WORK тут застрял */}
 										<Button
 											className="rde-action-btn"
 											shape="circle"

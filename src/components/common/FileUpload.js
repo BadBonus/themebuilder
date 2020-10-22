@@ -6,6 +6,7 @@ import { uploadImages } from '../../API';
 
 const { Dragger } = Upload;
 
+//# work FileUpload тут логика добавления файлов с раб стола происходит
 class FileUpload extends Component {
 	static propTypes = {
 		onChange: PropTypes.func,
@@ -33,7 +34,6 @@ class FileUpload extends Component {
 		const props = {
 			accept,
 			name: 'file',
-			action: '//jsonplaceholder.typicode.com/posts/',
 			multiple: true,
 			onChange: info => {
 				const isLimit = info.file.size / 1024 / 1024 < limit;
@@ -44,18 +44,21 @@ class FileUpload extends Component {
 				const { onChange } = this.props;
 				onChange(info.file);
 				console.log('FileUpload onChange');
-				console.log(info);
-				const typeFile = info.file.name.match('/.rar|.zip/');
-				axios
-					.post(uploadImages, {
-						imgCollection: info.fileList[0],
-					})
+				const typeFile = info.file.name.match('.zip');
+				if(typeFile){
+					console.log('typeFile сработал')
+
+					const formData = new FormData();
+					formData.append("imgCollection", info.file);
+					axios
+					.post(uploadImages,  formData)
 					.then(function(response) {
 						console.log(response);
 					})
 					.catch(function(error) {
 						console.log(error);
 					});
+				}
 				// if (typeFile) {
 				// 	axios
 				// 		.post(uploadImages, {

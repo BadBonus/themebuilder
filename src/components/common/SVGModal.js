@@ -99,7 +99,7 @@ class SVGModal extends Component {
 									}),
 								},
 							],
-						})(loadType === 'svg' ? <InputHtml /> : <FileUpload accept=".svg" />)}
+						})(loadType === 'svg' ? <InputHtml /> : <FileUpload accept=".svg, .zip" />)}
 					</Form.Item>
 				</Form>
 			</Modal>
