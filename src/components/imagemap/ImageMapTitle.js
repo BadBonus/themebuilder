@@ -4,11 +4,14 @@ import { Tooltip, Switch, Modal, Button } from 'antd';
 import axios from 'axios';
 import { postThemeInsert, getTheme } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
-import { getAllProducts } from '../../API';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { getAllProducts, getThemes, getThemeProducts, getThemeById, getThemeAndProduct } from '../../API';
 
+const loremLogoTheme =
+	'https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/30/4b/b7/304bb774-1b10-dad1-32e5-1556106b1c28/source/256x256bb.jpg';
 
 class ImageMapTitle extends Component {
-	state = { visible: false, sizes: [] };
+	state = { visible: true, sizes: [], part: 'themes', themes: [], chosedThemeId: null, choosedProductTheme: null };
 
 	showModal = () => {
 		this.setState({
@@ -30,112 +33,53 @@ class ImageMapTitle extends Component {
 		});
 	};
 
-	changeSizeOfCanvas = (width, height, idProd) => {
-		const { canvas, onDownload } = this.props;
-		const newX = width;
-		const newY = height;
-
-		if(!canvas.idProd) {
-			onDownload();
-			canvas.idProd = idProd;
-		}
-
-		var objs = canvas.canvas.getObjects().map(function(o) {
-			return o.set('active', true);
-		});
-		objs = objs.slice(1);
-
-		//deactivate some items i dont want to resize (this works)
-
-		// canvas.canvas.item(1).set('active', true);
-		// canvas.canvas.item(2).set('active', true);
-		// canvas.item(3).set('active', false);
-		// canvas.item(4).set('active', false);
-
-		const oldX = canvas.canvas.item(0).width;
-		const oldY = canvas.canvas.item(0).height;
-		const canvasInitialLeft = canvas.canvas.item(0).left;
-		const canvasInitialTop = canvas.canvas.item(0).top;
-
-		//Найти коэфициент старый к новому
-
-		const koefX = newX / oldX;
-		const koefY = newY / oldY;
-
-		canvas.canvas.item(0).set('height', newY);
-		canvas.canvas.item(0).set('width', newX);
-
-		canvas.handler.selectAll();
-
-		const selectGroupLeft = canvas.canvas._activeObject.left;
-		const selectGroupTop = canvas.canvas._activeObject.top;
-
-		const balanceX = selectGroupLeft - canvasInitialLeft;
-		const balanceY = selectGroupTop - canvasInitialTop;
-
-		canvas.canvas._activeObject.set('scaleX', canvas.canvas._activeObject.scaleX * koefX);
-		canvas.canvas._activeObject.set('scaleY', canvas.canvas._activeObject.scaleY * koefY);
-
-		canvas.canvas._activeObject.set('left', canvasInitialLeft + balanceX * koefX);
-		canvas.canvas._activeObject.set('top', canvasInitialTop + balanceY * koefY);
-
-		canvas.canvas.renderAll();
-	};
-
-	makeNewCanvas = (idProd) => {
-		const { canvas } = this.props;
-		canvas.handler.clear();
-		canvas.canvas.item(0).set('width', 1920);
-		canvas.canvas.item(0).set('height', 1080);
-		canvas.canvas.renderAll();
-	};
-
 	confirm = () => {
 		Modal.confirm({
 			title: 'Confirm',
 			content: 'Are you sure you want to create a new canvas?',
 			okText: 'yes',
 			cancelText: 'cancel',
-			onOk: this.makeNewCanvas,
+			onOk: () => console.log('onOk'),
 		});
 	};
 
-	loadTheme = () => {
-		axios
-			.post(getTheme(), {
-				user_id: 'user_id_test',
-				theme_name: 'theme_name_test',
-				theme_data: 'theme_data_test',
-			})
-			.then(function(response) {
-				console.log(response);
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+	chooseMainTheme = id => {
+		axios.get(getThemeProducts(id)).then(({ data }) => {
+			this.setState({ sizes: data, chosedThemeId: id, part: 'sizes' });
+		});
 	};
+
+	loadProductTheme = (id_th, id_p) => {
+		axios.get(getThemeAndProduct(id_th, id_p)).then(({ data }) => {
+			this.setState({ chosedTheme: data[0] });
+			console.log('Добавилась тема на канвас');
+		});
+	};
+
 	renderProducts = products =>
-		products.map(({ name, sizes, id_p }) => (
-			<li onClick={() => this.changeSizeOfCanvas(sizes.width, sizes.height, id_p)}>{name}</li>
+		products.map(({ product_title, product_width, product_height, id_p }) => (
+			<li onClick={() => this.loadProductTheme(this.state.chosedThemeId, id_p)}>
+				{product_title +`-${id_p}` + ` ${product_width}X${product_height}`}
+			</li>
+		));
+
+	renderThemes = products =>
+		products.map(({ theme_title, id_t }) => (
+			<li onClick={() => this.chooseMainTheme(id_t)} key={id_t}>
+				<img src={loremLogoTheme} alt="logo of theme" />
+				theme:{theme_title + '-' + id_t}
+			</li>
 		));
 
 	componentWillMount() {
-		axios.get(getAllProducts).then(({ data }) => {
-			const sizes = data.map(el => ({
-				name: el.product_title + ' ' + el.product_width + 'X' + el.product_height,
-				sizes: {
-					width: el.product_width,
-					height: el.product_height,
-				},
-				id_p:el.id_p
-			}));
-			this.setState({ sizes });
+		axios.get(getThemes).then(({ data }) => {
+			this.setState({ themes: data });
 		});
 	}
 
 	render() {
 		const { title, content, action, children, canvas, preview, onChangePreview } = this.props;
-		const { sizes } = this.state;
+		const { sizes, part, themes, chosedThemeId } = this.state;
 
 		return (
 			children || (
@@ -175,14 +119,15 @@ class ImageMapTitle extends Component {
 						new product
 					</button> */}
 					<Modal
-						title="Please select format"
+						title={part === 'themes' ? 'Please select theme' : 'Please select format'}
 						visible={this.state.visible}
 						onOk={this.handleOk}
 						onCancel={this.handleCancel}
 						okText="CANCEL"
 						cancelText="NEXT"
 					>
-						<ul className="productsSizes">{this.renderProducts(sizes)}</ul>
+						{part === 'sizes' && <ul className="productsSizes">{this.renderProducts(sizes)}</ul>}
+						{part === 'themes' && <ul className="productsThemes">{this.renderThemes(themes)}</ul>}
 					</Modal>
 				</Flex>
 			)
