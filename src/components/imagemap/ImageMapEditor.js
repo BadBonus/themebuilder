@@ -102,6 +102,7 @@ class ImageMapEditor extends Component {
 		editing: false,
 		descriptors: {},
 		objects: undefined,
+		beginThemeId: false,
 	};
 
 	componentDidMount() {
@@ -581,7 +582,7 @@ class ImageMapEditor extends Component {
 				}
 				return true;
 			});
-			const { animations, styles, dataSources } = this.state;
+			const { animations, styles, dataSources, beginThemeId } = this.state;
 			const exportDatas = {
 				objects,
 				animations,
@@ -599,9 +600,10 @@ class ImageMapEditor extends Component {
 						theme_data: jsonShedule,
 						product_id: 1,
 					})
-					.then(function(response) {
-						console.log(response);
-						this.showLoading(false);
+					.then((response) => {
+						console.log(response.data);
+						this.setState({beginThemeId:response.data.id});
+						// this.showLoading(false);
 					})
 					.catch(function(error) {
 						console.log(error);
@@ -610,13 +612,13 @@ class ImageMapEditor extends Component {
 			} else {
 				axios
 					.post(addTheme, {
-						theme_id: this.canvasRef.state.id,
+						theme_id: beginThemeId,
 						theme_data: jsonShedule,
 						product_id: this.canvasRef.idProd,
 					})
 					.then(function(response) {
 						console.log(response);
-						this.showLoading(false);
+						// this.showLoading(false);
 					})
 					.catch(function(error) {
 						console.log(error);
