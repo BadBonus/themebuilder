@@ -31,7 +31,7 @@ class ImageMapList extends Component {
 						Layers
 					</h5>
 				</div>
-				<Flex justifyContent="space-between" alignItems="center">
+				{/* <Flex justifyContent="space-between" alignItems="center">
 					<Flex flex="1" justifyContent="center">
 						<Button
 							className="rde-action-btn"
@@ -52,7 +52,7 @@ class ImageMapList extends Component {
 							<Icon name="arrow-down" />
 						</Button>
 					</Flex>
-				</Flex>
+				</Flex> */}
 			</Flex.Item>
 		);
 	};

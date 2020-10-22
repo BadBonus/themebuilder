@@ -376,19 +376,6 @@ class ImageMapItems extends Component {
 		);
 	};
 
-	//#work пример блокировки картинок здесь
-
-	test=()=>{
-		const {canvasRef} = this.props;
-		canvasRef.canvas.getObjects().forEach(el=>{
-			el.set('hasControls', false);
-			el.set('lockMovementX', true);
-			el.set('lockMovementY', true);
-			el.set('locked', true);
-			canvasRef.canvas.renderAll();
-		})
-	}
-
 	render() {
 		const { descriptors, makeUnsplash } = this.props;
 		const { collapse, textSearch, filteredDescriptors, activeKey, svgModalVisible, svgOption } = this.state;

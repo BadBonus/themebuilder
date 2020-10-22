@@ -98,6 +98,17 @@ class ImageMapTitle extends Component {
 				return true;
 			});
 			canvas.handler.importJSON(data);
+			setTimeout(() => {
+				canvas.canvas.getObjects().forEach(el => {
+					if (el.type !== 'textbox') {
+						el.set('hasControls', false);
+						el.set('lockMovementX', true);
+						el.set('lockMovementY', true);
+						el.set('locked', true);
+					}
+					canvas.canvas.renderAll();
+				});
+			}, 0);
 		}
 	};
 
