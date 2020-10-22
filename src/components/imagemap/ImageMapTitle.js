@@ -174,7 +174,6 @@ class ImageMapTitle extends Component {
 					<button className="btnNewSize" onClick={this.showModal}>
 						new product
 					</button>
-					<button onClick={this.loadTheme}>Test</button>
 					<Modal
 						title="Please select format"
 						visible={this.state.visible}

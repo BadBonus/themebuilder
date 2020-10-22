@@ -559,7 +559,7 @@ class ImageMapEditor extends Component {
 				}, 500);
 			}
 		},
-		onUpload: () => {
+		onUpload: (data) => {
 			const inputEl = document.createElement('input');
 			inputEl.accept = '.json';
 			inputEl.type = 'file';
@@ -778,14 +778,14 @@ class ImageMapEditor extends Component {
 						onClick={onUpload}
 					/>
 				)}
-				<CommonButton
+				{/* <CommonButton
 					className="rde-action-btn"
 					shape="circle"
 					icon="image"
 					tooltipTitle={i18n.t('action.image-save')}
 					onClick={onSaveImage}
 					tooltipPlacement="bottomRight"
-				/>
+				/> */}
 			</React.Fragment>
 		);
 		const titleContent = (

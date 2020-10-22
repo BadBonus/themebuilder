@@ -411,15 +411,6 @@ class ImageMapItems extends Component {
 					</span>
 					<div className="rde-editor-items-item-text">Logo</div>
 				</div>
-				<div
-					draggable
-					onClick={() => this.handlers.onAddLogoUser()}
-					className="rde-editor-items-item"
-					style={{ justifyContent: this.state.collapse ? 'center' : null }}
-				>
-					<span className="rde-editor-items-item-icon">123123123123</span>
-					<div className="rde-editor-items-item-text">Logo</div>
-				</div>
 				<Flex flex="1" flexDirection="column" style={{ height: '100%' }}>
 					{/* <Flex justifyContent="center" alignItems="center" style={{ height: 40 }}>
 						<CommonButton
