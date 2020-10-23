@@ -3,7 +3,8 @@ import { Form, Input, Slider, Switch, Col, InputNumber, Row } from 'antd';
 import i18n from 'i18next';
 // mocks
 const mock_colors = ['red', 'green', 'blue'];
-
+// color1_hex
+import Cookies from 'universal-cookie';
 class PropertyCompanyColor extends Component {
 	renderColorItems = () => null;
 
@@ -11,6 +12,7 @@ class PropertyCompanyColor extends Component {
 		defaultColors: [],
 		changed: 0,
 		choosedColor: null,
+		colors: [null, null, null],
 	};
 
 	changeColorOfElement = color => {
@@ -47,11 +49,22 @@ class PropertyCompanyColor extends Component {
 	};
 
 	renderColorButtons = arrayOfColors =>
-		arrayOfColors.map((color, index) => (
-			<li key={index + Math.random()} className={color === this.state.choosedColor ? 'active' : ''}>
-				<button onClick={() => this.changeColorOfElement(color)} style={{ background: color }} />
-			</li>
-		));
+		arrayOfColors
+			.filter(color => color !== null)
+			.map((color, index) => (
+				<li key={index + Math.random()} className={color === this.state.choosedColor ? 'active' : ''}>
+					<button onClick={() => this.changeColorOfElement(color)} style={{ background: color }} />
+				</li>
+			));
+
+	componentDidMount() {
+		const cookies = new Cookies();
+		const color1 = cookies.get('color1_hex');
+		const color2 = cookies.get('color2_hex');
+		const color3 = cookies.get('color3_hex');
+
+		this.setState({ colors: [color1, color2, color3] });
+	}
 
 	componentDidUpdate(oldProps) {
 		if (oldProps.selectedItem !== this.props.selectedItem) {
@@ -71,7 +84,7 @@ class PropertyCompanyColor extends Component {
 						/>
 					</li>
 
-					{this.renderColorButtons(mock_colors)}
+					{this.renderColorButtons(this.state.colors)}
 				</ul>
 			</div>
 		);
