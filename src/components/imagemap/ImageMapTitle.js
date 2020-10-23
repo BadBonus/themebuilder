@@ -107,7 +107,7 @@ class ImageMapTitle extends Component {
 	};
 
 	render() {
-		const { title, content, action, children, canvas, preview, onChangePreview } = this.props;
+		const { title, content, action, children, canvas, preview, onChangePreview, onDownloadShedule } = this.props;
 		const { sizes, part, themes, chosedThemeId } = this.state;
 
 		return (
@@ -144,9 +144,9 @@ class ImageMapTitle extends Component {
 							</button>
 						</Tooltip>
 					</div>
-					{/* <button className="btnNewSize" onClick={this.showModal}>
-						new product
-					</button> */}
+					<button className="btnNewSize" onClick={onDownloadShedule}>
+						Save shedule
+					</button>
 					<Modal
 						title={part === 'themes' ? 'Please select theme' : 'Please select format'}
 						visible={this.state.visible}

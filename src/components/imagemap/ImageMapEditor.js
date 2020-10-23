@@ -518,6 +518,31 @@ class ImageMapEditor extends Component {
 				progress,
 			});
 		},
+		onDownloadShedule: () => {
+			this.showLoading(true);
+			const objects = this.canvasRef.handler.exportJSON().filter(obj => {
+				if (!obj.id) {
+					return false;
+				}
+				return true;
+			});
+			const { animations, styles, dataSources } = this.state;
+			const exportDatas = {
+				objects,
+				animations,
+				styles,
+				dataSources,
+			};
+			const anchorEl = document.createElement('a');
+			anchorEl.href = `data:text/json;charset=utf-8,${encodeURIComponent(
+				JSON.stringify(exportDatas, null, '\t'),
+			)}`;
+			anchorEl.download = `${this.canvasRef.handler.workarea.name || 'sample'}.json`;
+			document.body.appendChild(anchorEl); // required for firefox
+			anchorEl.click();
+			anchorEl.remove();
+			this.showLoading(false);
+		},
 		onImport: files => {
 			if (files) {
 				this.showLoading(true);
@@ -828,6 +853,7 @@ class ImageMapEditor extends Component {
 				onChangePreview={onChangePreview}
 				zoomRatio={zoomRatio}
 				onDownload={this.handlers.onDownload}
+				onDownloadShedule={this.handlers.onDownloadShedule}
 			/>
 		);
 		const content = (
@@ -928,130 +954,3 @@ class ImageMapEditor extends Component {
 }
 
 export default ImageMapEditor;
-
-// {	"objects": [		{			"type": "image",			"version": "3.6.6",			"originX": "left",			"originY": "top",			"left": -164,			"top": -311,			"width": 180,			"height": 180,			"fill": "rgb(0,0,0)",			"stroke": null,			"strokeWidth": 0,			"strokeDashArray": null,			"strokeLineCap": "butt",			"strokeDashOffset": 0,			"strokeLineJoin": "miter",			"strokeMiterLimit": 4,			"scaleX": 1,			"scaleY": 1,			"angle": 0,			"flipX": false,			"flipY": false,			"opacity": 1,			"shadow": null,			"visible": true,			"clipTo": null,			"backgroundColor": "#fff",			"fillRule": "nonzero",			"paintFirst": "fill",			"globalCompositeOperation": "source-over",			"transformMatrix": null,			"skewX": 0,			"skewY": 0,			"crossOrigin": "",			"cropX": 0,			"cropY": 0,			"id": "workarea",			"name": "",			"link": {},			"tooltip": {				"enabled": false			},			"layout": "fixed",			"workareaWidth": 1920,			"workareaHeight": 1040,			"src": "",			"filters": []		},		{			"type": "image",			"version": "3.6.6",			"originX": "left",			"originY": "top",			"left": -97.52,			"top": -231.57,			"width": 200,			"height": 133,			"fill": "rgba(0, 0, 0, 1)",			"stroke": "rgba(255, 255, 255, 0)",			"strokeWidth": 0,			"strokeDashArray": null,			"strokeLineCap": "butt",			"strokeDashOffset": 0,			"strokeLineJoin": "miter",			"strokeMiterLimit": 4,			"scaleX": 0.09,			"scaleY": 0.17,			"angle": 0,			"flipX": false,			"flipY": false,			"opacity": 1,			"shadow": null,			"visible": true,			"clipTo": null,			"backgroundColor": "",			"fillRule": "nonzero",			"paintFirst": "fill",			"globalCompositeOperation": "source-over",			"transformMatrix": null,			"skewX": 0,			"skewY": 0,			"crossOrigin": "",			"cropX": 0,			"cropY": 0,			"id": "86eb7174-89d5-4c12-a758-8a79f8b3dcb0",			"name": "New image",			"file": null,			"src": "https://images.unsplash.com/photo-1600950603226-e9443673e604?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3MDQyNH0",			"link": {				"enabled": false,				"type": "resource",				"state": "new",				"dashboard": {}			},			"tooltip": {				"enabled": true,				"type": "resource",				"template": "<div>{{message.name}}</div>"			},			"animation": {				"type": "none",				"loop": true,				"autoplay": true,				"duration": 1000			},			"userProperty": {},			"trigger": {				"enabled": false,				"type": "alarm",				"script": "return message.value > 0;",				"effect": "style"			},			"editable": true,			"filters": []		}	],	"animations": [],	"styles": [],	"dataSources": []}
-
-// '{
-// 	"objects": [
-// 		{
-// 			"type": "image",
-// 			"version": "3.6.6",
-// 			"originX": "left",
-// 			"originY": "top",
-// 			"left": -164,
-// 			"top": -311,
-// 			"width": 180,
-// 			"height": 180,
-// 			"fill": "rgb(0,0,0)",
-// 			"stroke": null,
-// 			"strokeWidth": 0,
-// 			"strokeDashArray": null,
-// 			"strokeLineCap": "butt",
-// 			"strokeDashOffset": 0,
-// 			"strokeLineJoin": "miter",
-// 			"strokeMiterLimit": 4,
-// 			"scaleX": 1,
-// 			"scaleY": 1,
-// 			"angle": 0,
-// 			"flipX": false,
-// 			"flipY": false,
-// 			"opacity": 1,
-// 			"shadow": null,
-// 			"visible": true,
-// 			"clipTo": null,
-// 			"backgroundColor": "#fff",
-// 			"fillRule": "nonzero",
-// 			"paintFirst": "fill",
-// 			"globalCompositeOperation": "source-over",
-// 			"transformMatrix": null,
-// 			"skewX": 0,
-// 			"skewY": 0,
-// 			"crossOrigin": "",
-// 			"cropX": 0,
-// 			"cropY": 0,
-// 			"id": "workarea",
-// 			"name": "",
-// 			"link": {},
-// 			"tooltip": {
-// 				"enabled": false
-// 			},
-// 			"layout": "fixed",
-// 			"workareaWidth": 1920,
-// 			"workareaHeight": 1040,
-// 			"src": "",
-// 			"filters": []
-// 		},
-// 		{
-// 			"type": "image",
-// 			"version": "3.6.6",
-// 			"originX": "left",
-// 			"originY": "top",
-// 			"left": -97.52,
-// 			"top": -231.57,
-// 			"width": 200,
-// 			"height": 133,
-// 			"fill": "rgba(0, 0, 0, 1)",
-// 			"stroke": "rgba(255, 255, 255, 0)",
-// 			"strokeWidth": 0,
-// 			"strokeDashArray": null,
-// 			"strokeLineCap": "butt",
-// 			"strokeDashOffset": 0,
-// 			"strokeLineJoin": "miter",
-// 			"strokeMiterLimit": 4,
-// 			"scaleX": 0.09,
-// 			"scaleY": 0.17,
-// 			"angle": 0,
-// 			"flipX": false,
-// 			"flipY": false,
-// 			"opacity": 1,
-// 			"shadow": null,
-// 			"visible": true,
-// 			"clipTo": null,
-// 			"backgroundColor": "",
-// 			"fillRule": "nonzero",
-// 			"paintFirst": "fill",
-// 			"globalCompositeOperation": "source-over",
-// 			"transformMatrix": null,
-// 			"skewX": 0,
-// 			"skewY": 0,
-// 			"crossOrigin": "",
-// 			"cropX": 0,
-// 			"cropY": 0,
-// 			"id": "86eb7174-89d5-4c12-a758-8a79f8b3dcb0",
-// 			"name": "New image",
-// 			"file": null,
-// 			"src": "https://images.unsplash.com/photo-1600950603226-e9443673e604?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3MDQyNH0",
-// 			"link": {
-// 				"enabled": false,
-// 				"type": "resource",
-// 				"state": "new",
-// 				"dashboard": {}
-// 			},
-// 			"tooltip": {
-// 				"enabled": true,
-// 				"type": "resource",
-// 				"template": "<div>{{message.name}}</div>"
-// 			},
-// 			"animation": {
-// 				"type": "none",
-// 				"loop": true,
-// 				"autoplay": true,
-// 				"duration": 1000
-// 			},
-// 			"userProperty": {},
-// 			"trigger": {
-// 				"enabled": false,
-// 				"type": "alarm",
-// 				"script": "return message.value > 0;",
-// 				"effect": "style"
-// 			},
-// 			"editable": true,
-// 			"filters": []
-// 		}
-// 	],
-// 	"animations": [],
-// 	"styles": [],
-// 	"dataSources": []
-// }'
-
-// "'{\n\t\"objects\": [\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"version\": \"3.6.6\",\n\t\t\t\"originX\": \"left\",\n\t\t\t\"originY\": \"top\",\n\t\t\t\"left\": -164,\n\t\t\t\"top\": -311,\n\t\t\t\"width\": 180,\n\t\t\t\"height\": 180,\n\t\t\t\"fill\": \"rgb(0,0,0)\",\n\t\t\t\"stroke\": null,\n\t\t\t\"strokeWidth\": 0,\n\t\t\t\"strokeDashArray\": null,\n\t\t\t\"strokeLineCap\": \"butt\",\n\t\t\t\"strokeDashOffset\": 0,\n\t\t\t\"strokeLineJoin\": \"miter\",\n\t\t\t\"strokeMiterLimit\": 4,\n\t\t\t\"scaleX\": 1,\n\t\t\t\"scaleY\": 1,\n\t\t\t\"angle\": 0,\n\t\t\t\"flipX\": false,\n\t\t\t\"flipY\": false,\n\t\t\t\"opacity\": 1,\n\t\t\t\"shadow\": null,\n\t\t\t\"visible\": true,\n\t\t\t\"clipTo\": null,\n\t\t\t\"backgroundColor\": \"#fff\",\n\t\t\t\"fillRule\": \"nonzero\",\n\t\t\t\"paintFirst\": \"fill\",\n\t\t\t\"globalCompositeOperation\": \"source-over\",\n\t\t\t\"transformMatrix\": null,\n\t\t\t\"skewX\": 0,\n\t\t\t\"skewY\": 0,\n\t\t\t\"crossOrigin\": \"\",\n\t\t\t\"cropX\": 0,\n\t\t\t\"cropY\": 0,\n\t\t\t\"id\": \"workarea\",\n\t\t\t\"name\": \"\",\n\t\t\t\"link\": {},\n\t\t\t\"tooltip\": {\n\t\t\t\t\"enabled\": false\n\t\t\t},\n\t\t\t\"layout\": \"fixed\",\n\t\t\t\"workareaWidth\": 1920,\n\t\t\t\"workareaHeight\": 1040,\n\t\t\t\"src\": \"\",\n\t\t\t\"filters\": []\n\t\t},\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"version\": \"3.6.6\",\n\t\t\t\"originX\": \"left\",\n\t\t\t\"originY\": \"top\",\n\t\t\t\"left\": -97.52,\n\t\t\t\"top\": -231.57,\n\t\t\t\"width\": 200,\n\t\t\t\"height\": 133,\n\t\t\t\"fill\": \"rgba(0, 0, 0, 1)\",\n\t\t\t\"stroke\": \"rgba(255, 255, 255, 0)\",\n\t\t\t\"strokeWidth\": 0,\n\t\t\t\"strokeDashArray\": null,\n\t\t\t\"strokeLineCap\": \"butt\",\n\t\t\t\"strokeDashOffset\": 0,\n\t\t\t\"strokeLineJoin\": \"miter\",\n\t\t\t\"strokeMiterLimit\": 4,\n\t\t\t\"scaleX\": 0.09,\n\t\t\t\"scaleY\": 0.17,\n\t\t\t\"angle\": 0,\n\t\t\t\"flipX\": false,\n\t\t\t\"flipY\": false,\n\t\t\t\"opacity\": 1,\n\t\t\t\"shadow\": null,\n\t\t\t\"visible\": true,\n\t\t\t\"clipTo\": null,\n\t\t\t\"backgroundColor\": \"\",\n\t\t\t\"fillRule\": \"nonzero\",\n\t\t\t\"paintFirst\": \"fill\",\n\t\t\t\"globalCompositeOperation\": \"source-over\",\n\t\t\t\"transformMatrix\": null,\n\t\t\t\"skewX\": 0,\n\t\t\t\"skewY\": 0,\n\t\t\t\"crossOrigin\": \"\",\n\t\t\t\"cropX\": 0,\n\t\t\t\"cropY\": 0,\n\t\t\t\"id\": \"86eb7174-89d5-4c12-a758-8a79f8b3dcb0\",\n\t\t\t\"name\": \"New image\",\n\t\t\t\"file\": null,\n\t\t\t\"src\": \"https://images.unsplash.com/photo-1600950603226-e9443673e604?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3MDQyNH0\",\n\t\t\t\"link\": {\n\t\t\t\t\"enabled\": false,\n\t\t\t\t\"type\": \"resource\",\n\t\t\t\t\"state\": \"new\",\n\t\t\t\t\"dashboard\": {}\n\t\t\t},\n\t\t\t\"tooltip\": {\n\t\t\t\t\"enabled\": true,\n\t\t\t\t\"type\": \"resource\",\n\t\t\t\t\"template\": \"<div>{{message.name}}</div>\"\n\t\t\t},\n\t\t\t\"animation\": {\n\t\t\t\t\"type\": \"none\",\n\t\t\t\t\"loop\": true,\n\t\t\t\t\"autoplay\": true,\n\t\t\t\t\"duration\": 1000\n\t\t\t},\n\t\t\t\"userProperty\": {},\n\t\t\t\"trigger\": {\n\t\t\t\t\"enabled\": false,\n\t\t\t\t\"type\": \"alarm\",\n\t\t\t\t\"script\": \"return message.value > 0;\",\n\t\t\t\t\"effect\": \"style\"\n\t\t\t},\n\t\t\t\"editable\": true,\n\t\t\t\"filters\": []\n\t\t}\n\t],\n\t\"animations\": [],\n\t\"styles\": [],\n\t\"dataSources\": []\n}'"
