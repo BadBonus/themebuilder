@@ -16,9 +16,12 @@ const antResources = {
     'en-US': enUS,
 };
 
+// #work comment from begin to end for correct work on wp
+//begin
 const root = document.createElement('div');
 root.id = 'themeBuilder';
 document.body.appendChild(root);
+//end
 
 const render = (Component) => {
     const rootElement = document.getElementById('themeBuilder');
