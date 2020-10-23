@@ -82,7 +82,8 @@ class ImageMapTitle extends Component {
 		canvas.canvas.renderAll();
 	};
 
-	makeNewCanvas = (idProd) => {
+	makeNewCanvas = () => {
+		console.log('makeNewCanvas сработал');
 		const { canvas } = this.props;
 		canvas.handler.clear();
 		canvas.canvas.item(0).set('width', 1920);
@@ -97,7 +98,7 @@ class ImageMapTitle extends Component {
 			okText: 'yes',
 			cancelText: 'cancel',
 			onOk: close=>{
-				this.makeNewCanvas;
+				this.makeNewCanvas();
 				close()
 			},
 		});
