@@ -205,19 +205,21 @@ class ImageMapItems extends Component {
 			// .set('top', canvasInitialTop + balanceY * koefY);
 
 			canvasRef.handler.removeById(logo.id);
-			onAddItem('https://ggscore.com/media/logo/t18109.png', true);
-			logo = canvasRef.canvas.getObjects().find(el => el.name === 'logo');
+			onAddItem(imgUrl, true);
+			const newlogo = canvasRef.canvas.getObjects().find(el => el.name === 'logo');
 
-			logo.set('left', logoLeft);
-			logo.set('top', logoTop);
+			setTimeout(() => {
+				newlogo.set('left', logoLeft);
+				newlogo.set('top', logoTop);
 
-			const koefX = +trullyWidth / +logo.height;
-			const koefY = +trullyHeight / +logo.width;
+				const koefX = (trullyWidth / newlogo.height).toFixed(10);
+				const koefY = (trullyHeight / newlogo.width).toFixed(10);
 
-			logo.set('scaleX', logo.scaleX * koefX.toFixed(10));
-			logo.set('scaleY', logo.scaleY * koefY.toFixed(10));
+				newlogo.set('scaleX', newlogo.scaleX * koefX);
+				newlogo.set('scaleY', newlogo.scaleY * koefY);
 
-			canvasRef.canvas.renderAll();
+				canvasRef.canvas.renderAll();
+			}, 50);
 		},
 
 		onDrawingItem: item => {
@@ -381,20 +383,22 @@ class ImageMapItems extends Component {
 		});
 		return (
 			<div className={className}>
-				{<div
-					draggable
-					onClick={makeUnsplash}
-					// onDragStart={e => this.events.onDragStart(e, item)}
-					// onDragEnd={e => this.events.onDragEnd(e, item)}
-					className="rde-editor-items-item"
-					style={{ justifyContent: this.state.collapse ? 'center' : null }}
-				>
-					<span className="rde-editor-items-item-icon">
-						<img src={logoImage} alt="alt_logo" />
-					</span>
-					{/* {this.state.collapse ? null : <div className="rde-editor-items-item-text">Image</div>} */}
-					<div className="rde-editor-items-item-text">Image</div>
-				</div>}
+				{
+					<div
+						draggable
+						onClick={makeUnsplash}
+						// onDragStart={e => this.events.onDragStart(e, item)}
+						// onDragEnd={e => this.events.onDragEnd(e, item)}
+						className="rde-editor-items-item"
+						style={{ justifyContent: this.state.collapse ? 'center' : null }}
+					>
+						<span className="rde-editor-items-item-icon">
+							<img src={logoImage} alt="alt_logo" />
+						</span>
+						{/* {this.state.collapse ? null : <div className="rde-editor-items-item-text">Image</div>} */}
+						<div className="rde-editor-items-item-text">Image</div>
+					</div>
+				}
 				<div
 					draggable
 					onClick={() => this.handlers.onAddLogoUser()}
