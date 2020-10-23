@@ -6,9 +6,7 @@ import { postThemeInsert, getTheme } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getAllProducts, getThemes, getThemeProducts, getThemeById, getThemeAndProduct } from '../../API';
-
-const loremLogoTheme =
-	'https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/30/4b/b7/304bb774-1b10-dad1-32e5-1556106b1c28/source/256x256bb.jpg';
+import sheduleImgMock from '../../../public/images/icons/design_mock.png'
 
 class ImageMapTitle extends Component {
 	state = { visible: true, sizes: [], part: 'themes', themes: [], chosedThemeId: null, choosedProductTheme: null };
@@ -61,7 +59,7 @@ class ImageMapTitle extends Component {
 	renderThemes = products =>
 		products.map(({ theme_title, id_t }) => (
 			<li onClick={() => this.chooseMainTheme(id_t)} key={id_t}>
-				<img src={loremLogoTheme} alt="logo of theme" />
+				<img src={sheduleImgMock} alt="logo of theme" />
 				theme:{theme_title + '-' + id_t}
 			</li>
 		));
@@ -145,7 +143,7 @@ class ImageMapTitle extends Component {
 						</Tooltip>
 					</div>
 					<button className="btnNewSize" onClick={onDownloadShedule}>
-						Save shedule
+						Save design
 					</button>
 					<Modal
 						title={part === 'themes' ? 'Please select theme' : 'Please select format'}
