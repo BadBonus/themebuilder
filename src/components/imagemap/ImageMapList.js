@@ -186,7 +186,7 @@ class ImageMapList extends Component {
 				{this.renderActions()}
 				<div className="rde-canvas-list-items">{this.renderItem()}</div>
 				<Flex>
-					{selectedItem && selectedItem.type === 'svg' && (
+					{selectedItem && selectedItem.type === 'svg' && selectedItem.name !== 'logo' && (
 						<PropertyCompanyColor canvasRef={canvasRef} selectedItem={selectedItem} />
 					)}
 				</Flex>

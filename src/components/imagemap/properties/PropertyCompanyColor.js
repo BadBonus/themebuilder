@@ -12,7 +12,7 @@ class PropertyCompanyColor extends Component {
 		defaultColors: [],
 		changed: 0,
 		choosedColor: null,
-		colors: [null, null, null],
+		colors: [],
 	};
 
 	changeColorOfElement = color => {
@@ -50,7 +50,7 @@ class PropertyCompanyColor extends Component {
 
 	renderColorButtons = arrayOfColors =>
 		arrayOfColors
-			.filter(color => color !== null)
+			.filter(color => color !== null && color !== undefined)
 			.map((color, index) => (
 				<li key={index + Math.random()} className={color === this.state.choosedColor ? 'active' : ''}>
 					<button onClick={() => this.changeColorOfElement(color)} style={{ background: color }} />
@@ -75,17 +75,19 @@ class PropertyCompanyColor extends Component {
 	render() {
 		return (
 			<div className="PropertyCompanyColor">
-				<h5>Choose main color</h5>
-				<ul>
-					<li className={'default' === this.state.choosedColor ? 'active' : ''}>
-						<button
-							disabled={this.state.changed === 0}
-							onClick={() => this.changeColorOfElement('default')}
-						/>
-					</li>
+				{this.renderColorButtons(this.state.colors).length ? <h5>Choose main color</h5> : null}
+				{this.renderColorButtons(this.state.colors).length ? (
+					<ul>
+						<li className={'default' === this.state.choosedColor ? 'active' : ''}>
+							<button
+								disabled={this.state.changed === 0}
+								onClick={() => this.changeColorOfElement('default')}
+							/>
+						</li>
 
-					{this.renderColorButtons(this.state.colors)}
-				</ul>
+						{this.renderColorButtons(this.state.colors)}
+					</ul>
+				) : null}
 			</div>
 		);
 	}

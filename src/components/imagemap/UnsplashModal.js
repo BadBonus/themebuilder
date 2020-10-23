@@ -42,8 +42,7 @@ export default class UnsplashModal extends Component {
 				if (this.state.images.length >= total) {
 					this.setState({ hasMore: false });
 					return;
-				}
-				else{
+				} else {
 					this.setState({ hasMore: true });
 				}
 
@@ -65,12 +64,11 @@ export default class UnsplashModal extends Component {
 			if (this.state.images.length >= 500) {
 				this.setState({ hasMore: false });
 				return;
-			}
-			else{
+			} else {
 				this.setState({ hasMore: true });
 			}
 			axios.get(`${apiRoot}/photos/random?client_id=${accessKey}&count=${count}`).then(res => {
-				const data = res.data.map(el=>({...el, id:el.id+Math.random()}));
+				const data = res.data.map(el => ({ ...el, id: el.id + Math.random() }));
 				const updatedImages = searchOldText !== '' ? data : images.concat(data);
 				this.setState({ images: updatedImages, loaded: false, searchOldText: '' });
 			});
@@ -132,31 +130,32 @@ export default class UnsplashModal extends Component {
 				<Input placeholder="Search" onChange={evt => this.doSearch(evt)} />
 
 				<div className="imageChooser__content" id="imageChooser__content">
-					{(selectedItem && selectedItem.type==='image')
-					? <InfiniteScroll
-						dataLength={images.length}
-						next={this.fetchImages}
-						hasMore={hasMore}
-						loader={<h4>Loading...</h4>}
-						height={480}
-						scrollableTarget="imageChooser__content"
-						endMessage={
-							<p style={{ textAlign: 'center' }}>
-								<b>Yay! You have seen it all</b>
-							</p>
-						}
-					>
-						{images.map(image => (
-							<img
-								src={image.urls.thumb}
-								key={image.id}
-								className="imageChooser__item"
-								onClick={() => onAddItem(image.urls.thumb)}
-							/>
-						))}
-					</InfiniteScroll>
-					: <h3>Please choose an image</h3>
-					}
+					{selectedItem && selectedItem.type === 'image' ? (
+						<InfiniteScroll
+							dataLength={images.length}
+							next={this.fetchImages}
+							hasMore={hasMore}
+							loader={<h4>Loading...</h4>}
+							height={480}
+							scrollableTarget="imageChooser__content"
+							endMessage={
+								<p style={{ textAlign: 'center' }}>
+									<b>Yay! You have seen it all</b>
+								</p>
+							}
+						>
+							{images.map(image => (
+								<img
+									src={image.urls.thumb}
+									key={image.id}
+									className="imageChooser__item"
+									onClick={() => onAddItem(image.urls.thumb)}
+								/>
+							))}
+						</InfiniteScroll>
+					) : (
+						<h3>Please choose an image (not svg) </h3>
+					)}
 
 					{/* {
 									images.map((image, index) => (
