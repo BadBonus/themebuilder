@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Upload, Icon } from 'antd';
 import axios from 'axios';
 import { uploadImages } from '../../API';
+import { v4 } from 'uuid';
 
 const { Dragger } = Upload;
 
@@ -20,6 +21,8 @@ class FileUpload extends Component {
 
 	state = {
 		fileList: this.props.value ? [this.props.value] : [],
+		urlsFromServer: [],
+		onLoadingImages: false,
 	};
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
@@ -28,8 +31,30 @@ class FileUpload extends Component {
 		});
 	}
 
+	loadedImages = async images => {
+		const { setLoadImages } = this.props;
+		const newFiles = [];
+		this.setState({ onLoadingImages: true });
+
+		for (const urlImg of images) {
+			const response = await fetch(urlImg);
+			const url = new URL(urlImg);
+			const splittingUrl = url.pathname.split('/');
+			const blob = await response.blob();
+			const file = new File([blob], splittingUrl[splittingUrl.length - 1], { type: blob.type });
+			file.uid = v4();
+			newFiles.push(file);
+		}
+		setLoadImages(newFiles)
+
+		this.setState({
+			fileList: newFiles,
+			onLoadingImages: false,
+		});
+	};
+
 	render() {
-		const { accept, limit } = this.props;
+		const { accept, limit, form } = this.props;
 		const { fileList } = this.state;
 		const props = {
 			accept,
@@ -42,35 +67,10 @@ class FileUpload extends Component {
 					return false;
 				}
 				const { onChange } = this.props;
-				onChange(info.file);
-				console.log('FileUpload onChange');
-				const typeFile = info.file.name.match('.zip');
-				if(typeFile){
-					console.log('typeFile сработал')
 
-					const formData = new FormData();
-					formData.append("imgCollection", info.file);
-					axios
-					.post(uploadImages,  formData)
-					.then(function(response) {
-						console.log(response);
-					})
-					.catch(function(error) {
-						console.log(error);
-					});
-				}
-				// if (typeFile) {
-				// 	axios
-				// 		.post(uploadImages, {
-				// 			imgCollection: info.file,
-				// 		})
-				// 		.then(function(response) {
-				// 			console.log(response);
-				// 		})
-				// 		.catch(function(error) {
-				// 			console.log(error);
-				// 		});
-				// }
+				onChange(info.file);
+
+				// form.setFields({'test':'loshara'})
 			},
 			onRemove: file => {
 				this.setState(
@@ -93,15 +93,30 @@ class FileUpload extends Component {
 				if (!isLimit) {
 					return false;
 				}
-				this.setState({
-					fileList: [file],
-				});
+				const typeFile = file.name.match('.zip');
+				if (typeFile) {
+					const formData = new FormData();
+					formData.append('imgCollection', file);
+					axios
+						.post(uploadImages, formData)
+						.then(({ data }) => {
+							this.loadedImages(data.imgCollection);
+						})
+						.catch(function(error) {
+							console.log(error);
+						});
+				} else {
+					this.setState({
+						fileList: [file],
+					});
+				}
+
 				return false;
 			},
 			fileList,
 		};
 		return (
-			<Dragger {...props}>
+			<Dragger {...props} disabled={this.state.onLoadingImages}>
 				<p className="ant-upload-drag-icon">
 					<Icon type="inbox" />
 				</p>

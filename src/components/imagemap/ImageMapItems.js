@@ -36,6 +36,7 @@ class ImageMapItems extends Component {
 		descriptors: {},
 		filteredDescriptors: [],
 		svgModalVisible: false,
+		images: [],
 	};
 
 	componentDidMount() {
@@ -121,9 +122,7 @@ class ImageMapItems extends Component {
 		onAddSVG: (option, centered) => {
 			const { canvasRef } = this.props;
 			canvasRef.handler.add({ ...option, type: 'svg', superType: 'svg', id: v4(), name: 'New SVG' }, centered);
-			this.handlers.onSVGModalVisible();
-			console.log('onAddSVG option');
-			console.log(option);
+			this.handlers.onSVGModalVisible('true');
 		},
 		onAddLogo: (option, centered) => {
 			const { canvasRef } = this.props;
@@ -141,6 +140,9 @@ class ImageMapItems extends Component {
 				centered,
 			);
 			canvasRef.canvas.renderAll();
+		},
+		onAddLoadedImages: images => {
+			this.setState({ images });
 		},
 		onAddLogoUser: (option, centered) => {
 			const { canvasRef, onAddItem } = this.props;
@@ -256,12 +258,20 @@ class ImageMapItems extends Component {
 		transformList: () => {
 			return Object.values(this.props.descriptors).reduce((prev, curr) => prev.concat(curr), []);
 		},
-		onSVGModalVisible: () => {
-			this.setState(prevState => {
-				return {
-					svgModalVisible: !prevState.svgModalVisible,
-				};
-			});
+		onSVGModalVisible: rule => {
+			if (rule === 'true') {
+				this.setState(prevState => {
+					return {
+						svgModalVisible: false,
+					};
+				});
+			} else {
+				this.setState(prevState => {
+					return {
+						svgModalVisible: !prevState.svgModalVisible,
+					};
+				});
+			}
 		},
 	};
 
@@ -464,6 +474,7 @@ class ImageMapItems extends Component {
 					onOk={this.handlers.onAddSVG}
 					onCancel={this.handlers.onSVGModalVisible}
 					option={svgOption}
+					onAddLoadedImages={this.handlers.onAddLoadedImages}
 				/>
 			</div>
 		);

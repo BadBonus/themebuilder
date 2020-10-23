@@ -18,6 +18,7 @@ class SVGModal extends Component {
 	state = {
 		loadType: 'file',
 		visible: false,
+		images: [],
 	};
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
@@ -35,23 +36,35 @@ class SVGModal extends Component {
 		});
 	};
 
+	setLoadImages = images => this.setState({ images });
+
 	handleOk = () => {
 		const { form, onOk } = this.props;
+		const { images } = this.state;
 		form.validateFields((err, values) => {
 			if (err) {
 				return;
 			}
-			if (values.svg instanceof Blob) {
-				const reader = new FileReader();
-				reader.readAsDataURL(values.svg);
-				reader.onload = () => {
-					console.log('reader.result');
 
-					console.log(reader.result);
-					onOk({ ...values, svg: reader.result });
-				};
+			if (images.length === 0) {
+				if (values.svg instanceof Blob) {
+					const reader = new FileReader();
+					reader.readAsDataURL(values.svg);
+					reader.onload = () => {
+						onOk({ ...values, svg: reader.result });
+					};
+				} else {
+					onOk(values);
+				}
 			} else {
-				onOk(values);
+				images.forEach(img => {
+					const reader = new FileReader();
+					reader.readAsDataURL(img);
+					reader.onload = () => {
+						onOk({ svg: reader.result });
+					};
+				});
+				this.setState({ images: [], visible: false });
 			}
 		});
 	};
@@ -68,8 +81,9 @@ class SVGModal extends Component {
 	};
 
 	render() {
-		const { form } = this.props;
+		const { form, onAddLoadedImages } = this.props;
 		const { loadType, visible } = this.state;
+		const { setLoadImages } = this;
 		return (
 			<Modal
 				title={i18n.t('imagemap.svg.add-svg')}
@@ -99,7 +113,18 @@ class SVGModal extends Component {
 									}),
 								},
 							],
-						})(loadType === 'svg' ? <InputHtml /> : <FileUpload accept=".svg, .zip" />)}
+						})(
+							loadType === 'svg' ? (
+								<InputHtml />
+							) : (
+								<FileUpload
+									setLoadImages={setLoadImages}
+									onAddLoadedImages={onAddLoadedImages}
+									form={form}
+									accept=".svg, .zip"
+								/>
+							),
+						)}
 					</Form.Item>
 				</Form>
 			</Modal>
