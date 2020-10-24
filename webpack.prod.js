@@ -15,10 +15,7 @@ const plugins = [
 	// index.html 로 의존성 파일들 inject해주는 플러그인
 	new HtmlWebpackPlugin({
 		filename: 'index.html',
-		title: 'React Design Editor',
-		meta: {
-			description: `React Design Editor has started to developed direct manipulation of editable design tools like Powerpoint, We've developed it with react.js, ant.design, fabric.js`,
-		},
+		title: 'ThemeBuilder',
 	}),
 	new WorkboxPlugin.GenerateSW({
 		skipWaiting: true,

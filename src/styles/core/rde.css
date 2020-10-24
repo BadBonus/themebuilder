@@ -259,7 +259,7 @@
   border-bottom: 1px solid #a7a7a7;
   margin-bottom: 15px;
 }
-#themeBuilder {
+#themeBuilderUser {
   height: 100%;
 }
 .rde-editor-items-item-icon img {
@@ -316,6 +316,7 @@ div.rde-canvas-list-item-actions button img:hover {
   text-transform: uppercase;
   border: unset;
   cursor: pointer;
+  margin-right: 24px;
 }
 .btnOverview img {
   position: relative;
@@ -427,6 +428,40 @@ div.rde-canvas-list-item-actions button img:hover {
   height: 20px;
   box-sizing: border-box;
   border: none;
+}
+div.rde-content-layout-title div div.rde-content-layout-title-title span {
+  font-weight: 600;
+}
+div.rde-content-layout-title-action button i {
+  color: #fff;
+}
+div.rde-content-layout-title-action button:disabled i {
+  opacity: 0.5;
+}
+.productsThemes {
+  list-style-type: unset;
+  height: 300px;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.productsThemes li {
+  transition: 0.3s;
+  width: 30%;
+  text-align: center;
+  margin: 0 5% 16px;
+  padding: 5px;
+  cursor: pointer;
+}
+.productsThemes li:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.productsThemes li img {
+  width: 100%;
+}
+html body div div div.ant-modal-wrap div.ant-modal div.ant-modal-content div.ant-modal-footer button {
+  display: none;
 }
 .rde-editor-canvas-container {
   display: flex;
@@ -586,14 +621,7 @@ div.rde-canvas-list-item.selected-item {
   margin: 0;
   padding: 0;
 }
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-#themeBuilder {
+#themeBuilderUser {
   font-family: 'Open Sans';
 }
 video {

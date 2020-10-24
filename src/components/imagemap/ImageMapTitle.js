@@ -6,7 +6,8 @@ import { postThemeInsert, getTheme } from '../../API';
 import arrowRight from '../../../public/images/icons/rightArrow.svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getAllProducts, getThemes, getThemeProducts, getThemeById, getThemeAndProduct } from '../../API';
-import sheduleImgMock from '../../../public/images/icons/design_mock.png'
+import sheduleImgMock from '../../../public/images/icons/design_mock.png';
+import https from 'https'
 
 class ImageMapTitle extends Component {
 	state = { visible: true, sizes: [], part: 'themes', themes: [], chosedThemeId: null, choosedProductTheme: null };
@@ -32,7 +33,7 @@ class ImageMapTitle extends Component {
 	};
 
 	confirm = () => {
-		this.setState({visible:true, part: 'themes'});
+		this.setState({ visible: true, part: 'themes' });
 	};
 
 	chooseMainTheme = id => {
@@ -65,7 +66,13 @@ class ImageMapTitle extends Component {
 		));
 
 	componentWillMount() {
-		axios.get(getThemes).then(({ data }) => {
+		axios({
+			url: getThemes,
+			method: 'GET',
+			httpsAgent: new https.Agent({
+				rejectUnauthorized: false,
+			}),
+		}).then(({ data }) => {
 			this.setState({ themes: data });
 		});
 	}

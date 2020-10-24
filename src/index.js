@@ -7,7 +7,6 @@ import enUS from 'antd/lib/locale-provider/en_US';
 
 import { i18nClient } from './i18n';
 import App from './containers/App';
-import registerServiceWorker from './registerServiceWorker';
 
 const antResources = {
     ko: koKR,
@@ -19,12 +18,12 @@ const antResources = {
 // #work comment from begin to end for correct work on wp
 //begin
 const root = document.createElement('div');
-root.id = 'themeBuilder';
+root.id = 'themeBuilderUser';
 document.body.appendChild(root);
 //end
 
 const render = (Component) => {
-    const rootElement = document.getElementById('themeBuilder');
+    const rootElement = document.getElementById('themeBuilderUser');
     ReactDom.render(
         <AppContainer>
             <LocaleProvider locale={antResources[i18nClient.language]}>
@@ -41,5 +40,3 @@ if (module.hot) {
         render(App);
     });
 }
-
-registerServiceWorker();
