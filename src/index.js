@@ -16,9 +16,10 @@ const antResources = {
     'en-US': enUS,
 };
 
-const root = document.createElement('div');
-root.id = 'themeBuilder';
-document.body.appendChild(root);
+//uncomment it for work in a browser
+// const root = document.createElement('div');
+// root.id = 'themeBuilder';
+// document.body.appendChild(root);
 
 const render = (Component) => {
     const rootElement = document.getElementById('themeBuilder');

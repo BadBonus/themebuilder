@@ -428,6 +428,15 @@ div.rde-canvas-list-item-actions button img:hover {
   box-sizing: border-box;
   border: none;
 }
+div.rde-content-layout-title div div.rde-content-layout-title-title span {
+  font-weight: 600;
+}
+div.rde-content-layout-title-action button i {
+  color: #fff;
+}
+div.rde-content-layout-title-action button:disabled i {
+  opacity: 0.5;
+}
 .rde-editor-canvas-container {
   display: flex;
   flex: 1;
@@ -585,13 +594,6 @@ div.rde-canvas-list-item.selected-item {
 * {
   margin: 0;
   padding: 0;
-}
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
 }
 #themeBuilder {
   font-family: 'Open Sans';
