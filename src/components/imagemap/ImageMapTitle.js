@@ -60,7 +60,7 @@ class ImageMapTitle extends Component {
 	renderThemes = products =>
 		products.map(({ theme_title, id_t }) => (
 			<li onClick={() => this.chooseMainTheme(id_t)} key={id_t}>
-				<img src={sheduleImgMock} alt="logo of theme" />
+				<img src='https://hayker.heylook.online/wp-content/uploads/2020/10/undraw_design_components_9vy6.png' alt="logo of theme" />
 				theme:{theme_title + '-' + id_t}
 			</li>
 		));
