@@ -7,7 +7,6 @@ import enUS from 'antd/lib/locale-provider/en_US';
 
 import { i18nClient } from './i18n';
 import App from './containers/App';
-import registerServiceWorker from './registerServiceWorker';
 
 const antResources = {
     ko: koKR,
@@ -16,7 +15,7 @@ const antResources = {
     'en-US': enUS,
 };
 
-//uncomment it for work in a browser
+//uncomment lines for work in a browser
 // const root = document.createElement('div');
 // root.id = 'themeBuilder';
 // document.body.appendChild(root);
@@ -39,5 +38,3 @@ if (module.hot) {
         render(App);
     });
 }
-
-registerServiceWorker();
