@@ -291,6 +291,7 @@ div.rde-canvas-list-item-actions button img:hover {
 }
 .rightPanelLockedItem {
   position: relative;
+  cursor: not-allowed !important;
 }
 .rightPanelLockedItem > * {
   opacity: 0.2;
