@@ -16,9 +16,9 @@ const antResources = {
 };
 
 //uncomment lines for work in a browser
-// const root = document.createElement('div');
-// root.id = 'themeBuilder';
-// document.body.appendChild(root);
+const root = document.createElement('div');
+root.id = 'themeBuilder';
+document.body.appendChild(root);
 
 const render = (Component) => {
     const rootElement = document.getElementById('themeBuilder');

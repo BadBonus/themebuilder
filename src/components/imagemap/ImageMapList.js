@@ -152,7 +152,7 @@ class ImageMapList extends Component {
 										<Button
 											className="rde-action-btn"
 											shape="circle"
-											disabled={idCropping}
+											disabled={idCropping || obj.locked}
 											onClick={e => {
 												e.stopPropagation();
 												canvasRef.handler.removeById(obj.id);
@@ -163,7 +163,7 @@ class ImageMapList extends Component {
 										<Button
 											className="rde-action-btn"
 											shape="circle"
-											disabled={idCropping}
+											disabled={idCropping || obj.locked}
 											onClick={e => {
 												e.stopPropagation();
 												canvasRef.handler.duplicateById(obj.id);
