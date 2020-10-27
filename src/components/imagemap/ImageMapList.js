@@ -136,7 +136,7 @@ class ImageMapList extends Component {
 									{obj.type === 'logo' && <img src={logologo} alt="" />}
 
 									<div className="rde-canvas-list-item-text" style={{ paddingLeft: '7px' }}>
-										{title}
+										{title.length < 13 ? title : title.slice(0,12)+'...'}
 									</div>
 									<Flex className="rde-canvas-list-item-actions" flex="1" justifyContent="flex-end">
 										{/* <Button
